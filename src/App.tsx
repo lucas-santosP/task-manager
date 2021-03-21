@@ -4,6 +4,7 @@ import { DefaultTheme, ThemeProvider } from "styled-components";
 import { light, dark } from "./styles/themes";
 import GlobalStyles from "./styles/global";
 import Header from "./components/Header";
+import Button from "./components/Button";
 
 const App: React.FC = () => {
   const [theme, setTheme] = usePersistentState<DefaultTheme>("theme", light);
@@ -17,6 +18,9 @@ const App: React.FC = () => {
       <GlobalStyles />
 
       <Header toggleTheme={toggleTheme} />
+      <main style={{ padding: "1rem" }}>
+        <Button>Sign in</Button>
+      </main>
     </ThemeProvider>
   );
 };
