@@ -6,13 +6,13 @@ const StyledGridLayout = styled.div`
   display: flex;
   width: 100%;
   height: 100vh;
+  animation: fadeIn 0.5s ease;
 
   > main {
     flex: 1;
     width: 100%;
     padding: 0.5rem;
     transition: all ease 0.3s;
-    animation: fadeIn 0.5s ease;
   }
 `;
 
