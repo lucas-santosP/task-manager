@@ -16,10 +16,14 @@ export default createGlobalStyle`
     user-select: none; 
   }
 
+  button{
+    cursor:pointer;
+  } 
+
   body{
-    background-color: #f5f5f5;
+    background-color: ${(props) => props.theme.colors.background};
     font-size:16px;
-    color:#333;
+    color:${(props) => props.theme.colors.text};
     font-family: "arial", sans-serif;
   }
 `;
