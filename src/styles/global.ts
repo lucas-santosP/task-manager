@@ -8,9 +8,7 @@ export default createGlobalStyle`
     margin: 0;
     vertical-align: baseline;
     list-style: none;
-    border: 0;
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
+    border: 0; 
     box-sizing: border-box;
     text-decoration: none;
     user-select: none; 
@@ -25,5 +23,15 @@ export default createGlobalStyle`
     font-size:16px;
     color:${(props) => props.theme.colors.text};
     font-family: "arial", sans-serif;
+    transition: all ease .2s;
+  }
+  
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
   }
 `;

@@ -3,8 +3,7 @@ import { usePersistentState } from "./hooks";
 import { DefaultTheme, ThemeProvider } from "styled-components";
 import { light, dark } from "./styles/themes";
 import GlobalStyles from "./styles/global";
-import Header from "./components/Header";
-import Button from "./components/Button";
+import Login from "./pages/Login";
 
 const App: React.FC = () => {
   const [theme, setTheme] = usePersistentState<DefaultTheme>("theme", light);
@@ -14,13 +13,10 @@ const App: React.FC = () => {
   }
 
   return (
-    <ThemeProvider theme={theme}>
+    <ThemeProvider theme={{ ...theme, toggleTheme }}>
       <GlobalStyles />
 
-      <Header toggleTheme={toggleTheme} />
-      <main style={{ padding: "1rem" }}>
-        <Button>Sign in</Button>
-      </main>
+      <Login />
     </ThemeProvider>
   );
 };
