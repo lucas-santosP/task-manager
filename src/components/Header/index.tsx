@@ -3,10 +3,11 @@ import styled from "styled-components";
 
 const Container = styled.div`
   display: flex;
-  height: 60px;
-  background-color: rebeccapurple;
-  color: #fff;
-  font-size: 2rem;
+  height: 80px;
+  padding: ${({ theme }) => theme.spacing.sm};
+  background-color: ${({ theme }) => theme.colors.primary};
+  color: ${({ theme }) => theme.colors.secondary};
+  font-size: ${({ theme }) => theme.fontSize.lg};
 `;
 
 const Header: React.FC = () => {
