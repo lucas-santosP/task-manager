@@ -23,6 +23,7 @@ export const light = {
     secondary: "#FFFBEB",
     background: "#f5f5f5",
     text: "#333",
+    textHighlight: "#FF8484",
   },
 };
 
@@ -34,5 +35,6 @@ export const dark = {
     secondary: "#FFFBEB",
     background: "#222",
     text: "#f5f5f5",
+    textHighlight: "#FF8484",
   },
 };

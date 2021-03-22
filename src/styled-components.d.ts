@@ -9,6 +9,7 @@ declare module "styled-components" {
       secondary: string;
       background: string;
       text: string;
+      textHighlight: string;
     };
     spacing: {
       xs: string;

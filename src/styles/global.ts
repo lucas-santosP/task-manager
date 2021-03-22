@@ -14,16 +14,24 @@ export default createGlobalStyle`
     user-select: none; 
   }
 
-  button{
-    cursor:pointer;
-  } 
-
   body{
     background-color: ${(props) => props.theme.colors.background};
     font-size:16px;
     color:${(props) => props.theme.colors.text};
     font-family: "arial", sans-serif;
     transition: all ease .2s;
+  }
+
+  button{
+    cursor:pointer;
+  } 
+  
+  a {
+    color:${(props) => props.theme.colors.textHighlight};
+    
+    &:hover{
+      text-decoration: underline;
+    }
   }
   
   @keyframes fadeIn {
