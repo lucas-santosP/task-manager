@@ -5,7 +5,6 @@ const growsWidth = keyframes`
   from {
     width:0%; 
   }
- 
   100%{
     width:100%; 
   }
@@ -17,20 +16,13 @@ const LoadingBar = styled.div`
   left: 0;
   height: 7px;
   width: 100%;
-
-  > div {
-    height: 7px;
-    background-color: ${({ theme }) => theme.colors.blue};
-    animation: ${growsWidth} 600ms linear;
-  }
+  height: 7px;
+  background-color: ${({ theme }) => theme.colors.blue};
+  animation: ${growsWidth} 500ms linear forwards;
 `;
 
 const LoadingView: React.FC = () => {
-  return (
-    <LoadingBar>
-      <div></div>
-    </LoadingBar>
-  );
+  return <LoadingBar />;
 };
 
 export default LoadingView;
