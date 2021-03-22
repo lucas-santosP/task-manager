@@ -13,6 +13,7 @@ declare module "styled-components" {
       blue: string;
       green: string;
       purple: string;
+      gray: string;
     };
     spacing: {
       xs: string;
@@ -27,6 +28,10 @@ declare module "styled-components" {
       md: string;
       lg: string;
       xl: string;
+    };
+    fontFamily: {
+      primary: string;
+      secondary: string;
     };
   }
 }

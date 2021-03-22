@@ -13,6 +13,11 @@ export default createGlobalStyle`
     text-decoration: none;
     user-select: none; 
   }
+  
+  *:focus{ 
+    box-shadow: 0 0 1px 2px #59b6ec;
+    outline: none;
+  }
 
   body{
     background-color: ${(props) => props.theme.colors.background};

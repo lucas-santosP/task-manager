@@ -13,10 +13,15 @@ const baseTheme = {
     lg: "2.5rem",
     xl: "5rem",
   },
+  fontFamily: {
+    primary: "'Roboto', sans-serif",
+    secondary: "'Inter', sans-serif",
+  },
   colors: {
     blue: "#2374ab",
     green: "#2c6f49",
     purple: "#5b2a86",
+    gray: "#5c5c5c",
   },
 };
 
