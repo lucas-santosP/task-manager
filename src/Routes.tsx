@@ -1,7 +1,7 @@
 import React, { Suspense } from "react";
 import { Switch, Redirect, Route, Router, Link, useLocation } from "wouter";
 import { BaseLayout, GridLayout, LoadingView } from "./components/layout";
-import { waitAsync } from "./hooks";
+import { waitAsync } from "./utils";
 import Login from "./pages/Login";
 
 const Home = React.lazy(async () => {

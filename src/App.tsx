@@ -1,5 +1,5 @@
 import React from "react";
-import { usePersistentState } from "./hooks";
+import { usePersistentState } from "./utils";
 import { DefaultTheme, ThemeProvider } from "styled-components";
 import { light, dark } from "./styles/themes";
 import GlobalStyles from "./styles/global";
