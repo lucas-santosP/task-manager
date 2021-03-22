@@ -18,7 +18,7 @@ export default createGlobalStyle`
     background-color: ${(props) => props.theme.colors.background};
     font-size:16px;
     color:${(props) => props.theme.colors.text};
-    font-family: "arial", sans-serif;
+    font-family: 'Roboto', sans-serif;
     transition: all ease .2s;
     overflow: hidden;
   }
