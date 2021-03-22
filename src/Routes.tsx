@@ -5,12 +5,12 @@ import { waitAsync } from "./utils";
 import Login from "./pages/Login";
 
 const Home = React.lazy(async () => {
-  await waitAsync(500);
+  await waitAsync(700);
   return import("./pages/Home");
 });
 
 const Profile = React.lazy(async () => {
-  await waitAsync(500);
+  await waitAsync(700);
   return import("./pages/Profile");
 });
 
@@ -31,11 +31,6 @@ const Routes: React.FC = () => {
             <Suspense fallback={<LoadingView />}>
               <Route path="/home" component={Home} />
               <Route path="/profile" component={Profile} />
-
-              <Link to="/profile">To profile</Link>
-              <br />
-              <br />
-              <Link to="/login">To login</Link>
             </Suspense>
           </GridLayout>
         )}

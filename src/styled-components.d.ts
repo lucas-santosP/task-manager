@@ -10,6 +10,9 @@ declare module "styled-components" {
       background: string;
       text: string;
       textHighlight: string;
+      blue: string;
+      green: string;
+      purple: string;
     };
     spacing: {
       xs: string;

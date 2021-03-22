@@ -20,8 +20,8 @@ const LoadingBar = styled.div`
 
   > div {
     height: 7px;
-    background-color: #7091eb;
-    animation: ${growsWidth} 500ms linear forwards;
+    background-color: ${({ theme }) => theme.colors.blue};
+    animation: ${growsWidth} 600ms linear;
   }
 `;
 
