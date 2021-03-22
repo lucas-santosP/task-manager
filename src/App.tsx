@@ -3,7 +3,7 @@ import { usePersistentState } from "./hooks";
 import { DefaultTheme, ThemeProvider } from "styled-components";
 import { light, dark } from "./styles/themes";
 import GlobalStyles from "./styles/global";
-import Login from "./pages/Login";
+import Routes from "./Routes";
 
 const App: React.FC = () => {
   const [theme, setTheme] = usePersistentState<DefaultTheme>("theme", light);
@@ -15,8 +15,7 @@ const App: React.FC = () => {
   return (
     <ThemeProvider theme={{ ...theme, toggleTheme }}>
       <GlobalStyles />
-
-      <Login />
+      <Routes />
     </ThemeProvider>
   );
 };

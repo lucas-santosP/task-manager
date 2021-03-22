@@ -1,11 +1,16 @@
 import React from "react";
-import GridLayout from "../../components/layout/GridLayout";
+import BaseLayout from "../../components/layout/BaseLayout";
+import { Link } from "wouter";
 
 const Login: React.FC = () => {
   return (
-    <GridLayout>
+    <BaseLayout>
       <h1>Login</h1>
-    </GridLayout>
+
+      <Link to="/home" style={{ color: "lightblue" }}>
+        Go to home
+      </Link>
+    </BaseLayout>
   );
 };
 
