@@ -1,11 +1,21 @@
 import React from "react";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { fadeInAnimation } from "../../../styles/shared";
 
 const StyledBaseLayout = styled.div`
   width: 100%;
   height: 100vh;
   animation: ${fadeInAnimation} 0.5s ease;
+  background-color: ${({ theme }) => theme.colors.background};
+
+  ${({ theme }) =>
+    theme.title === "light"
+      ? css`
+          background-color: ${theme.colors.secondary};
+        `
+      : css`
+          background-color: ${theme.colors.background};
+        `}
 
   > main {
     position: relative;

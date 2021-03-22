@@ -1,11 +1,11 @@
 import React, { ReactNode } from "react";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 const StyledButton = styled.button`
   border-radius: 9999px;
-  min-height: 2.5rem;
-  font-size: ${({ theme }) => theme.fontSize.md};
-  padding: ${({ theme }) => theme.spacing.sm + " " + theme.spacing.lg};
+  min-height: 2rem;
+  font-size: 1.2rem;
+  padding: ${({ theme }) => theme.spacing.xs + " " + theme.spacing.lg};
   background-color: ${({ theme }) => theme.colors.primary};
   color: ${({ theme }) => theme.colors.secondary};
   text-align: center;
@@ -15,19 +15,24 @@ const StyledButton = styled.button`
     filter: brightness(120%);
   }
 
-  &:focus {
-    box-shadow: 0 0 1px 2px #59b6ec;
-    outline: none;
-  }
+  ${({ theme }) =>
+    theme.title === "light"
+      ? css`
+          background-color: ${theme.colors.primary};
+        `
+      : css`
+          background-color: ${theme.colors.gray};
+        `}
 `;
 
-interface IProps {
+interface IProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+  type: "button" | "submit" | "reset" | undefined;
   children: ReactNode;
 }
 
 const Button: React.FC<IProps> = (props: IProps) => {
-  const { children } = props;
-  return <StyledButton>{children}</StyledButton>;
+  const { children, ...rest } = props;
+  return <StyledButton {...rest}>{children}</StyledButton>;
 };
 
 export default Button;
