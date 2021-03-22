@@ -9,13 +9,18 @@ interface INavItem {
   isSelected?: boolean;
 }
 
+const navItemBackground = (theme: DefaultTheme) => {
+  const shadeValue = theme.title == "dark" ? 0.3 : 0.15;
+  return shade(shadeValue, theme.colors.primary);
+};
+
 export const SidebarContainer = styled.aside<IStyledProps>`
   display: flex;
   flex-direction: column;
   width: ${({ isExpanded }) => (isExpanded ? "250px" : "80px")};
   height: 100vh;
   background-color: ${({ theme }) => theme.colors.primary};
-  transition: all ease 0.3s;
+  transition: width ease 0.3s;
 
   nav {
     flex: 1;
@@ -28,11 +33,6 @@ export const NavList = styled.ul`
   flex-direction: column;
   color: ${({ theme }) => theme.colors.secondary};
 `;
-
-const navItemBackground = (theme: DefaultTheme) => {
-  const shadeValue = theme.title == "dark" ? 0.3 : 0.15;
-  return shade(shadeValue, theme.colors.primary);
-};
 
 export const NavItem = styled.li<INavItem>`
   position: relative;
@@ -48,10 +48,6 @@ export const NavItem = styled.li<INavItem>`
     cursor: pointer;
     ${({ isSelected }) => (isSelected ? "cursor:default;" : "")}
     background-color: ${({ theme }) => navItemBackground(theme)};
-  }
-
-  &:nth-of-type(4) {
-    margin-top: auto;
   }
 
   svg,
