@@ -6,7 +6,7 @@ const Login: React.FC = () => {
     <div>
       <h1>Login</h1>
 
-      <Link to="/task-manager/home" style={{ color: "lightblue" }}>
+      <Link to="/home" style={{ color: "lightblue" }}>
         Go to home
       </Link>
     </div>

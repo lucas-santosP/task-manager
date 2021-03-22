@@ -1,4 +1,4 @@
-import React, { ReactNode } from "react";
+import React from "react";
 import styled from "styled-components";
 import Sidebar from "../Sidebar";
 
@@ -9,6 +9,7 @@ const StyledGridLayout = styled.div`
   animation: fadeIn 0.5s ease;
 
   > main {
+    position: relative;
     flex: 1;
     width: 100%;
     padding: 0.5rem;
@@ -16,15 +17,12 @@ const StyledGridLayout = styled.div`
   }
 `;
 
-interface IProps {
-  children: ReactNode;
-}
-
-const BaseLayout: React.FC<IProps> = ({ children }) => {
+const BaseLayout: React.FC = ({ children }) => {
   return (
     <StyledGridLayout>
       <Sidebar />
-      <main>{children}</main>
+
+      <main> {children}</main>
     </StyledGridLayout>
   );
 };

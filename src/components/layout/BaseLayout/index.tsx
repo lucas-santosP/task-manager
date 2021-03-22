@@ -1,9 +1,5 @@
-import React, { ReactNode } from "react";
+import React from "react";
 import styled from "styled-components";
-
-interface IProps {
-  children: ReactNode;
-}
 
 const StyledBaseLayout = styled.div`
   width: 100%;
@@ -11,13 +7,14 @@ const StyledBaseLayout = styled.div`
   animation: fadeIn 0.5s ease;
 
   > main {
+    position: relative;
     width: 100%;
     padding: 0.5rem;
     transition: all ease 0.3s;
   }
 `;
 
-const BaseLayout: React.FC<IProps> = ({ children }) => {
+const BaseLayout: React.FC = ({ children }) => {
   return (
     <StyledBaseLayout>
       <main>{children}</main>

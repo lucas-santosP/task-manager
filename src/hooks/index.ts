@@ -1,3 +1,4 @@
 import usePersistentState from "./usePersistentState";
+import waitAsync from "./waitAsync";
 
-export { usePersistentState };
+export { usePersistentState, waitAsync };

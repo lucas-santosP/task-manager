@@ -1,7 +1,18 @@
 import React, { Suspense } from "react";
 import { Switch, Redirect, Route, Router, Link, useLocation } from "wouter";
-import { BaseLayout, GridLayout } from "./components/layout";
-import { Login, Profile, Home } from "./pages";
+import { BaseLayout, GridLayout, LoadingView } from "./components/layout";
+import { waitAsync } from "./hooks";
+import Login from "./pages/Login";
+
+const Home = React.lazy(async () => {
+  await waitAsync(500);
+  return import("./pages/Home");
+});
+
+const Profile = React.lazy(async () => {
+  await waitAsync(500);
+  return import("./pages/Profile");
+});
 
 const pagesWithBaseLayout = ["/login", "/register"];
 
@@ -17,7 +28,7 @@ const Routes: React.FC = () => {
           </BaseLayout>
         ) : (
           <GridLayout>
-            <Suspense fallback={<h1>Loading...</h1>}>
+            <Suspense fallback={<LoadingView />}>
               <Route path="/home" component={Home} />
               <Route path="/profile" component={Profile} />
 
