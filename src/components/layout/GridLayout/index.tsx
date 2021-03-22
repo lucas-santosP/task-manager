@@ -1,15 +1,16 @@
 import React from "react";
 import styled from "styled-components";
 import Sidebar from "../Sidebar";
+import { fadeInAnimation } from "../../../styles/shared";
 
 const StyledGridLayout = styled.div`
   display: flex;
   width: 100%;
-  height: 100vh;
-  animation: fadeIn 0.5s ease;
+  animation: ${fadeInAnimation} 0.5s ease;
 
   > main {
     position: relative;
+    overflow: hidden;
     flex: 1;
     width: 100%;
     padding: 0.5rem;

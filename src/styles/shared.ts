@@ -1,0 +1,16 @@
+import styled, { keyframes } from "styled-components";
+
+export const fadeInAnimation = keyframes`
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+`;
+
+export const PageContainer = styled.div`
+  width: 100%;
+  animation: ${fadeInAnimation} 0.5s ease;
+  overflow: hidden;
+`;

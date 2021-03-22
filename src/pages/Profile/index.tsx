@@ -1,10 +1,11 @@
 import React from "react";
+import { PageContainer } from "../../styles/shared";
 
 const Profile: React.FC = () => {
   return (
-    <div>
+    <PageContainer>
       <h1>Profile</h1>
-    </div>
+    </PageContainer>
   );
 };
 

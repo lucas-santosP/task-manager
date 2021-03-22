@@ -1,5 +1,5 @@
 import React, { Suspense } from "react";
-import { Switch, Redirect, Route, Router, Link, useLocation } from "wouter";
+import { Switch, Redirect, Route, Router, useLocation } from "wouter";
 import { BaseLayout, GridLayout, LoadingView } from "./components/layout";
 import { waitAsync } from "./utils";
 import Login from "./pages/Login";

@@ -20,6 +20,7 @@ export default createGlobalStyle`
     color:${(props) => props.theme.colors.text};
     font-family: "arial", sans-serif;
     transition: all ease .2s;
+    overflow: hidden;
   }
 
   button{
@@ -31,15 +32,6 @@ export default createGlobalStyle`
     
     &:hover{
       text-decoration: underline;
-    }
-  }
-  
-  @keyframes fadeIn {
-    from {
-      opacity: 0;
-    }
-    to {
-      opacity: 1;
     }
   }
 `;
