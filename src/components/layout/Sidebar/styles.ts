@@ -1,8 +1,12 @@
-import styled from "styled-components";
+import styled, { DefaultTheme } from "styled-components";
 import { shade } from "polished";
 
 interface IStyledProps {
   isExpanded: boolean;
+}
+
+interface INavItem {
+  isSelected?: boolean;
 }
 
 export const SidebarContainer = styled.aside<IStyledProps>`
@@ -25,18 +29,25 @@ export const NavList = styled.ul`
   color: ${({ theme }) => theme.colors.secondary};
 `;
 
-export const NavItem = styled.li`
+const navItemBackground = (theme: DefaultTheme) => {
+  const shadeValue = theme.title == "dark" ? 0.3 : 0.15;
+  return shade(shadeValue, theme.colors.primary);
+};
+
+export const NavItem = styled.li<INavItem>`
   position: relative;
   height: 45px;
   margin: 0.5rem 0;
   transition: all ease 0.3s;
+  background-color: ${({ theme, isSelected }) => {
+    if (!isSelected) return "none";
+    return navItemBackground(theme);
+  }};
 
   &:hover {
     cursor: pointer;
-    background-color: ${({ theme }) => {
-      if (theme.title == "dark") return shade(0.25, theme.colors.primary);
-      return shade(0.15, theme.colors.primary);
-    }};
+    ${({ isSelected }) => (isSelected ? "cursor:default;" : "")}
+    background-color: ${({ theme }) => navItemBackground(theme)};
   }
 
   &:nth-of-type(4) {
