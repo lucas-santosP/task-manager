@@ -45,7 +45,7 @@ export const Input = styled.input`
   padding: 0.5rem 1rem;
   height: 2.5rem;
   margin-bottom: 1.5rem;
-  color: #fff;
+  color: ${({ theme }) => theme.colors.text};
 
   &::placeholder {
     color: #afafaf;
