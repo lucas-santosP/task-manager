@@ -20,7 +20,7 @@ export const SidebarContainer = styled.aside<IStyledProps>`
   width: ${({ isExpanded }) => (isExpanded ? "250px" : "80px")};
   height: 100vh;
   background-color: ${({ theme }) => theme.colors.primary};
-  transition: width ease 0.3s;
+  transition: all ease 0.3s;
 
   nav {
     flex: 1;

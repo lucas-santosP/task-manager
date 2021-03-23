@@ -20,7 +20,6 @@ export default createGlobalStyle`
   }
 
   body{
-    background-color: ${(props) => props.theme.colors.background};
     font-size:16px;
     color:${(props) => props.theme.colors.text};
     font-family: 'Roboto', sans-serif;
