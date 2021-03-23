@@ -14,6 +14,7 @@ declare module "styled-components" {
       green: string;
       purple: string;
       gray: string;
+      yellow: string;
     };
     spacing: {
       xs: string;

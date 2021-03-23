@@ -1,6 +1,7 @@
 import React from "react";
 import styled, { css } from "styled-components";
 import { fadeInAnimation } from "../../../styles/shared";
+import { AppendButtonToggleTheme } from "../../ui";
 
 const StyledBaseLayout = styled.div`
   width: 100%;
@@ -29,6 +30,7 @@ const StyledBaseLayout = styled.div`
 const BaseLayout: React.FC = ({ children }) => {
   return (
     <StyledBaseLayout>
+      <AppendButtonToggleTheme />
       <main>{children}</main>
     </StyledBaseLayout>
   );
