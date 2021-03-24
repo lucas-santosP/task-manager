@@ -22,7 +22,8 @@ export default createGlobalStyle`
   body{
     font-size:16px;
     color:${(props) => props.theme.colors.text};
-    font-family: 'Roboto', sans-serif;
+    background-color:${(props) => props.theme.colors.background};
+    font-family:${(props) => props.theme.fontFamily.primary};
     transition: all ease .2s;
     overflow: hidden;
   }
