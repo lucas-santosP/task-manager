@@ -2,21 +2,19 @@ import { API } from "../api";
 import { IUser } from "../../types";
 import { AxiosResponse } from "axios";
 
-interface ILoginPayload {
+export interface ILoginPayload {
   email: string;
   password: string;
 }
 
-interface IRegisterPayload {
+export interface IRegisterPayload {
   name: string;
   email: string;
   password: string;
 }
 
-interface IRegisterPayload {
-  name: string;
-  email: string;
-  password: string;
+export interface IDeletePayload {
+  userId: string;
 }
 
 interface ILoginResponse {
@@ -37,7 +35,7 @@ interface IDeleteResponse {
   };
 }
 
-const UserServices = {
+export const UserServices = {
   login(payload: ILoginPayload): Promise<AxiosResponse<ILoginResponse>> {
     return API.post<ILoginResponse>("/user/login", payload);
   },
@@ -46,9 +44,7 @@ const UserServices = {
     return API.post<ILoginResponse>("/user/register", payload);
   },
 
-  delete(userId: string): Promise<AxiosResponse<IDeleteResponse>> {
-    return API.delete<IDeleteResponse>(`/user/login/${userId}`);
+  delete(payload: IDeletePayload): Promise<AxiosResponse<IDeleteResponse>> {
+    return API.delete<IDeleteResponse>(`/user/login/${payload.userId}`);
   },
 };
-
-export default UserServices;
