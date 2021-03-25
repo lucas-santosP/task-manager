@@ -1,16 +1,16 @@
-import React, { useContext } from "react";
-import { ThemeContext } from "styled-components";
+import React from "react";
+import { useTheme } from "../../../contexts/theme";
 import { ButtonContainer, IconDarkTheme, IconLightTheme } from "./styles";
 
 const AppendButtonToggleTheme: React.FC = () => {
-  const { toggleTheme, title: themeTitle } = useContext(ThemeContext);
+  const { toggleTheme, theme } = useTheme();
 
   return (
     <ButtonContainer
       onClick={toggleTheme}
-      title={`Toggle to theme ${themeTitle === "dark" ? "light" : "dark"}`}
+      title={`Toggle to theme ${theme.title === "dark" ? "light" : "dark"}`}
     >
-      {themeTitle === "light" ? (
+      {theme.title === "light" ? (
         <IconDarkTheme className="dark-icon" />
       ) : (
         <IconLightTheme className="light-icon" />

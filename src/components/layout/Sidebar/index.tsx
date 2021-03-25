@@ -1,6 +1,6 @@
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
 import { useLocation, useRoute } from "wouter";
-import { ThemeContext } from "styled-components";
+import { useTheme } from "../../../contexts/theme";
 import { SidebarContainer, NavList, NavItem, NavItemText } from "./styles";
 import { FaHome, FaBars, FaPlus, FaUser, FaMoon, FaSun, FaSignOutAlt } from "react-icons/fa";
 
@@ -8,7 +8,7 @@ const Sidebar: React.FC = () => {
   const [, setLocation] = useLocation();
   const [currentPageIsHome] = useRoute("/home");
   const [currentPageIsProfile] = useRoute("/profile");
-  const { toggleTheme, title: themeTitle } = useContext(ThemeContext);
+  const { theme, toggleTheme } = useTheme();
   const [isExpanded, setIsExpanded] = useState(false);
 
   return (
@@ -39,7 +39,7 @@ const Sidebar: React.FC = () => {
 
           <div style={{ marginTop: "auto" }}>
             <NavItem onClick={toggleTheme}>
-              {themeTitle === "light" ? <FaMoon /> : <FaSun />}
+              {theme.title === "light" ? <FaMoon /> : <FaSun />}
               <NavItemText isExpanded={isExpanded}>Toggle theme</NavItemText>
             </NavItem>
 

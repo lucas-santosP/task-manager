@@ -3,7 +3,6 @@ import "styled-components";
 declare module "styled-components" {
   export interface DefaultTheme {
     title: string;
-    toggleTheme?: () => void;
     colors: {
       primary: string;
       secondary: string;
