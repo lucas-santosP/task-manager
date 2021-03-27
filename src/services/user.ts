@@ -1,6 +1,5 @@
 import { API } from "./api";
 import { IUser, ILoginPayload, IAuthPayload, ISignupPayload, IDeleteUserPayload } from "../types";
-import { AxiosResponse } from "axios";
 
 interface ILoginResponse {
   user: IUser;
@@ -23,21 +22,21 @@ interface IDeleteUserResponse {
 type IAuthResponse = IRegisterResponse;
 
 export const UserServices = {
-  login(payload: ILoginPayload): Promise<AxiosResponse<ILoginResponse>> {
+  login(payload: ILoginPayload) {
     return API.post<ILoginResponse>("/user/login", payload);
   },
 
-  register(payload: ISignupPayload): Promise<AxiosResponse<IRegisterResponse>> {
-    return API.post("/user/register", payload);
+  register(payload: ISignupPayload) {
+    return API.post<IRegisterResponse>("/user/register", payload);
   },
 
-  auth(payload: IAuthPayload): Promise<AxiosResponse<IAuthResponse>> {
-    return API.get(`/user/${payload.userId}`, {
+  auth(payload: IAuthPayload) {
+    return API.get<IAuthResponse>(`/user/${payload.userId}`, {
       headers: { Authorization: `Bearer ${payload.token}` },
     });
   },
 
-  delete(payload: IDeleteUserPayload): Promise<AxiosResponse<IDeleteUserResponse>> {
-    return API.delete(`/user/login/${payload.userId}`);
+  delete(payload: IDeleteUserPayload) {
+    return API.delete<IDeleteUserResponse>(`/user/login/${payload.userId}`);
   },
 };
