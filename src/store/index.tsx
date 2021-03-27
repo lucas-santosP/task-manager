@@ -27,6 +27,7 @@ export const StoreProvider: React.FC = ({ children }) => {
     dispatch({ type: UserActions.LOGIN, payload: { user, token } });
     setStorageAuth({ _id: user._id, token });
     setAuthHeader(token);
+    setLocation("/home", { replace: true });
   }
 
   function logout() {

@@ -3,8 +3,10 @@ import { useLocation, useRoute } from "wouter";
 import { useTheme } from "../../../contexts/theme";
 import { SidebarContainer, NavList, NavItem, NavItemText } from "./styles";
 import { FaHome, FaBars, FaPlus, FaUser, FaMoon, FaSun, FaSignOutAlt } from "react-icons/fa";
+import { useStore } from "../../../store";
 
 const Sidebar: React.FC = () => {
+  const { logout } = useStore();
   const [, setLocation] = useLocation();
   const [currentPageIsHome] = useRoute("/home");
   const [currentPageIsProfile] = useRoute("/profile");
@@ -43,7 +45,7 @@ const Sidebar: React.FC = () => {
               <NavItemText isExpanded={isExpanded}>Toggle theme</NavItemText>
             </NavItem>
 
-            <NavItem onClick={() => setLocation("/login")}>
+            <NavItem onClick={logout}>
               <FaSignOutAlt />
               <NavItemText isExpanded={isExpanded}>Logout</NavItemText>
             </NavItem>

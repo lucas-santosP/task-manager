@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { useLocation } from "wouter";
 import { PageContainer } from "../../styles/shared";
 import { Button, Card } from "../../components/ui";
 import {
@@ -13,10 +12,11 @@ import {
   StyledLink,
 } from "./styles";
 import ImgCardDivider from "../../assets/card-divider.png";
+import { useStore } from "../../store";
 
 const Login: React.FC = () => {
-  const [userForm, setUserForm] = useState({ email: "", password: "" });
-  const [, setLocation] = useLocation();
+  const { login } = useStore();
+  const [userForm, setUserForm] = useState({ email: "email@email.com", password: "pass" });
 
   function handleUpdateUserForm(event: React.ChangeEvent<HTMLInputElement>) {
     const { value, name } = event.target;
@@ -25,9 +25,13 @@ const Login: React.FC = () => {
 
   async function submitUserForm(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    // const response = await UserServices.login(userForm);
-    // console.log(response.data.user);
-    setLocation("/home");
+
+    try {
+      await login(userForm);
+    } catch (error) {
+      console.log(error);
+      alert(error);
+    }
   }
 
   return (
