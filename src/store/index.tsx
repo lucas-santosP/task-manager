@@ -39,9 +39,9 @@ export const StoreProvider: React.FC = ({ children }) => {
     setStorageAuth(null);
   }
 
-  function setLoading(value: boolean) {
+  function setLoading(value: boolean, minimumWait = 500) {
     if (value) setIsLoading(value);
-    else setTimeout(() => setIsLoading(value), 500); // minimum loading time
+    else setTimeout(() => setIsLoading(value), minimumWait);
   }
 
   async function checkUserStorageAuth() {
@@ -58,7 +58,7 @@ export const StoreProvider: React.FC = ({ children }) => {
         console.log("Storage user not found");
         setLocation("/login", { replace: true });
       } finally {
-        setLoading(false);
+        setLoading(false, 1000);
       }
     }
   }

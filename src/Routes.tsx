@@ -1,6 +1,6 @@
 import React, { Suspense } from "react";
 import { Switch, Redirect, Route, Router } from "wouter";
-import { BaseLayout, GridLayout, LoadingBar } from "./components/layout";
+import { BaseLayout, GridLayout, LoadingBar, LoadingView } from "./components/layout";
 import { waitAsync } from "./utils";
 import Login from "./pages/Login";
 import { useStore } from "./store";
@@ -21,7 +21,7 @@ const Routes: React.FC = () => {
   return (
     <Router>
       {isLoading ? (
-        <LoadingBar />
+        <LoadingView />
       ) : (
         <>
           {user ? (
