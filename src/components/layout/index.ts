@@ -1,5 +1,5 @@
 import BaseLayout from "./BaseLayout";
 import GridLayout from "./GridLayout";
-import LoadingView from "./LoadingView";
+import LoadingBar from "./LoadingBar";
 
-export { BaseLayout, GridLayout, LoadingView };
+export { BaseLayout, GridLayout, LoadingBar };

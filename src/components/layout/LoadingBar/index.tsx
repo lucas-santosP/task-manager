@@ -10,7 +10,7 @@ const growsWidth = keyframes`
   }
 `;
 
-const LoadingBar = styled.div`
+const StyledLoadingBar = styled.div`
   position: absolute;
   top: 0;
   left: 0;
@@ -21,8 +21,8 @@ const LoadingBar = styled.div`
   animation: ${growsWidth} 500ms linear forwards;
 `;
 
-const LoadingView: React.FC = () => {
-  return <LoadingBar />;
+const LoadingBar: React.FC = () => {
+  return <StyledLoadingBar />;
 };
 
-export default LoadingView;
+export default LoadingBar;
