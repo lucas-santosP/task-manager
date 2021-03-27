@@ -1,8 +1,9 @@
 import React, { Suspense } from "react";
-import { Switch, Redirect, Route, Router, useLocation } from "wouter";
+import { Switch, Redirect, Route, Router } from "wouter";
 import { BaseLayout, GridLayout, LoadingView } from "./components/layout";
 import { waitAsync } from "./utils";
 import Login from "./pages/Login";
+import { useStore } from "./store";
 
 const Home = React.lazy(async () => {
   await waitAsync(700);
@@ -14,29 +15,28 @@ const Profile = React.lazy(async () => {
   return import("./pages/Profile");
 });
 
-const pagesWithBaseLayout = ["/login", "/register"];
-
 const Routes: React.FC = () => {
-  const [currentLocation] = useLocation();
+  const { user } = useStore();
 
   return (
     <Router>
-      <Switch>
-        {pagesWithBaseLayout.includes(currentLocation) ? (
-          <BaseLayout>
-            <Route path="/login" component={Login} />
-          </BaseLayout>
-        ) : (
-          <GridLayout>
-            <Suspense fallback={<LoadingView />}>
+      {user ? (
+        <GridLayout>
+          <Suspense fallback={<LoadingView />}>
+            <Switch>
               <Route path="/home" component={Home} />
               <Route path="/profile" component={Profile} />
-            </Suspense>
-          </GridLayout>
-        )}
+              <Redirect to="/home" />
+            </Switch>
+          </Suspense>
+        </GridLayout>
+      ) : (
+        <BaseLayout>
+          <Route path="/login" component={Login} />
+        </BaseLayout>
+      )}
 
-        <Redirect to="/login" />
-      </Switch>
+      <Redirect to="/login" />
     </Router>
   );
 };
