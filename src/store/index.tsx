@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useEffect } from "react";
+import React, { createContext, useContext, useEffect, useState } from "react";
 import { useLocation } from "wouter";
 import { setAuthHeader } from "../services/api";
 import { UserServices } from "../services/user";
@@ -8,6 +8,8 @@ import { usePersistentState } from "../utils";
 import { ILoginPayload } from "../types";
 
 interface IStoreState extends IUserState {
+  isLoading: boolean;
+  setLoading: (value: boolean) => void;
   login: (userData: ILoginPayload) => Promise<void>;
   logout: () => void;
 }
@@ -18,6 +20,7 @@ const StoreContext = createContext({} as IStoreState);
 
 export const StoreProvider: React.FC = ({ children }) => {
   const [, setLocation] = useLocation();
+  const [isLoading, setIsLoading] = useState(false);
   const [userState, dispatch] = useUserReducer();
   const [storageAuth, setStorageAuth] = usePersistentState("user_auth", null as IStorageAuth);
 
@@ -36,15 +39,28 @@ export const StoreProvider: React.FC = ({ children }) => {
     setStorageAuth(null);
   }
 
-  async function checkUserStorageAuth() {
-    if (!storageAuth) return;
+  function setLoading(value: boolean) {
+    if (value) setIsLoading(value);
+    else setTimeout(() => setIsLoading(value), 500); // minimum loading time
+  }
 
-    const { _id, token } = storageAuth;
-    const response = await UserServices.auth({ userId: _id, token });
-    const { user } = response.data;
-    dispatch({ type: UserActions.LOGIN, payload: { user, token } });
-    setAuthHeader(token);
-    setLocation("/home", { replace: true });
+  async function checkUserStorageAuth() {
+    if (storageAuth) {
+      try {
+        setLoading(true);
+        const { _id, token } = storageAuth;
+        const response = await UserServices.auth({ userId: _id, token });
+        const { user } = response.data;
+        dispatch({ type: UserActions.LOGIN, payload: { user, token } });
+        setAuthHeader(token);
+        setLocation("/home", { replace: true });
+      } catch (error) {
+        console.log("Storage user not found");
+        setLocation("/login", { replace: true });
+      } finally {
+        setLoading(false);
+      }
+    }
   }
 
   useEffect(() => {
@@ -52,7 +68,7 @@ export const StoreProvider: React.FC = ({ children }) => {
   }, []);
 
   return (
-    <StoreContext.Provider value={{ ...userState, login, logout }}>
+    <StoreContext.Provider value={{ ...userState, isLoading, setLoading, login, logout }}>
       {children}
     </StoreContext.Provider>
   );

@@ -16,27 +16,34 @@ const Profile = React.lazy(async () => {
 });
 
 const Routes: React.FC = () => {
-  const { user } = useStore();
+  const { user, isLoading } = useStore();
 
   return (
     <Router>
-      {user ? (
-        <GridLayout>
-          <Suspense fallback={<LoadingView />}>
-            <Switch>
-              <Route path="/home" component={Home} />
-              <Route path="/profile" component={Profile} />
-              <Redirect to="/home" />
-            </Switch>
-          </Suspense>
-        </GridLayout>
+      {isLoading ? (
+        <LoadingView />
       ) : (
-        <BaseLayout>
-          <Route path="/login" component={Login} />
-        </BaseLayout>
+        <>
+          {user ? (
+            <GridLayout>
+              <Suspense fallback={<LoadingView />}>
+                <Switch>
+                  <Route path="/home" component={Home} />
+                  <Route path="/profile" component={Profile} />
+                  <Redirect to="/home" />
+                </Switch>
+              </Suspense>
+            </GridLayout>
+          ) : (
+            <BaseLayout>
+              <Switch>
+                <Route path="/login" component={Login} />
+                <Redirect to="/login" />
+              </Switch>
+            </BaseLayout>
+          )}
+        </>
       )}
-
-      <Redirect to="/login" />
     </Router>
   );
 };
