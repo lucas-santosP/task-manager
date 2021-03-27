@@ -1,4 +1,4 @@
-import React, { ReactNode } from "react";
+import React from "react";
 import styled, { css } from "styled-components";
 
 const StyledButton = styled.button`
@@ -27,7 +27,6 @@ const StyledButton = styled.button`
 
 interface IProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   type: "button" | "submit" | "reset" | undefined;
-  children: ReactNode;
 }
 
 const Button: React.FC<IProps> = (props: IProps) => {
