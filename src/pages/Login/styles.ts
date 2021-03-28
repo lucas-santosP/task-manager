@@ -41,13 +41,3 @@ export const Form = styled.form`
     text-align: center;
   }
 `;
-
-export const CardDivider = styled.img`
-  width: 75%;
-  max-width: 325px;
-  margin: 1.5rem auto;
-
-  @media (max-width: ${breakPoints.xl}) {
-    width: 100%;
-  }
-`;
