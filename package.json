@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@types/uuid": "^8.3.0",
     "axios": "^0.21.1",
     "polished": "^4.1.1",
     "react": "^17.0.1",
@@ -10,6 +11,7 @@
     "react-icons": "^4.2.0",
     "react-scripts": "4.0.3",
     "styled-components": "^5.2.1",
+    "uuid": "^8.3.2",
     "wouter": "^2.7.4"
   },
   "devDependencies": {
