@@ -10,8 +10,7 @@ export default createGlobalStyle`
     list-style: none;
     border: 0; 
     box-sizing: border-box;
-    text-decoration: none;
-    user-select: none; 
+    text-decoration: none; 
   }
   
   *:focus{ 
