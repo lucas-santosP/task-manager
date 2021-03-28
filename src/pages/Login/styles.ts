@@ -1,6 +1,6 @@
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 import { Link } from "wouter";
-import { breakPoints, baseFocus } from "../../styles/shared";
+import { breakPoints } from "../../styles/shared";
 
 export const Title = styled.h1`
   font-size: ${({ theme }) => theme.fontSize.lg};
@@ -43,36 +43,8 @@ export const Form = styled.form`
   }
 `;
 
-export const Input = styled.input`
-  border-radius: 0.2rem;
-  font-size: ${({ theme }) => theme.fontSize.sm};
-  box-shadow: 0 0 2px 2px rgba(51, 51, 51, 0.3);
-  padding: 0.5rem 1rem;
-  height: 2.5rem;
-  margin-bottom: 1.5rem;
-  color: ${({ theme }) => theme.colors.text};
-  ${baseFocus}
-
-  &::placeholder {
-    color: #afafaf;
-  }
-
-  ${({ theme }) =>
-    theme.title === "light"
-      ? css`
-          background-color: #fff;
-        `
-      : css`
-          background-color: ${theme.colors.gray};
-        `}
-`;
-
 export const StyledLink = styled(Link)`
   color: ${({ theme }) => theme.colors.textHighlight};
-`;
-
-export const InputLabel = styled.label`
-  margin-bottom: 0.5rem;
 `;
 
 export const CardDivider = styled.img`

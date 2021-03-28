@@ -1,16 +1,7 @@
 import React, { useState } from "react";
 import { PageContainer } from "../../styles/shared";
-import { Button, Card } from "../../components/ui";
-import {
-  Title,
-  CardDivider,
-  CardTitle,
-  CardWrapper,
-  Form,
-  Input,
-  InputLabel,
-  StyledLink,
-} from "./styles";
+import { Button, Card, Input } from "../../components/ui";
+import { Title, CardDivider, CardTitle, CardWrapper, Form, StyledLink } from "./styles";
 import ImgCardDivider from "../../assets/card-divider.png";
 import { useStore } from "../../store";
 
@@ -42,20 +33,17 @@ const Login: React.FC = () => {
         <Card>
           <CardTitle>Welcome</CardTitle>
           <Form onSubmit={submitUserForm}>
-            <InputLabel htmlFor="email">E-mail</InputLabel>
             <Input
-              type="text"
-              id="email"
+              label="Email"
               name="email"
               placeholder="Enter your email"
               value={userForm.email}
               onChange={handleUpdateUserForm}
             />
 
-            <InputLabel htmlFor="password">Password</InputLabel>
             <Input
+              label="Password"
               type="password"
-              id="password"
               name="password"
               placeholder="Enter your password"
               value={userForm.password}
