@@ -1,4 +1,4 @@
-import styled, { keyframes } from "styled-components";
+import styled, { css, keyframes } from "styled-components";
 
 export const fadeInAnimation = keyframes`
   from {
@@ -16,7 +16,14 @@ export const PageContainer = styled.div`
   flex-direction: column;
 `;
 
-export const breakPoint = {
+export const breakPoints = {
   xl: "576px",
   sm: "768px",
 };
+
+export const baseFocus = css`
+  &:focus {
+    box-shadow: 0 0 1px 2px #59b6ec;
+    outline: none;
+  }
+`;

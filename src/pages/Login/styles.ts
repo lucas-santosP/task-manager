@@ -1,13 +1,13 @@
 import styled, { css } from "styled-components";
 import { Link } from "wouter";
-import { breakPoint } from "../../styles/shared";
+import { breakPoints, baseFocus } from "../../styles/shared";
 
 export const Title = styled.h1`
   font-size: ${({ theme }) => theme.fontSize.lg};
   font-family: ${({ theme }) => theme.fontFamily.secondary};
   margin: 1rem auto 2rem auto;
 
-  @media (max-width: ${breakPoint.xl}) {
+  @media (max-width: ${breakPoints.xl}) {
     font-size: 2rem;
   }
 `;
@@ -51,6 +51,7 @@ export const Input = styled.input`
   height: 2.5rem;
   margin-bottom: 1.5rem;
   color: ${({ theme }) => theme.colors.text};
+  ${baseFocus}
 
   &::placeholder {
     color: #afafaf;
@@ -79,7 +80,7 @@ export const CardDivider = styled.img`
   max-width: 325px;
   margin: 1.5rem auto;
 
-  @media (max-width: ${breakPoint.xl}) {
+  @media (max-width: ${breakPoints.xl}) {
     width: 100%;
   }
 `;
