@@ -3,17 +3,18 @@ import styled from "styled-components";
 
 const SpinnerContainer = styled.div`
   position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   top: 0;
   left: 0;
   width: 100%;
   height: 100vh;
 
   .spinner {
-    top: 150px;
     width: 40px;
     height: 40px;
     position: relative;
-    margin: 100px auto;
   }
 
   .double-bounce1,
