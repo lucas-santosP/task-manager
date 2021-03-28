@@ -7,6 +7,7 @@ import { useStore } from "../../store";
 const Login: React.FC = () => {
   const { login } = useStore();
   const [userForm, setUserForm] = useState({ email: "email@email.com", password: "pass" });
+  const [isLoading, setIsLoading] = useState(false);
 
   function handleUpdateUserForm(event: React.ChangeEvent<HTMLInputElement>) {
     const { value, name } = event.target;
@@ -17,10 +18,13 @@ const Login: React.FC = () => {
     e.preventDefault();
 
     try {
+      setIsLoading(true);
       await login(userForm);
     } catch (error) {
+      setTimeout(() => {
+        setIsLoading(false);
+      }, 500);
       console.log(error);
-      alert(error);
     }
   }
 
@@ -49,7 +53,9 @@ const Login: React.FC = () => {
               onChange={handleUpdateUserForm}
             />
 
-            <Button type="submit">Login</Button>
+            <Button isLoading={isLoading} type="submit">
+              Login
+            </Button>
 
             <HorizontalDivider maxWidth={"360px"} marginY={"1.5rem"} />
             <span>
