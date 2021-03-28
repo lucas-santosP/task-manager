@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useLocation, useRoute } from "wouter";
 import { useTheme } from "../../../contexts/theme";
 import { SidebarContainer, NavList, NavItem, NavItemText } from "./styles";
-import { FaHome, FaBars, FaPlus, FaUser, FaMoon, FaSun, FaSignOutAlt } from "react-icons/fa";
+import { FaHome, FaBars, FaUser, FaMoon, FaSun, FaSignOutAlt } from "react-icons/fa";
 import { useStore } from "../../../store";
 
 const Sidebar: React.FC = () => {
@@ -31,13 +31,6 @@ const Sidebar: React.FC = () => {
             <FaUser />
             <NavItemText isExpanded={isExpanded}>Profile</NavItemText>
           </NavItem>
-
-          {currentPageIsHome && (
-            <NavItem>
-              <FaPlus />
-              <NavItemText isExpanded={isExpanded}>Create template</NavItemText>
-            </NavItem>
-          )}
 
           <div style={{ marginTop: "auto" }}>
             <NavItem onClick={toggleTheme}>

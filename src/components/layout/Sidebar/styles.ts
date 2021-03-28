@@ -1,5 +1,6 @@
 import styled, { DefaultTheme, css } from "styled-components";
 import { shade } from "polished";
+import { breakPoints } from "../../../styles/shared";
 
 interface IStyledProps {
   isExpanded: boolean;
@@ -24,6 +25,10 @@ export const SidebarContainer = styled.aside<IStyledProps>`
 
   nav {
     flex: 1;
+  }
+
+  @media (max-width: ${breakPoints.xl}) {
+    width: ${({ isExpanded }) => (isExpanded ? "70%" : "50px")};
   }
 `;
 
@@ -53,14 +58,24 @@ export const NavItem = styled.li<INavItem>`
       background-color: ${navItemBackground(theme)};
     `}
 
+  @media (max-width: ${breakPoints.xl}) {
+    margin: 0.2rem 0;
+  }
+
   svg,
   img {
-    width: 25px;
-    height: 25px;
     position: absolute;
     top: 50%;
     left: 40px;
     transform: translate(-50%, -50%);
+    width: 22px;
+    height: 22px;
+
+    @media (max-width: ${breakPoints.xl}) {
+      left: 25px;
+      width: 20px;
+      height: 20px;
+    }
   }
 `;
 
@@ -69,7 +84,7 @@ export const NavItemText = styled.span<IStyledProps>`
   top: 50%;
   left: 70px;
   transform: translateY(-50%);
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   white-space: nowrap;
   transition: all ease 0.3s;
   opacity: 0;
@@ -79,5 +94,5 @@ export const NavItemText = styled.span<IStyledProps>`
     css`
       opacity: 1;
       transition-delay: 200ms;
-    `}
+    `};
 `;
