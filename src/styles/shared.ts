@@ -27,3 +27,7 @@ export const baseFocus = css`
     outline: none;
   }
 `;
+
+export const baseTransition = css`
+  transition: all ease 0.3s;
+`;
