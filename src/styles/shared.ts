@@ -15,3 +15,8 @@ export const PageContainer = styled.div`
   display: flex;
   flex-direction: column;
 `;
+
+export const breakPoint = {
+  xl: "576px",
+  sm: "768px",
+};
