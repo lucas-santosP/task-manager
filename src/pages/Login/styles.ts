@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { Link } from "wouter";
 import { breakPoints } from "../../styles/shared";
 
 export const Title = styled.h1`
@@ -41,10 +40,6 @@ export const Form = styled.form`
     width: 100%;
     text-align: center;
   }
-`;
-
-export const StyledLink = styled(Link)`
-  color: ${({ theme }) => theme.colors.textHighlight};
 `;
 
 export const CardDivider = styled.img`

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { PageContainer } from "../../styles/shared";
-import { Button, Card, Input } from "../../components/ui";
-import { Title, CardDivider, CardTitle, CardWrapper, Form, StyledLink } from "./styles";
+import { Button, Card, Input, Link } from "../../components/ui";
+import { Title, CardDivider, CardTitle, CardWrapper, Form } from "./styles";
 import ImgCardDivider from "../../assets/card-divider.png";
 import { useStore } from "../../store";
 
@@ -54,7 +54,7 @@ const Login: React.FC = () => {
 
             <CardDivider src={ImgCardDivider} alt="Divider" />
             <span>
-              Dont have account yet ? <StyledLink to="/register">Register here.</StyledLink>
+              Dont have account yet ? <Link to="/register">Register here.</Link>
             </span>
           </Form>
         </Card>
