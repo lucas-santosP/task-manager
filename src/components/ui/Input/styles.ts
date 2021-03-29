@@ -12,14 +12,14 @@ export const InputContainer = styled.div`
 `;
 
 export const StyledInput = styled.input`
+  ${baseFocus}
   border-radius: 0.2rem;
   font-size: ${({ theme }) => theme.fontSize.sm};
   box-shadow: 0 0 2px 2px rgba(51, 51, 51, 0.3);
   padding: 0.5rem 1rem;
   height: 2.5rem;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1rem;
   color: ${({ theme }) => theme.colors.text};
-  ${baseFocus}
 
   &::placeholder {
     color: #afafaf;
