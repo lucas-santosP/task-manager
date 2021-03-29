@@ -11,7 +11,7 @@ export const fadeInAnimation = keyframes`
 
 export const PageContainer = styled.div`
   width: 100%;
-  animation: ${fadeInAnimation} 0.5s ease;
+  animation: ${fadeInAnimation} 0.8s ease;
   display: flex;
   flex-direction: column;
 `;
