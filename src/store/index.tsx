@@ -44,9 +44,11 @@ export const StoreProvider: React.FC = ({ children }) => {
   }
 
   function logout() {
+    setLoading(true);
     dispatch({ type: UserActions.LOGOUT });
     setLocation("/login", { replace: true });
     setStorageAuth(null);
+    setLoading(false);
   }
 
   function setLoading(value: boolean, minimumWait = 500) {

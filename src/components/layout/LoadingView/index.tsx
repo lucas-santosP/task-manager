@@ -10,6 +10,7 @@ const SpinnerContainer = styled.div`
   left: 0;
   width: 100%;
   height: 100vh;
+  cursor: wait;
 
   .spinner {
     width: 40px;
