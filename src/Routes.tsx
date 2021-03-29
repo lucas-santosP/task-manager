@@ -3,6 +3,7 @@ import { Switch, Redirect, Route, Router } from "wouter";
 import { BaseLayout, GridLayout, LoadingBar, LoadingView } from "./components/layout";
 import { waitAsync } from "./utils";
 import Login from "./pages/Login";
+import Register from "./pages/Register";
 import { useStore } from "./store";
 
 const Home = React.lazy(async () => {
@@ -38,6 +39,7 @@ const Routes: React.FC = () => {
             <BaseLayout>
               <Switch>
                 <Route path="/login" component={Login} />
+                <Route path="/register" component={Register} />
                 <Redirect to="/login" />
               </Switch>
             </BaseLayout>

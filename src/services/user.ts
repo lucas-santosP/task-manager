@@ -1,17 +1,18 @@
 import { API } from "./api";
-import { IUser, ILoginPayload, IAuthPayload, ISignupPayload, IDeleteUserPayload } from "../types";
+import { IUser, ILoginPayload, IAuthPayload, IRegisterPayload, IDeleteUserPayload } from "../types";
 
 interface ILoginResponse {
   user: IUser;
   token: string;
 }
 
-interface IRegisterResponse {
+type IRegisterResponse = ILoginResponse;
+
+interface IAuthResponse {
   user: IUser;
 }
 
 interface IDeleteUserResponse {
-  //change on backend "user" to "result"
   user: {
     n: number;
     ok: number;
@@ -19,14 +20,12 @@ interface IDeleteUserResponse {
   };
 }
 
-type IAuthResponse = IRegisterResponse;
-
 export const UserServices = {
   login(payload: ILoginPayload) {
     return API.post<ILoginResponse>("/user/login", payload);
   },
 
-  register(payload: ISignupPayload) {
+  register(payload: IRegisterPayload) {
     return API.post<IRegisterResponse>("/user/register", payload);
   },
 

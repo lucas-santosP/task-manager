@@ -10,7 +10,7 @@ export interface ILoginPayload {
   password: string;
 }
 
-export interface ISignupPayload {
+export interface IRegisterPayload {
   name: string;
   email: string;
   password: string;

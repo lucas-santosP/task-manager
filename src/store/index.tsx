@@ -1,16 +1,17 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { useLocation } from "wouter";
-import { setAuthHeader } from "../services/api";
+import { setAPIAuthHeader } from "../services/api";
 import { UserServices } from "../services/user";
 import { useUserReducer } from "./user/userReducer";
 import { IUserState, UserActions } from "./user/userTypes";
 import { usePersistentState } from "../utils";
-import { ILoginPayload } from "../types";
+import { ILoginPayload, IRegisterPayload } from "../types";
 
 interface IStoreState extends IUserState {
   isLoading: boolean;
   setLoading: (value: boolean) => void;
   login: (userData: ILoginPayload) => Promise<void>;
+  register: (userData: IRegisterPayload) => Promise<void>;
   logout: () => void;
 }
 
@@ -29,7 +30,16 @@ export const StoreProvider: React.FC = ({ children }) => {
     const { user, token } = response.data;
     dispatch({ type: UserActions.LOGIN, payload: { user, token } });
     setStorageAuth({ _id: user._id, token });
-    setAuthHeader(token);
+    setAPIAuthHeader(token);
+    setLocation("/home", { replace: true });
+  }
+
+  async function register(userData: IRegisterPayload) {
+    const response = await UserServices.register(userData);
+    const { user, token } = response.data;
+    dispatch({ type: UserActions.LOGIN, payload: { user, token } });
+    setStorageAuth({ _id: user._id, token });
+    setAPIAuthHeader(token);
     setLocation("/home", { replace: true });
   }
 
@@ -52,7 +62,7 @@ export const StoreProvider: React.FC = ({ children }) => {
         const response = await UserServices.auth({ userId: _id, token });
         const { user } = response.data;
         dispatch({ type: UserActions.LOGIN, payload: { user, token } });
-        setAuthHeader(token);
+        setAPIAuthHeader(token);
         setLocation("/home", { replace: true });
       } catch (error) {
         console.log("Storage user not found");
@@ -68,7 +78,7 @@ export const StoreProvider: React.FC = ({ children }) => {
   }, []);
 
   return (
-    <StoreContext.Provider value={{ ...userState, isLoading, setLoading, login, logout }}>
+    <StoreContext.Provider value={{ ...userState, isLoading, setLoading, login, register, logout }}>
       {children}
     </StoreContext.Provider>
   );
