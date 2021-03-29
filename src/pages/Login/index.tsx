@@ -3,6 +3,7 @@ import { PageContainer } from "../../styles/shared";
 import { Button, Card, Input, Link, HorizontalDivider } from "../../components/ui";
 import { Title, CardTitle, CardWrapper, Form } from "./styles";
 import { useStore } from "../../store";
+import { waitAsync } from "../../utils";
 
 const Login: React.FC = () => {
   const { login } = useStore();
@@ -21,10 +22,9 @@ const Login: React.FC = () => {
       setIsLoading(true);
       await login(userForm);
     } catch (error) {
-      setTimeout(() => {
-        setIsLoading(false);
-      }, 500);
-      console.log(error);
+      await waitAsync(500);
+      alert(error.response.data);
+      setIsLoading(false);
     }
   }
 
