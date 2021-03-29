@@ -1,9 +1,14 @@
 import React, { useState } from "react";
-import { PageContainer } from "../../styles/shared";
-import { Button, Card, Input, Link, HorizontalDivider } from "../../components/ui";
-import { Title, CardTitle, CardWrapper, Form } from "./styles";
+import { PageContainer, PageTitle, CardWrapper } from "../../styles/shared";
+import { Card, Form, Input, Link } from "../../components/ui";
 import { useStore } from "../../store";
 import { waitAsync } from "../../utils";
+
+const bottomText = (
+  <>
+    Dont have account yet ? <Link to="/register">Register here.</Link>
+  </>
+);
 
 const Login: React.FC = () => {
   const { login } = useStore();
@@ -30,12 +35,16 @@ const Login: React.FC = () => {
 
   return (
     <PageContainer>
-      <Title>Lucid Task</Title>
+      <PageTitle>Lucid Task</PageTitle>
 
       <CardWrapper>
-        <Card>
-          <CardTitle>Welcome</CardTitle>
-          <Form onSubmit={submitUserForm}>
+        <Card title="Login">
+          <Form
+            onSubmit={submitUserForm}
+            isLoading={isLoading}
+            buttonText={"Login"}
+            bottomText={bottomText}
+          >
             <Input
               label="Email"
               name="email"
@@ -52,15 +61,6 @@ const Login: React.FC = () => {
               value={userForm.password}
               onChange={handleUpdateUserForm}
             />
-
-            <Button isLoading={isLoading} type="submit">
-              Login
-            </Button>
-
-            <HorizontalDivider maxWidth={"360px"} marginY={"1.5rem"} />
-            <span>
-              Dont have account yet ? <Link to="/register">Register here.</Link>
-            </span>
           </Form>
         </Card>
       </CardWrapper>

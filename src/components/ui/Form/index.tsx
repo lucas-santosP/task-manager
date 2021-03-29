@@ -4,8 +4,8 @@ import { Button, HorizontalDivider } from "../";
 
 interface IProps extends React.FormHTMLAttributes<HTMLFormElement> {
   buttonText: string;
-  bottomText: ReactNode;
-  isLoading: boolean;
+  bottomText?: ReactNode;
+  isLoading?: boolean;
 }
 
 const Form: React.FC<IProps> = (props) => {
@@ -21,7 +21,7 @@ const Form: React.FC<IProps> = (props) => {
 
       <HorizontalDivider maxWidth={"360px"} marginY={"1.5rem"} />
 
-      <span className="bottom-text">{bottomText}</span>
+      {bottomText && <span className="bottom-text">{bottomText}</span>}
     </StyledForm>
   );
 };
