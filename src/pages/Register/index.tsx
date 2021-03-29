@@ -1,9 +1,14 @@
 import React, { useState } from "react";
-import { PageContainer } from "../../styles/shared";
-import { Button, Card, Input, Link, HorizontalDivider } from "../../components/ui";
-import { Title, CardTitle, CardWrapper, Form } from "./styles";
+import { PageContainer, PageTitle, CardWrapper } from "../../styles/shared";
+import { Card, Form, Input, Link } from "../../components/ui";
 import { useStore } from "../../store";
 import { waitAsync } from "../../utils";
+
+const bottomText = (
+  <>
+    Already have an account ? Do <Link to="/login">login here.</Link>
+  </>
+);
 
 const Register: React.FC = () => {
   const { register } = useStore();
@@ -34,12 +39,16 @@ const Register: React.FC = () => {
 
   return (
     <PageContainer>
-      <Title>Lucid Task</Title>
+      <PageTitle>Lucid Task</PageTitle>
 
       <CardWrapper>
-        <Card>
-          <CardTitle>Register</CardTitle>
-          <Form onSubmit={submitRegisterForm}>
+        <Card title="Register">
+          <Form
+            onSubmit={submitRegisterForm}
+            isLoading={isLoading}
+            buttonText={"Register"}
+            bottomText={bottomText}
+          >
             <Input
               label="Name"
               name="name"
@@ -64,15 +73,6 @@ const Register: React.FC = () => {
               value={registerForm.password}
               onChange={handleUpdateRegisterForm}
             />
-
-            <Button isLoading={isLoading} type="submit">
-              Register
-            </Button>
-
-            <HorizontalDivider maxWidth={"360px"} marginY={"1.5rem"} />
-            <span>
-              Already have an account ? Do <Link to="/login">login here.</Link>
-            </span>
           </Form>
         </Card>
       </CardWrapper>
