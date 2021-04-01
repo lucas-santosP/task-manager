@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { PageContainer, PageTitle, CardWrapper } from "../../styles/shared";
 import { Card, Form, Input, Link } from "../../components/ui";
-import { useStore } from "../../store";
+import { useUserContext } from "../../contexts/user";
 import { waitAsync } from "../../utils";
 
 const formBottomText = (
@@ -10,13 +10,15 @@ const formBottomText = (
   </>
 );
 
+const initialRegisterForm = {
+  name: "",
+  email: "email@email.com",
+  password: "pass",
+};
+
 const Register: React.FC = () => {
-  const { register } = useStore();
-  const [registerForm, setRegisterForm] = useState({
-    name: "",
-    email: "email@email.com",
-    password: "pass",
-  });
+  const { register } = useUserContext();
+  const [registerForm, setRegisterForm] = useState(initialRegisterForm);
   const [isLoading, setIsLoading] = useState(false);
 
   function handleUpdateRegisterForm(event: React.ChangeEvent<HTMLInputElement>) {

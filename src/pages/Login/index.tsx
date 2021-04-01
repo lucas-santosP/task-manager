@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { PageContainer, PageTitle, CardWrapper } from "../../styles/shared";
 import { Card, Form, Input, Link } from "../../components/ui";
-import { useStore } from "../../store";
+import { useUserContext } from "../../contexts/user";
 import { waitAsync } from "../../utils";
 
 const formBottomText = (
@@ -11,7 +11,7 @@ const formBottomText = (
 );
 
 const Login: React.FC = () => {
-  const { login } = useStore();
+  const { login } = useUserContext();
   const [userForm, setUserForm] = useState({ email: "email@email.com", password: "pass" });
   const [isLoading, setIsLoading] = useState(false);
 

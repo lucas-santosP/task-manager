@@ -1,5 +1,11 @@
 import { API } from "./api";
-import { IUser, ILoginPayload, IAuthPayload, IRegisterPayload, IDeleteUserPayload } from "../types";
+import {
+  IUser,
+  ILoginPayload,
+  IAuthPayload,
+  IRegisterPayload,
+  IDeleteUserPayload,
+} from "../types/user";
 
 interface ILoginResponse {
   user: IUser;

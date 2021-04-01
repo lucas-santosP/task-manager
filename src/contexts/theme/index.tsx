@@ -1,13 +1,8 @@
 import React, { createContext, useContext, useMemo } from "react";
 import { ThemeProvider } from "styled-components";
-import { DefaultTheme } from "styled-components";
-import { usePersistentState } from "../utils";
-import { light, dark } from "../styles/themes";
-
-interface ICustomThemeContext {
-  theme: DefaultTheme;
-  toggleTheme: () => void;
-}
+import { usePersistentState } from "../../utils";
+import { light, dark } from "../../styles/themes";
+import { ICustomThemeContext } from "./types";
 
 const CustomThemeContext = createContext({} as ICustomThemeContext);
 

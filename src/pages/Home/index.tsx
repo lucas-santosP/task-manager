@@ -1,9 +1,9 @@
 import React from "react";
-import { useStore } from "../../store";
+import { useUserContext } from "../../contexts/user";
 import { PageContainer } from "../../styles/shared";
 
 const Home: React.FC = () => {
-  const { user } = useStore();
+  const { user } = useUserContext();
 
   return (
     <PageContainer>

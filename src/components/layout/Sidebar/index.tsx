@@ -3,10 +3,10 @@ import { useLocation, useRoute } from "wouter";
 import { useTheme } from "../../../contexts/theme";
 import { SidebarContainer, NavList, NavItem, NavItemText } from "./styles";
 import { FaHome, FaBars, FaUser, FaMoon, FaSun, FaSignOutAlt } from "react-icons/fa";
-import { useStore } from "../../../store";
+import { useUserContext } from "../../../contexts/user";
 
 const Sidebar: React.FC = () => {
-  const { logout } = useStore();
+  const { logout } = useUserContext();
   const [, setLocation] = useLocation();
   const [currentPageIsHome] = useRoute("/home");
   const [currentPageIsProfile] = useRoute("/profile");

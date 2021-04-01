@@ -4,7 +4,8 @@ import { BaseLayout, GridLayout, LoadingBar, LoadingView } from "./components/la
 import { waitAsync } from "./utils";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
-import { useStore } from "./store";
+import { useUserContext } from "./contexts/user";
+import { useSharedContext } from "./contexts/shared";
 
 const Home = React.lazy(async () => {
   await waitAsync(700);
@@ -17,7 +18,8 @@ const Profile = React.lazy(async () => {
 });
 
 const Routes: React.FC = () => {
-  const { user, isLoading } = useStore();
+  const { user } = useUserContext();
+  const { isLoading } = useSharedContext();
 
   return (
     <Router>

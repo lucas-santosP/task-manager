@@ -1,29 +1,20 @@
-import React, { createContext, useContext, useEffect, useState } from "react";
+import React, { createContext, useContext, useEffect } from "react";
+import { setAPIAuthHeader } from "../../services/api";
 import { useLocation } from "wouter";
-import { setAPIAuthHeader } from "../services/api";
-import { UserServices } from "../services/user";
-import { useUserReducer } from "./user/userReducer";
-import { IUserState, UserActions } from "./user/userTypes";
-import { usePersistentState } from "../utils";
-import { ILoginPayload, IRegisterPayload } from "../types";
+import { useSharedContext } from "../shared";
+import { useUserReducer } from "./userReducer";
+import { UserServices } from "../../services/user";
+import { usePersistentState } from "../../utils";
+import { IUserContext, UserActions, IStorageAuth } from "./types";
+import { ILoginPayload, IRegisterPayload } from "../../types/user";
 
-interface IStoreState extends IUserState {
-  isLoading: boolean;
-  setLoading: (value: boolean) => void;
-  login: (userData: ILoginPayload) => Promise<void>;
-  register: (userData: IRegisterPayload) => Promise<void>;
-  logout: () => void;
-}
+const UserContext = createContext({} as IUserContext);
 
-type IStorageAuth = { _id: string; token: string } | null;
-
-const StoreContext = createContext({} as IStoreState);
-
-export const StoreProvider: React.FC = ({ children }) => {
+export const UserContextProvider: React.FC = ({ children }) => {
   const [, setLocation] = useLocation();
-  const [isLoading, setIsLoading] = useState(false);
+  const { setLoading } = useSharedContext();
   const [userState, dispatch] = useUserReducer();
-  const [storageAuth, setStorageAuth] = usePersistentState("user_auth", null as IStorageAuth);
+  const [storageAuth, setStorageAuth] = usePersistentState<IStorageAuth>("user_auth", null);
 
   async function login(userData: ILoginPayload) {
     const response = await UserServices.login(userData);
@@ -51,11 +42,6 @@ export const StoreProvider: React.FC = ({ children }) => {
     setLoading(false);
   }
 
-  function setLoading(value: boolean, minimumWait = 500) {
-    if (value) setIsLoading(value);
-    else setTimeout(() => setIsLoading(value), minimumWait);
-  }
-
   async function checkUserStorageAuth() {
     if (storageAuth) {
       try {
@@ -80,13 +66,13 @@ export const StoreProvider: React.FC = ({ children }) => {
   }, []);
 
   return (
-    <StoreContext.Provider value={{ ...userState, isLoading, setLoading, login, register, logout }}>
+    <UserContext.Provider value={{ ...userState, login, register, logout }}>
       {children}
-    </StoreContext.Provider>
+    </UserContext.Provider>
   );
 };
 
-export function useStore(): IStoreState {
-  const context = useContext(StoreContext);
+export function useUserContext(): IUserContext {
+  const context = useContext(UserContext);
   return { ...context };
 }

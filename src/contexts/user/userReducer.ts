@@ -1,12 +1,12 @@
 import { useReducer } from "react";
-import { UserActions, UserActionsTypes, IUserState } from "./userTypes";
+import { UserActions, UserActionsTypes, IUserReducerState } from "./types";
 
-const INITIAL_STATE: IUserState = {
+const INITIAL_STATE: IUserReducerState = {
   user: null,
   token: null,
 };
 
-const UserReducer = (state: IUserState, action: UserActionsTypes): IUserState => {
+const UserReducer = (state: IUserReducerState, action: UserActionsTypes): IUserReducerState => {
   switch (action.type) {
     case UserActions.LOGIN:
       const { user, token } = action.payload;
@@ -20,7 +20,7 @@ const UserReducer = (state: IUserState, action: UserActionsTypes): IUserState =>
   }
 };
 
-export function useUserReducer(): [IUserState, React.Dispatch<UserActionsTypes>] {
+export function useUserReducer(): [IUserReducerState, React.Dispatch<UserActionsTypes>] {
   const [userState, dispatch] = useReducer(UserReducer, INITIAL_STATE);
   return [userState, dispatch];
 }

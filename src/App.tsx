@@ -1,17 +1,20 @@
 import React from "react";
-import { CustomThemeProvider } from "./contexts/theme";
 import GlobalStyles from "./styles/global";
 import Routes from "./Routes";
-import { StoreProvider } from "./store";
+import { CustomThemeProvider } from "./contexts/theme";
+import { SharedContextProvider } from "./contexts/shared";
+import { UserContextProvider } from "./contexts/user";
 
 const App: React.FC = () => {
   return (
-    <StoreProvider>
-      <CustomThemeProvider>
-        <GlobalStyles />
-        <Routes />
-      </CustomThemeProvider>
-    </StoreProvider>
+    <SharedContextProvider>
+      <UserContextProvider>
+        <CustomThemeProvider>
+          <GlobalStyles />
+          <Routes />
+        </CustomThemeProvider>
+      </UserContextProvider>
+    </SharedContextProvider>
   );
 };
 
