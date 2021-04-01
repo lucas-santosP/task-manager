@@ -4,7 +4,7 @@ import { Card, Form, Input, Link } from "../../components/ui";
 import { useStore } from "../../store";
 import { waitAsync } from "../../utils";
 
-const bottomText = (
+const formBottomText = (
   <>
     Dont have account yet ? <Link to="/register">Register here.</Link>
   </>
@@ -28,7 +28,7 @@ const Login: React.FC = () => {
       await login(userForm);
     } catch (error) {
       await waitAsync(500);
-      alert(error.response.data);
+      alert(error?.response?.data);
       setIsLoading(false);
     }
   }
@@ -43,7 +43,7 @@ const Login: React.FC = () => {
             onSubmit={submitUserForm}
             isLoading={isLoading}
             buttonText={"Login"}
-            bottomText={bottomText}
+            bottomText={formBottomText}
           >
             <Input
               label="Email"
