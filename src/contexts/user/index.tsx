@@ -49,8 +49,8 @@ export const UserContextProvider: React.FC = ({ children }) => {
         const { _id, token } = storageAuth;
         const response = await UserServices.auth({ userId: _id, token });
         const { user } = response.data;
-        dispatch({ type: UserActions.LOGIN, payload: { user, token } });
         setAPIAuthHeader(token);
+        dispatch({ type: UserActions.LOGIN, payload: { user, token } });
         setLocation("/home", { replace: true });
       } catch (error) {
         console.log("Storage user not found");

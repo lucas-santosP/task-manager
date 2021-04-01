@@ -1,21 +1,22 @@
-import React from "react";
-import GlobalStyles from "./styles/global";
+import React, { useEffect, useState } from "react";
+import { useTemplateContext } from "./contexts/templates";
+import { useUserContext } from "./contexts/user";
 import Routes from "./Routes";
-import { CustomThemeProvider } from "./contexts/theme";
-import { SharedContextProvider } from "./contexts/shared";
-import { UserContextProvider } from "./contexts/user";
 
 const App: React.FC = () => {
-  return (
-    <SharedContextProvider>
-      <UserContextProvider>
-        <CustomThemeProvider>
-          <GlobalStyles />
-          <Routes />
-        </CustomThemeProvider>
-      </UserContextProvider>
-    </SharedContextProvider>
-  );
+  const { token } = useUserContext();
+  const { fetchTemplates } = useTemplateContext();
+  const [isFetching, setIsFetching] = useState(true);
+
+  useEffect(() => {
+    if (token) {
+      setIsFetching(true);
+      fetchTemplates().then(() => setIsFetching(false));
+    }
+  }, [token]);
+
+  if (isFetching) return null;
+  else return <Routes />;
 };
 
 export default App;
