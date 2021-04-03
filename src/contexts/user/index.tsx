@@ -1,5 +1,4 @@
 import React, { createContext, useContext, useEffect } from "react";
-import { setAPIAuthHeader } from "../../services/api";
 import { useLocation } from "wouter";
 import { useSharedContext } from "../shared";
 import { useUserReducer } from "./userReducer";
@@ -21,7 +20,6 @@ export const UserContextProvider: React.FC = ({ children }) => {
     const { user, token } = response.data;
     dispatch({ type: UserActions.LOGIN, payload: { user, token } });
     setStorageAuth({ _id: user._id, token });
-    setAPIAuthHeader(token);
     setLocation("/home", { replace: true });
   }
 
@@ -30,7 +28,6 @@ export const UserContextProvider: React.FC = ({ children }) => {
     const { user, token } = response.data;
     dispatch({ type: UserActions.LOGIN, payload: { user, token } });
     setStorageAuth({ _id: user._id, token });
-    setAPIAuthHeader(token);
     setLocation("/home", { replace: true });
   }
 
@@ -49,7 +46,6 @@ export const UserContextProvider: React.FC = ({ children }) => {
         const { _id, token } = storageAuth;
         const response = await UserServices.auth({ userId: _id, token });
         const { user } = response.data;
-        setAPIAuthHeader(token);
         dispatch({ type: UserActions.LOGIN, payload: { user, token } });
         setLocation("/home", { replace: true });
       } catch (error) {
