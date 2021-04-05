@@ -5,5 +5,15 @@ import Input from "./Input";
 import Link from "./Link";
 import HorizontalDivider from "./HorizontalDivider";
 import AppendButtonToggleTheme from "./AppendButtonToggleTheme";
+import AppendButtonAdd from "./AppendButtonAdd";
 
-export { Button, Input, Link, Card, Form, AppendButtonToggleTheme, HorizontalDivider };
+export {
+  Button,
+  Input,
+  Link,
+  Card,
+  Form,
+  AppendButtonToggleTheme,
+  HorizontalDivider,
+  AppendButtonAdd,
+};

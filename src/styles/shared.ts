@@ -47,6 +47,8 @@ export const PageContainer = styled.div`
   flex-direction: column;
   padding: 0 1rem;
   overflow-y: auto;
+  overflow-x: hidden;
+  min-width: 300px;
 `;
 
 export const CardWrapper = styled.div`
