@@ -2,6 +2,7 @@ import React from "react";
 import { useTemplateContext } from "../../contexts/templates";
 import { useUserContext } from "../../contexts/user";
 import { PageContainer } from "../../styles/shared";
+import TemplateList from "./TemplatesList";
 
 const Home: React.FC = () => {
   const { user } = useUserContext();
@@ -11,14 +12,9 @@ const Home: React.FC = () => {
     <PageContainer>
       <h1>Home</h1>
 
-      <p>{user?.name}</p>
+      <p>Hello {user?.name} !</p>
 
-      <h3>Templates</h3>
-      <ul>
-        {templates.map((template) => (
-          <li key={template._id}>{template.title}</li>
-        ))}
-      </ul>
+      <TemplateList templates={templates} />
     </PageContainer>
   );
 };
