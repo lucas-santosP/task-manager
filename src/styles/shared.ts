@@ -11,6 +11,12 @@ export const baseFocus = css`
     outline: none;
   }
 `;
+export const noFocus = css`
+  &:focus {
+    box-shadow: none;
+    outline: none;
+  }
+`;
 
 export const baseTransition = css`
   transition: all ease 0.3s;
@@ -24,6 +30,14 @@ export const fadeInAnimation = keyframes`
     opacity: 1;
   }
 `;
+export const rotateAnimation = keyframes`
+  from {
+    transform: rotate(0deg)
+  }
+  to {
+    transform: rotate(360deg)
+  }
+`;
 
 export const PageContainer = styled.div`
   width: 100%;
@@ -31,7 +45,7 @@ export const PageContainer = styled.div`
   animation: ${fadeInAnimation} 0.8s ease;
   display: flex;
   flex-direction: column;
-  padding-left: 1rem;
+  padding: 0 1rem;
   overflow-y: auto;
 `;
 
