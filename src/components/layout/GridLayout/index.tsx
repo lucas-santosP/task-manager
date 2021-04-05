@@ -17,7 +17,6 @@ const StyledGridLayout = styled.div`
     position: relative;
     overflow: hidden;
     width: 100%;
-    padding: 0.5rem;
     transition: all ease 0.3s;
   }
 `;

@@ -27,9 +27,12 @@ export const fadeInAnimation = keyframes`
 
 export const PageContainer = styled.div`
   width: 100%;
+  height: 100%;
   animation: ${fadeInAnimation} 0.8s ease;
   display: flex;
   flex-direction: column;
+  padding-left: 1rem;
+  overflow-y: auto;
 `;
 
 export const CardWrapper = styled.div`
