@@ -1,7 +1,7 @@
 import React from "react";
 import { useTemplateContext } from "../../contexts/templates";
 import { useUserContext } from "../../contexts/user";
-import { PageContainer } from "../../styles/shared";
+import { PageContainer, PageTitle } from "../../styles/shared";
 import TemplateList from "./TemplatesList";
 import { AppendButtonAdd } from "../../components/ui";
 
@@ -11,7 +11,7 @@ const Home: React.FC = () => {
 
   return (
     <PageContainer>
-      <h1>Home</h1>
+      <PageTitle>Home</PageTitle>
 
       <p>Hello {user?.name} !</p>
 

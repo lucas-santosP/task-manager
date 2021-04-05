@@ -58,10 +58,15 @@ export const CardWrapper = styled.div`
   align-items: center;
 `;
 
-export const PageTitle = styled.h1`
+interface IPropsPageTitle {
+  align?: "center" | "start";
+}
+export const PageTitle = styled.h1<IPropsPageTitle>`
   font-size: ${({ theme }) => theme.fontSize.lg};
   font-family: ${({ theme }) => theme.fontFamily.secondary};
-  margin: 1rem auto 2rem auto;
+  margin-top: 0.5rem;
+  margin-bottom: 1rem;
+  text-align: ${({ align }) => align || "start"};
 
   @media (max-width: ${breakPoints.xl}) {
     font-size: 2rem;

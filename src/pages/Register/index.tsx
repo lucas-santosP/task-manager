@@ -41,7 +41,7 @@ const Register: React.FC = () => {
 
   return (
     <PageContainer>
-      <PageTitle>Lucid Task</PageTitle>
+      <PageTitle align="center">Lucid Task</PageTitle>
 
       <CardWrapper>
         <Card title="Register">
