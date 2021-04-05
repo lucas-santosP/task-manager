@@ -1,6 +1,6 @@
 import styled, { DefaultTheme, css } from "styled-components";
 import { shade } from "polished";
-import { breakPoints } from "../../../styles/shared";
+import { breakPoints, baseTransition } from "../../../styles/shared";
 
 interface IStyledProps {
   isExpanded: boolean;
@@ -16,12 +16,12 @@ const navItemBackground = (theme: DefaultTheme) => {
 };
 
 export const SidebarContainer = styled.aside<IStyledProps>`
+  ${baseTransition}
   display: flex;
   flex-direction: column;
-  width: ${({ isExpanded }) => (isExpanded ? "250px" : "80px")};
+  width: ${({ isExpanded }) => (isExpanded ? "220px" : "60px")};
   height: 100vh;
   background-color: ${({ theme }) => theme.colors.primary};
-  transition: all ease 0.3s;
 
   nav {
     flex: 1;
@@ -39,10 +39,10 @@ export const NavList = styled.ul`
 `;
 
 export const NavItem = styled.li<INavItem>`
+  ${baseTransition}
   position: relative;
-  height: 45px;
-  margin: 0.5rem 0;
-  transition: all ease 0.3s;
+  height: 42px;
+  margin: 0.2rem 0;
   color: ${({ theme }) => theme.colors.secondary};
   cursor: pointer;
 
@@ -58,15 +58,11 @@ export const NavItem = styled.li<INavItem>`
       background-color: ${navItemBackground(theme)};
     `}
 
-  @media (max-width: ${breakPoints.xl}) {
-    margin: 0.2rem 0;
-  }
-
   svg,
   img {
     position: absolute;
     top: 50%;
-    left: 40px;
+    left: 30px;
     transform: translate(-50%, -50%);
     width: 22px;
     height: 22px;
@@ -80,14 +76,16 @@ export const NavItem = styled.li<INavItem>`
 `;
 
 export const NavItemText = styled.span<IStyledProps>`
+  ${baseTransition}
   position: absolute;
   top: 50%;
-  left: 70px;
+  left: 60px;
   transform: translateY(-50%);
-  font-size: 1.1rem;
+  font-size: 1rem;
+  font-family: ${({ theme }) => theme.fontFamily.secondary};
   white-space: nowrap;
-  transition: all ease 0.3s;
   opacity: 0;
+  pointer-events: none;
 
   ${({ isExpanded }) =>
     isExpanded &&
@@ -95,4 +93,8 @@ export const NavItemText = styled.span<IStyledProps>`
       opacity: 1;
       transition-delay: 200ms;
     `};
+
+  @media (max-width: ${breakPoints.xl}) {
+    left: 55px;
+  }
 `;
