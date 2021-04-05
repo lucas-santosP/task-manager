@@ -15,6 +15,16 @@ const navItemBackground = (theme: DefaultTheme) => {
   return shade(shadeValue, theme.colors.primary);
 };
 
+const SelectedLeftLine = css`
+  &::before {
+    content: "";
+    position: absolute;
+    background-color: ${({ theme }) => theme.colors.secondary};
+    height: 100%;
+    width: 4px;
+  }
+`;
+
 export const SidebarContainer = styled.aside<IStyledProps>`
   ${baseTransition}
   display: flex;
@@ -56,6 +66,7 @@ export const NavItem = styled.li<INavItem>`
       cursor: default;
       background-color: none;
       background-color: ${navItemBackground(theme)};
+      ${SelectedLeftLine};
     `}
 
   svg,
