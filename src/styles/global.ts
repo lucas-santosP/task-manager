@@ -1,4 +1,5 @@
 import { createGlobalStyle } from "styled-components";
+import { breakPoints } from "./shared";
 
 export default createGlobalStyle`
   *,
@@ -36,6 +37,12 @@ export default createGlobalStyle`
     
     &:hover{
       text-decoration: underline;
+    }
+  }
+
+  @media (max-width: ${breakPoints.xl}) {
+    body{
+      font-size: 14px;
     }
   }
 `;
