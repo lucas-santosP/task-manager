@@ -1,6 +1,6 @@
 export interface ITemplate {
   _id: string;
-  title: string;
+  name: string;
   description: string;
   tasks: string[]; // ITask[]
   createdAt: string;
@@ -9,13 +9,13 @@ export interface ITemplate {
 }
 
 export interface ICreateTemplatePayload {
-  title: string;
+  name: string;
   description: string;
 }
 
 export interface IUpdateTemplatePayload {
   _id: string;
-  title: string;
+  name: string;
   description: string;
 }
 
