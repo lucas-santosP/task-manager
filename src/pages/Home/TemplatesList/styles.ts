@@ -1,13 +1,5 @@
 import styled, { css } from "styled-components";
 
-export const Section = styled.section`
-  padding: 0.5rem 0;
-`;
-
-export const ListTitle = styled.h3`
-  font-size: 1.5rem;
-`;
-
 export const StyledList = styled.ul`
   display: flex;
   flex-wrap: wrap;
@@ -18,7 +10,6 @@ export const StyledList = styled.ul`
     border-radius: 0.7rem;
     padding: 0.5rem 1.5rem;
     padding-bottom: 1rem;
-    margin: 0.5rem 0;
     text-align: center;
     background-color: #ffff;
     box-shadow: 0 0 2px 0px #333;

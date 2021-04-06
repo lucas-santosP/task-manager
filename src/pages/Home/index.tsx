@@ -1,21 +1,24 @@
 import React from "react";
-import { useTemplateContext } from "../../contexts/templates";
-import { useUserContext } from "../../contexts/user";
 import { PageContainer, PageTitle } from "../../styles/shared";
-import TemplateList from "./TemplatesList";
+import { Section, SectionTitle } from "./styles";
 import { AppendButtonAdd } from "../../components/ui";
+import TemplateList from "./TemplatesList";
+import LatestTaskList from "./LatestTasksList";
 
 const Home: React.FC = () => {
-  const { user } = useUserContext();
-  const { templates } = useTemplateContext();
-
   return (
     <PageContainer>
       <PageTitle>Home</PageTitle>
 
-      <p>Hello {user?.name} !</p>
+      <Section>
+        <SectionTitle>Your Templates</SectionTitle>
+        <TemplateList />
+      </Section>
 
-      <TemplateList templates={templates} />
+      <Section style={{ marginTop: "auto", marginBottom: "2rem" }}>
+        <SectionTitle>Latest Tasks</SectionTitle>
+        <LatestTaskList />
+      </Section>
 
       <AppendButtonAdd text="Create new Template" onClick={() => console.log("click")} />
     </PageContainer>
