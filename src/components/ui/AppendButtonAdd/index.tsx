@@ -11,15 +11,16 @@ const AppendButtonAdd: React.FC<IProps> = (props) => {
   const { onClick, text } = props;
 
   return (
-    <AppendButtonContainer>
-      <FaPlus />
-
+    <>
+      <AppendButtonContainer>
+        <FaPlus />
+      </AppendButtonContainer>
       <ContainerFixed>
         <button type="button" onClick={onClick}>
           {text}
         </button>
       </ContainerFixed>
-    </AppendButtonContainer>
+    </>
   );
 };
 
