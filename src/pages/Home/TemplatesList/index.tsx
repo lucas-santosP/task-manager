@@ -1,6 +1,7 @@
 import React from "react";
 import { Section, ListTitle, StyledList } from "./styles";
 import { ITemplate } from "../../../types/template";
+import { normalizeDateString } from "../../../utils";
 
 interface IProps {
   templates: ITemplate[];
@@ -8,15 +9,6 @@ interface IProps {
 
 const TemplateList: React.FC<IProps> = (props) => {
   const { templates } = props;
-
-  function normalizeDateString(dateString: string) {
-    const date = new Date(dateString);
-    const day = date.getDate();
-    const month = date.getMonth() + 1;
-    const year = date.getFullYear();
-
-    return `${month}/${day}/${year}`;
-  }
 
   return (
     <Section>
