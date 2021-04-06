@@ -1,3 +1,4 @@
+import { ITask } from "../../types/task";
 import { ITemplate } from "../../types/template";
 
 // Template Reducer
@@ -40,4 +41,5 @@ export interface ITemplateContext extends ITemplateReducerState {
   createTemplate: (template: ITemplate) => void;
   updateTemplate: (template: ITemplate) => void;
   deleteTemplate: (templateId: string) => void;
+  latestTasks: ITask[];
 }

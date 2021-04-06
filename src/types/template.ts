@@ -1,8 +1,10 @@
+import { ITask } from "./task";
+
 export interface ITemplate {
   _id: string;
   name: string;
   description: string;
-  tasks: string[]; // ITask[]
+  tasks: ITask[];
   createdAt: string;
   updatedAt: string;
   __v?: number;

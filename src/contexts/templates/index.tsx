@@ -1,10 +1,11 @@
-import React, { createContext, useContext } from "react";
+import React, { createContext, useContext, useMemo } from "react";
 import { TemplateServices } from "../../services/templates";
+import { ITask } from "../../types/task";
 import { ITemplate } from "../../types/template";
 import { useTemplateReducer } from "./templateReducer";
 import { ITemplateContext, TemplateActions } from "./types";
 
-const UserContext = createContext({} as ITemplateContext);
+const TemplateContext = createContext({} as ITemplateContext);
 
 export const TemplateContextProvider: React.FC = ({ children }) => {
   const [state, dispatch] = useTemplateReducer();
@@ -28,16 +29,42 @@ export const TemplateContextProvider: React.FC = ({ children }) => {
     dispatch({ type: TemplateActions.DELETE, payload: { templateId } });
   }
 
+  const latestTasks = useMemo(() => {
+    let allTasks: ITask[] = [];
+
+    state.templates.forEach((template) => {
+      allTasks = [...allTasks, ...template.tasks];
+    });
+
+    const tasksOrdered = allTasks.sort((task1, task2) => {
+      const date1 = new Date(task1.updatedAt);
+      const date2 = new Date(task2.updatedAt);
+
+      if (date1 > date2) return -1;
+      else if (date1 < date2) return 1;
+      return 0;
+    });
+
+    return tasksOrdered.slice(0, 10);
+  }, [state.templates]);
+
   return (
-    <UserContext.Provider
-      value={{ ...state, fetchTemplates, createTemplate, updateTemplate, deleteTemplate }}
+    <TemplateContext.Provider
+      value={{
+        ...state,
+        latestTasks,
+        fetchTemplates,
+        createTemplate,
+        updateTemplate,
+        deleteTemplate,
+      }}
     >
       {children}
-    </UserContext.Provider>
+    </TemplateContext.Provider>
   );
 };
 
 export function useTemplateContext(): ITemplateContext {
-  const context = useContext(UserContext);
+  const context = useContext(TemplateContext);
   return { ...context };
 }
