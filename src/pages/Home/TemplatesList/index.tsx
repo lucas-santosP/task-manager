@@ -8,6 +8,8 @@ const TemplateList: React.FC = () => {
 
   return (
     <StyledList>
+      {!templates.length && <span>No Templates found.</span>}
+
       {templates.map((template) => (
         <li key={template._id}>
           <span className="name" title={template.name}>

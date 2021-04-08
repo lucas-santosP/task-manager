@@ -4,6 +4,7 @@ export const StyledList = styled.ul`
   display: flex;
   flex-wrap: wrap;
   gap: 1.5rem;
+  min-height: 56px;
 
   > li {
     width: 18rem;

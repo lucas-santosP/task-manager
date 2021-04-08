@@ -9,17 +9,15 @@ const Home: React.FC = () => {
   return (
     <PageContainer>
       <PageTitle>Home</PageTitle>
-
       <Section>
-        <SectionTitle>Your Templates</SectionTitle>
-        <TemplateList />
-      </Section>
-
-      <Section style={{ marginTop: "auto", marginBottom: "2rem" }}>
         <SectionTitle>Latest Tasks</SectionTitle>
         <LatestTaskList />
       </Section>
 
+      <Section style={{ marginBottom: "2rem" }}>
+        <SectionTitle>Your Templates</SectionTitle>
+        <TemplateList />
+      </Section>
       <AppendButtonAdd text="Create new Template" onClick={() => console.log("click")} />
     </PageContainer>
   );

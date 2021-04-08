@@ -8,6 +8,8 @@ const LatestTaskList: React.FC = () => {
 
   return (
     <StyledList>
+      {!latestTasks.length && <span>No Tasks added recently.</span>}
+
       {latestTasks.map((task) => (
         <li key={task._id}>
           <span className="name" title={task.name}>
