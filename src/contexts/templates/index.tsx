@@ -1,7 +1,11 @@
 import React, { createContext, useContext, useMemo } from "react";
 import { TemplateServices } from "../../services/templates";
 import { ITask } from "../../types/task";
-import { ITemplate } from "../../types/template";
+import {
+  ICreateTemplatePayload,
+  IUpdateTemplatePayload,
+  IDeleteTemplatePayload,
+} from "../../types/template";
 import { useTemplateReducer } from "./templateReducer";
 import { ITemplateContext, TemplateActions } from "./types";
 
@@ -14,19 +18,26 @@ export const TemplateContextProvider: React.FC = ({ children }) => {
     const response = await TemplateServices.get();
     const { templates } = response.data;
     dispatch({ type: TemplateActions.SET, payload: { templates } });
-    console.log("templates", templates);
+    console.log("templates fetched", templates);
   }
 
-  function createTemplate(template: ITemplate) {
+  async function createTemplate(payload: ICreateTemplatePayload) {
+    const response = await TemplateServices.create(payload);
+    const { template } = response.data;
     dispatch({ type: TemplateActions.CREATE, payload: { template } });
   }
 
-  function updateTemplate(template: ITemplate) {
+  async function updateTemplate(payload: IUpdateTemplatePayload) {
+    const response = await TemplateServices.update(payload);
+    const { template } = response.data;
     dispatch({ type: TemplateActions.UPDATE, payload: { template } });
   }
 
-  function deleteTemplate(templateId: string) {
-    dispatch({ type: TemplateActions.DELETE, payload: { templateId } });
+  async function deleteTemplate(payload: IDeleteTemplatePayload) {
+    const response = await TemplateServices.delete(payload);
+    if (response.data?.template?.ok) {
+      dispatch({ type: TemplateActions.DELETE, payload: { templateId: payload.templateId } });
+    }
   }
 
   const latestTasks = useMemo(() => {
