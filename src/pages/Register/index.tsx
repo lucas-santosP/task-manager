@@ -52,6 +52,7 @@ const Register: React.FC = () => {
             bottomText={formBottomText}
           >
             <Input
+              focused
               label="Name"
               name="name"
               placeholder="Enter your name"
