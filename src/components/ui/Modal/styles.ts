@@ -14,7 +14,7 @@ export const ModalOverlay = styled.div`
   width: 100vw;
   top: 0;
   left: 0;
-  background-color: ${({ theme }) => (theme.title === "light" ? "#0000004d" : "#c1c1c121")};
+  background-color: ${({ theme }) => (theme.title === "light" ? "#0000004d" : "#00000087")};
   transform: all 0.5s ease;
   animation: ${fadeInAnimation} 0.2s ease;
 `;
