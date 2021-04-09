@@ -6,7 +6,7 @@ interface IProps extends React.FormHTMLAttributes<HTMLFormElement> {
   buttonText: string;
   bottomText?: ReactNode;
   isLoading?: boolean;
-  onSubmit: (e?: React.FormEvent<HTMLFormElement>) => void;
+  onSubmit: (e?: React.FormEvent<HTMLFormElement>) => unknown;
 }
 
 const Form: React.FC<IProps> = (props) => {

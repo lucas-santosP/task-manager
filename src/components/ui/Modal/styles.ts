@@ -47,7 +47,7 @@ export const ModalContainer = styled.div`
 export const ModalHeader = styled.header`
   ${flexCenter}
   position: relative;
-  font-size: ${({ theme }) => theme.fontSize.md};
+  font-size: 1.2rem;
   text-align: center;
 
   .btn-close {
