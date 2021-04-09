@@ -10,7 +10,7 @@ import { ILoginPayload, IRegisterPayload } from "../../types/user";
 const UserContext = createContext({} as IUserContext);
 
 export const UserContextProvider: React.FC = ({ children }) => {
-  const [, setLocation] = useLocation();
+  const [location, setLocation] = useLocation();
   const { setLoading } = useSharedContext();
   const [userState, dispatch] = useUserReducer();
   const [storageAuth, setStorageAuth] = usePersistentState<IStorageAuth>("user_auth", null);
@@ -47,13 +47,16 @@ export const UserContextProvider: React.FC = ({ children }) => {
         const response = await UserServices.auth({ userId: _id, token });
         const { user } = response.data;
         dispatch({ type: UserActions.LOGIN, payload: { user, token } });
-        setLocation("/home", { replace: true });
+        if (location === "/login" || location === "/register")
+          setLocation("/home", { replace: true });
       } catch (error) {
         console.log("Storage user not found");
         setLocation("/login", { replace: true });
       } finally {
         setLoading(false, 1000);
       }
+    } else {
+      setLocation("/login", { replace: true });
     }
   }
 
