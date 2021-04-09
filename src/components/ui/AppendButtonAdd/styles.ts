@@ -33,7 +33,7 @@ export const AppendButtonContainer = styled.div`
   &:hover {
     ~ div {
       opacity: 1;
-      pointer-events: initial;
+      pointer-events: auto;
     }
   }
 
