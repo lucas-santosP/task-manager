@@ -20,9 +20,7 @@ const Login: React.FC = () => {
     setUserForm((prev) => ({ ...prev, [name]: value }));
   }
 
-  async function submitUserForm(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-
+  async function submitUserForm() {
     try {
       setIsLoading(true);
       await login(userForm);

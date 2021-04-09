@@ -6,22 +6,31 @@ interface IProps extends React.FormHTMLAttributes<HTMLFormElement> {
   buttonText: string;
   bottomText?: ReactNode;
   isLoading?: boolean;
+  onSubmit: (e?: React.FormEvent<HTMLFormElement>) => void;
 }
 
 const Form: React.FC<IProps> = (props) => {
-  const { children, buttonText, isLoading, bottomText, ...rest } = props;
+  const { children, buttonText, isLoading, bottomText, onSubmit, ...rest } = props;
+
+  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    onSubmit(e);
+  }
 
   return (
-    <StyledForm {...rest}>
+    <StyledForm onSubmit={handleSubmit} {...rest}>
       {children}
 
       <Button type="submit" className="button" isLoading={isLoading}>
         {buttonText}
       </Button>
 
-      <HorizontalDivider maxWidth={"360px"} marginY={"1.5rem"} />
-
-      {bottomText && <span className="bottom-text">{bottomText}</span>}
+      {bottomText && (
+        <>
+          <HorizontalDivider maxWidth={"360px"} marginY={"1.5rem"} />
+          <span className="bottom-text">{bottomText}</span>
+        </>
+      )}
     </StyledForm>
   );
 };

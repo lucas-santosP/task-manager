@@ -26,9 +26,7 @@ const Register: React.FC = () => {
     setRegisterForm((prev) => ({ ...prev, [name]: value }));
   }
 
-  async function submitRegisterForm(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-
+  async function submitRegisterForm() {
     try {
       setIsLoading(true);
       await register(registerForm);
