@@ -18,6 +18,11 @@ const Profile = React.lazy(async () => {
   return import("./pages/Profile");
 });
 
+const TemplateTasks = React.lazy(async () => {
+  await waitAsync(700);
+  return import("./pages/TemplateTasks");
+});
+
 const Routes: React.FC = () => {
   const { user } = useUserContext();
   const { isLoading } = useSharedContext();
@@ -31,6 +36,9 @@ const Routes: React.FC = () => {
             <Switch>
               <Route path="/home" component={Home} />
               <Route path="/profile" component={Profile} />
+              <Route path="/template/:id">
+                {(params) => <TemplateTasks templateId={params.id} />}
+              </Route>
               <Route path="/">
                 <Redirect to="/home" />
               </Route>

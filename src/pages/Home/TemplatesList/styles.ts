@@ -1,4 +1,5 @@
 import styled, { css } from "styled-components";
+import { baseTransition } from "../../../styles/shared";
 
 export const StyledList = styled.ul`
   display: flex;
@@ -7,20 +8,27 @@ export const StyledList = styled.ul`
   min-height: 110px;
 
   > li {
+    ${baseTransition}
     width: 15rem;
     border-radius: 0.7rem;
     padding: 0.5rem 1.5rem;
     padding-bottom: 1rem;
     text-align: center;
     background-color: #ffff;
-    box-shadow: 0 0 2px 0px #333;
+    box-shadow: 0 0 2px 0 #333;
+    cursor: pointer;
 
     ${({ theme }) =>
       theme.title === "dark" &&
       css`
         background-color: ${theme.colors.gray};
-        box-shadow: 0 0 2px 0px #000;
+        box-shadow: 0 0 2px 0 #fff;
       `}
+
+    &:hover {
+      transform: scale(1.03);
+      box-shadow: 0 0 2px 1px;
+    }
 
     .name {
       display: block;
