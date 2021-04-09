@@ -1,5 +1,5 @@
 import styled, { css } from "styled-components";
-import { FaMoon, FaSun } from "react-icons/fa";
+import { HiOutlineMoon, HiOutlineSun } from "react-icons/hi";
 import { fadeInAnimation } from "../../../styles/shared";
 
 export const ButtonContainer = styled.button`
@@ -43,13 +43,13 @@ export const BaseIconStyles = css`
   transition: all 0.4s ease;
 `;
 
-export const IconLightTheme = styled(FaSun)`
+export const IconLightTheme = styled(HiOutlineSun)`
   ${BaseIconStyles}
   color: ${({ theme }) => theme.colors.yellow};
   transition-duration: 0.7s;
 `;
 
-export const IconDarkTheme = styled(FaMoon)`
+export const IconDarkTheme = styled(HiOutlineMoon)`
   ${BaseIconStyles}
   color: ${({ theme }) => theme.colors.gray};
 `;

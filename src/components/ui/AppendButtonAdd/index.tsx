@@ -1,5 +1,5 @@
 import React, { MouseEvent } from "react";
-import { FaPlus } from "react-icons/fa";
+import { HiOutlinePlus } from "react-icons/hi";
 import { AppendButtonContainer, ContainerFixed } from "./styles";
 
 interface IProps {
@@ -13,7 +13,7 @@ const AppendButtonAdd: React.FC<IProps> = (props) => {
   return (
     <>
       <AppendButtonContainer>
-        <FaPlus />
+        <HiOutlinePlus />
       </AppendButtonContainer>
       <ContainerFixed>
         <button type="button" onClick={onClick}>

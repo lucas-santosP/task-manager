@@ -2,7 +2,15 @@ import React, { useState } from "react";
 import { useLocation, useRoute } from "wouter";
 import { useTheme } from "../../../contexts/theme";
 import { SidebarContainer, NavList, NavItem, NavItemText } from "./styles";
-import { FaHome, FaBars, FaUser, FaMoon, FaSun, FaSignOutAlt } from "react-icons/fa";
+
+import {
+  HiOutlineMenu,
+  HiOutlineHome,
+  HiOutlineUser,
+  HiOutlineMoon,
+  HiOutlineSun,
+  HiOutlineLogout,
+} from "react-icons/hi";
 import { useUserContext } from "../../../contexts/user";
 
 const Sidebar: React.FC = () => {
@@ -18,28 +26,28 @@ const Sidebar: React.FC = () => {
       <nav>
         <NavList>
           <NavItem onClick={() => setIsExpanded(!isExpanded)}>
-            <FaBars />
+            <HiOutlineMenu />
             <NavItemText isExpanded={isExpanded}>Menu</NavItemText>
           </NavItem>
 
           <NavItem isSelected={currentPageIsHome} onClick={() => setLocation("/home")}>
-            <FaHome />
+            <HiOutlineHome />
             <NavItemText isExpanded={isExpanded}>Home</NavItemText>
           </NavItem>
 
           <NavItem isSelected={currentPageIsProfile} onClick={() => setLocation("/profile")}>
-            <FaUser />
+            <HiOutlineUser />
             <NavItemText isExpanded={isExpanded}>Profile</NavItemText>
           </NavItem>
 
           <div style={{ marginTop: "auto" }}>
             <NavItem onClick={toggleTheme}>
-              {theme.title === "light" ? <FaMoon /> : <FaSun />}
+              {theme.title === "light" ? <HiOutlineMoon /> : <HiOutlineSun />}
               <NavItemText isExpanded={isExpanded}>Toggle theme</NavItemText>
             </NavItem>
 
             <NavItem onClick={logout}>
-              <FaSignOutAlt />
+              <HiOutlineLogout />
               <NavItemText isExpanded={isExpanded}>Logout</NavItemText>
             </NavItem>
           </div>

@@ -37,6 +37,10 @@ export const AppendButtonContainer = styled.div`
     }
   }
 
+  svg {
+    font-size: 2.4rem;
+  }
+
   @media (max-width: ${breakPoints.xl}) {
     width: 3rem;
     height: 3rem;
