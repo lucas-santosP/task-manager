@@ -3,6 +3,7 @@ import { ModalOverlay, ModalContainer, ModalHeader, ModalMain } from "./styles";
 
 interface IProps {
   title?: string;
+  maxWidth?: number | string;
   children: React.ReactNode;
 }
 
@@ -12,7 +13,7 @@ export interface ModalRef {
 }
 
 const Modal: React.ForwardRefRenderFunction<ModalRef, IProps> = (props, ref) => {
-  const { title = "Empty title", children } = props;
+  const { title = "Empty title", maxWidth = 600, children } = props;
 
   const [visibility, setVisibility] = useState(false);
 
@@ -47,7 +48,11 @@ const Modal: React.ForwardRefRenderFunction<ModalRef, IProps> = (props, ref) => 
     <>
       <ModalOverlay className="modal-overlay" onClick={handleClickOnOverlay} />
 
-      <ModalContainer className="modal" onClick={(e) => e.stopPropagation()}>
+      <ModalContainer
+        style={{ maxWidth: `${maxWidth}px` }}
+        className="modal"
+        onClick={(e) => e.stopPropagation()}
+      >
         <ModalHeader>
           <h2>{title}</h2>
 

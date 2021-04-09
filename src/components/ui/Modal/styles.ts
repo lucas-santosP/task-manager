@@ -30,7 +30,7 @@ export const ModalContainer = styled.div`
   justify-content: space-between;
   padding: 2rem 3rem;
   padding-top: 1rem;
-  width: 600px;
+  width: 100%;
   overflow-y: auto;
   background-color: ${({ theme }) => theme.colors.background};
   box-shadow: 0 0 3px 0 #000;
