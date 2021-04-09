@@ -6,6 +6,8 @@ import Link from "./Link";
 import HorizontalDivider from "./HorizontalDivider";
 import AppendButtonToggleTheme from "./AppendButtonToggleTheme";
 import AppendButtonAdd from "./AppendButtonAdd";
+import Modal from "./Modal";
+export type ModalRef = import("./Modal").ModalRef;
 
 export {
   Button,
@@ -13,6 +15,7 @@ export {
   Link,
   Card,
   Form,
+  Modal,
   AppendButtonToggleTheme,
   HorizontalDivider,
   AppendButtonAdd,

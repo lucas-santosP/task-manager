@@ -11,6 +11,7 @@ export const baseFocus = css`
     outline: none;
   }
 `;
+
 export const noFocus = css`
   &:focus {
     box-shadow: none;
@@ -22,6 +23,12 @@ export const baseTransition = css`
   transition: all ease 0.3s;
 `;
 
+export const flexCenter = css`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
 export const fadeInAnimation = keyframes`
   from {
     opacity: 0;
@@ -30,12 +37,22 @@ export const fadeInAnimation = keyframes`
     opacity: 1;
   }
 `;
+
 export const rotateAnimation = keyframes`
   from {
     transform: rotate(0deg)
   }
   to {
     transform: rotate(360deg)
+  }
+`;
+
+export const zoomInAnimation = keyframes` 
+  from {
+    transform: translate(-50%, -50%) scale(0.5);
+  }
+  to {
+    transform: translate(-50%, -50%) scale(1);
   }
 `;
 
