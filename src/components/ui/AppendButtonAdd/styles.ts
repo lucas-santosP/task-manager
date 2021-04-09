@@ -1,7 +1,9 @@
 import styled, { css } from "styled-components";
-import { baseTransition, breakPoints, noFocus } from "../../../styles/shared";
+import { baseTransition, noFocus, breakPoints, flexCenter } from "../../../styles/shared";
 
-export const AppendButtonContainer = styled.div`
+export const AppendButton = styled.button.attrs({ type: "button" })`
+  ${baseTransition}
+  ${noFocus}
   position: fixed;
   z-index: 10;
   bottom: 0.5rem;
@@ -24,21 +26,9 @@ export const AppendButtonContainer = styled.div`
       box-shadow: 0 0 2px 0px #000;
     `}
 
-  ~ div {
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 500ms ease;
-  }
-
-  &:hover {
-    ~ div {
-      opacity: 1;
-      pointer-events: auto;
-    }
-  }
-
-  svg {
-    font-size: 2.4rem;
+  &:hover ~ .container-fixed {
+    opacity: 1;
+    pointer-events: auto;
   }
 
   @media (max-width: ${breakPoints.xl}) {
@@ -57,6 +47,16 @@ export const ContainerFixed = styled.div`
   border-top-left-radius: 0.5rem;
   overflow: hidden;
   background-image: linear-gradient(#bdbdbd, transparent);
+  /* visibility */
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 500ms ease;
+
+  &:hover {
+    opacity: 1;
+    pointer-events: auto;
+    cursor: pointer;
+  }
 
   ${({ theme }) =>
     theme.title === "dark" &&
@@ -69,26 +69,20 @@ export const ContainerFixed = styled.div`
     width: 160px;
   }
 
-  &:hover {
-    opacity: 1;
-    pointer-events: initial;
-  }
-
-  button {
+  .text {
     ${baseTransition}
-    ${noFocus}
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    ${flexCenter}
     width: 100%;
     padding: 0.5rem 0;
     font-size: 1rem;
-    font-family: ${({ theme }) => theme.fontFamily.secondary};
     color: #fff;
-    background-color: ${({ theme }) => theme.colors.primary};
+    ${({ theme }) => css`
+      font-family: ${theme.fontFamily.secondary};
+      background-color: ${theme.colors.primary};
+    `}
 
     &:hover {
-      filter: brightness(120%);
+      filter: brightness(115%);
     }
 
     @media (max-width: ${breakPoints.xl}) {
