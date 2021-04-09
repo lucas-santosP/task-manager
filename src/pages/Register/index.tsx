@@ -62,6 +62,7 @@ const Register: React.FC = () => {
 
             <Input
               label="Email"
+              type="email"
               name="email"
               placeholder="Enter your email"
               value={registerForm.email}

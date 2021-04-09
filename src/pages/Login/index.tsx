@@ -48,6 +48,7 @@ const Login: React.FC = () => {
             <Input
               focused
               label="Email"
+              type="email"
               name="email"
               placeholder="Enter your email"
               value={userForm.email}
