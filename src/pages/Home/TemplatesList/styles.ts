@@ -27,7 +27,7 @@ export const StyledList = styled.ul`
 
     &:hover {
       transform: scale(1.03);
-      box-shadow: 0 0 2px 1px;
+      box-shadow: 0 0 1px 1px;
     }
 
     .name {

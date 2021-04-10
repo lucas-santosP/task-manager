@@ -37,7 +37,7 @@ const Home: React.FC = () => {
         <LatestTaskList />
       </Section>
 
-      <Section style={{ marginBottom: "2rem" }}>
+      <Section>
         <SectionTitle>Your Templates</SectionTitle>
         <TemplateList />
       </Section>
