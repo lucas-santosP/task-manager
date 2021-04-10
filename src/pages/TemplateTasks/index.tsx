@@ -1,7 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useTemplateContext } from "../../contexts/templates";
 import { PageContainer, PageTitle } from "../../styles/shared";
 import { ITemplate } from "../../types/template";
+import { HiOutlinePencilAlt, HiOutlineTrash } from "react-icons/hi";
+import { TitleIconsContainer } from "./styles";
+import { Form, Input, Modal, ModalRef } from "../../components/ui";
 
 interface IProps {
   templateId: string;
@@ -9,26 +12,77 @@ interface IProps {
 
 const TemplateTasks: React.FC<IProps> = (props) => {
   const { templateId } = props;
-  const { templates } = useTemplateContext();
+  const { templates, updateTemplate } = useTemplateContext();
   const [template, setTemplate] = useState<ITemplate | null>(null);
+  const [templateForm, setTemplateForm] = useState<ITemplate | null>(null);
+  const refModalEdit = useRef<ModalRef>(null);
+
+  function handleUpdateTemplateForm(event: React.ChangeEvent<HTMLInputElement>) {
+    const { value, name } = event.target;
+    setTemplateForm((prev) => {
+      if (prev) return { ...prev, [name]: value };
+      return null;
+    });
+  }
+
+  async function handleSubmitTemplateForm() {
+    try {
+      if (!templateForm) return;
+
+      await updateTemplate(templateForm);
+      setTemplateForm(template);
+      refModalEdit.current?.setVisibility(false);
+    } catch (error) {
+      alert(error?.response?.data);
+    }
+  }
 
   useEffect(() => {
-    setTemplate(templates.find((template) => template._id === templateId) || null);
-  }, []);
+    const templateFound = templates.find((template) => template._id === templateId) || null;
+    setTemplate(templateFound);
+    setTemplateForm(templateFound);
+  }, [templates]);
 
   if (!template) return <span>Template not found</span>;
 
   return (
     <PageContainer>
-      <PageTitle>{template.name}</PageTitle>
+      <PageTitle>
+        <TitleIconsContainer>
+          {template.name}
+
+          <HiOutlinePencilAlt
+            title="Edit Template"
+            className="edit"
+            onClick={() => refModalEdit.current?.setVisibility(true)}
+          />
+          <HiOutlineTrash title="Delete Template" className="delete" />
+        </TitleIconsContainer>
+      </PageTitle>
+
       <p style={{ marginBottom: "2rem" }}>Description: {template.description}</p>
 
-      <ul>
-        <h3>Tasks:</h3>
-        {template.tasks.map((task) => (
-          <li key={task._id}>{task.name}</li>
-        ))}
-      </ul>
+      <Modal ref={refModalEdit} title="Edit Template" maxWidth="500">
+        <Form onSubmit={handleSubmitTemplateForm} buttonText={"Update"}>
+          <Input
+            focused
+            autoComplete="off"
+            label="Name"
+            name="name"
+            placeholder="Ex: Daily"
+            value={templateForm?.name}
+            onChange={handleUpdateTemplateForm}
+          />
+
+          <Input
+            label="Description"
+            name="description"
+            placeholder="Ex: Tasks to do every day"
+            value={templateForm?.description}
+            onChange={handleUpdateTemplateForm}
+          />
+        </Form>
+      </Modal>
     </PageContainer>
   );
 };

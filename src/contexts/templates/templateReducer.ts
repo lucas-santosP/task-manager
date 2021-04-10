@@ -22,10 +22,11 @@ const TemplateReducer = (
     case TemplateActions.UPDATE: {
       const { payload } = action;
       const index = state.templates.findIndex((template) => template._id === payload.template._id);
+      const templates = [...state.templates];
       if (index !== -1) {
-        state.templates.splice(index, 1, payload.template);
+        templates[index] = { ...payload.template };
       }
-      return { ...state };
+      return { ...state, templates };
     }
 
     case TemplateActions.DELETE: {

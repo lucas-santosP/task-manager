@@ -19,10 +19,11 @@ const baseTheme = {
   },
   colors: {
     blue: "#2374ab",
-    green: "#2c6f49",
+    green: "#73d75d",
     purple: "#5b2a86",
     gray: "#5c5c5c",
     yellow: "#f6e75c",
+    red: "#ff5757",
   },
 };
 
