@@ -5,7 +5,6 @@ import { InputContainer, StyledInput } from "./styles";
 interface IProps extends InputHTMLAttributes<HTMLInputElement> {
   label?: string;
   focused?: boolean;
-  value: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
