@@ -5,12 +5,13 @@ import { Button, HorizontalDivider } from "../";
 interface IProps extends React.FormHTMLAttributes<HTMLFormElement> {
   buttonText: string;
   bottomText?: ReactNode;
+  buttonIsDisable?: boolean;
   isLoading?: boolean;
   onSubmit: (e?: React.FormEvent<HTMLFormElement>) => unknown;
 }
 
 const Form: React.FC<IProps> = (props) => {
-  const { children, buttonText, isLoading, bottomText, onSubmit, ...rest } = props;
+  const { children, buttonText, buttonIsDisable, isLoading, bottomText, onSubmit, ...rest } = props;
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -21,7 +22,7 @@ const Form: React.FC<IProps> = (props) => {
     <StyledForm onSubmit={handleSubmit} {...rest}>
       {children}
 
-      <Button type="submit" className="button" isLoading={isLoading}>
+      <Button type="submit" className="button" disabled={buttonIsDisable} isLoading={isLoading}>
         {buttonText}
       </Button>
 

@@ -1,9 +1,9 @@
-import React, { InputHTMLAttributes, useEffect, useMemo, useRef } from "react";
+import React, { InputHTMLAttributes, ReactNode, useEffect, useMemo, useRef } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { InputContainer, StyledInput } from "./styles";
 
 interface IProps extends InputHTMLAttributes<HTMLInputElement> {
-  label?: string;
+  label?: ReactNode;
   focused?: boolean;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }

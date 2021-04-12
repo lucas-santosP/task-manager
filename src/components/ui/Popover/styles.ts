@@ -103,7 +103,6 @@ export const PopoverList = styled.ul<IPropsPopoverList>`
         `}
 
   ${({ position }) => {
-    console.log(position === "center", position);
     if (position == "center")
       return css`
         left: 50%;

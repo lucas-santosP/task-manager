@@ -13,7 +13,7 @@ export interface ModalRef {
 }
 
 const Modal: React.ForwardRefRenderFunction<ModalRef, IProps> = (props, ref) => {
-  const { title = "Empty title", maxWidth = 600, children } = props;
+  const { title = "Empty title", maxWidth = 500, children } = props;
 
   const [visibility, setVisibility] = useState(false);
 

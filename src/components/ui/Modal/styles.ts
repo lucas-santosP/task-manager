@@ -29,8 +29,7 @@ export const ModalContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: 2rem 3rem;
-  padding-top: 1rem;
+  padding: 1rem 3rem;
   width: 100%;
   overflow-y: auto;
   background-color: ${({ theme }) => theme.colors.background};
