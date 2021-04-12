@@ -3,15 +3,14 @@ import { StyledButton } from "./styles";
 import { FaSpinner } from "react-icons/fa";
 
 interface IProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  type: "button" | "submit" | "reset" | undefined;
   isLoading?: boolean;
 }
 
 const Button: React.FC<IProps> = (props: IProps) => {
-  const { children, isLoading, disabled, ...rest } = props;
+  const { type = "button", children, isLoading, disabled, ...rest } = props;
 
   return (
-    <StyledButton {...rest} disabled={isLoading ? isLoading : disabled}>
+    <StyledButton type={type} disabled={isLoading ? isLoading : disabled} {...rest}>
       {isLoading && <FaSpinner />}
 
       <div style={{ opacity: isLoading ? 0 : 1 }}>{children}</div>
