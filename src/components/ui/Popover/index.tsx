@@ -7,13 +7,16 @@ interface IOptions {
   onClick: () => unknown;
 }
 
+export type IPosition = "center" | "right" | "left";
+
 interface IProps extends HTMLAttributes<HTMLDivElement> {
   options: IOptions[];
   content: ReactNode;
+  position?: IPosition;
 }
 
 const Popover: React.FC<IProps> = (props) => {
-  const { options, content, ...rest } = props;
+  const { options, position = "center", content, ...rest } = props;
 
   const uniqueKeys = useMemo(() => options.map(() => uuidv4()), [options]);
 
@@ -26,7 +29,7 @@ const Popover: React.FC<IProps> = (props) => {
     <PopoverContainer tabIndex={1} {...rest}>
       {content}
 
-      <PopoverList>
+      <PopoverList position={position} title="">
         {options.map((option, index) => (
           <li
             key={uniqueKeys[index]}

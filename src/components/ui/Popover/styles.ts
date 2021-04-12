@@ -1,8 +1,37 @@
 import { lighten, shade } from "polished";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { baseTransition, flexCenter, noFocus } from "../../../styles/shared";
+import { IPosition } from "./index";
+
+const trianglePseudoElement = css`
+  &:after,
+  &:before {
+    content: "";
+    position: absolute;
+    left: 50%;
+    z-index: 15;
+    transform: translateX(-50%);
+    width: 0;
+    height: 0;
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-bottom: 10px solid;
+  }
+
+  &::after {
+    bottom: -13px;
+    border-bottom: 10px solid
+      ${({ theme }) => (theme.title === "light" ? theme.colors.lightGray : theme.colors.gray)};
+  }
+
+  &::before {
+    bottom: -11px;
+    border-bottom: 10px solid #c3c3c3;
+  }
+`;
 
 export const PopoverContainer = styled.div`
+  ${noFocus}
   position: relative;
   display: flex;
   align-items: center;
@@ -14,63 +43,76 @@ export const PopoverContainer = styled.div`
   user-select: none;
   -webkit-tap-highlight-color: transparent;
 
-  &:focus {
-    ${noFocus}
-  }
-
   * {
     pointer-events: auto;
   }
 
+  ${trianglePseudoElement}
+
+  &:after,
+  &:before ,
   > ul {
     display: none;
+    cursor: default;
   }
 
   &:focus-within {
     > ul {
       display: flex;
     }
-    &::after {
+
+    &:after,
+    &:before {
       display: block;
     }
   }
-
-  /* triangle */
-  &::after {
-    content: "";
-    display: none;
-    position: absolute;
-    top: calc(100% + 2px);
-    left: 50%;
-    transform: translateX(-50%);
-    width: 0;
-    height: 0;
-    border-left: 10px solid transparent;
-    border-right: 10px solid transparent;
-    border-bottom: 10px solid #bdbdbd;
-  }
 `;
 
-export const PopoverList = styled.ul`
+interface IPropsPopoverList {
+  position: IPosition;
+}
+
+export const PopoverList = styled.ul<IPropsPopoverList>`
   ${baseTransition}
   position: absolute;
   z-index: 15;
-  top: calc(100% + 0.7rem);
-  left: 50%;
-  transform: translateX(-50%);
+  top: calc(100% + 11px);
   display: flex;
   flex-direction: column;
   overflow: hidden;
-
-  border-radius: 0.5rem;
-  box-shadow: 0 0 3px 0px #333;
-  background-color: ${({ theme }) =>
-    theme.title === "light" ? theme.colors.lightGray : theme.colors.gray};
-  font-size: 1rem;
+  border-radius: 0.375rem;
+  padding-top: 0.35rem;
+  border: 1px solid #c3c3c3;
+  font-size: 0.85rem;
   text-align: center;
   font-weight: 600;
   font-family: ${({ theme }) => theme.fontFamily.secondary};
   color: ${({ theme }) => theme.colors.text};
+
+  ${({ theme }) =>
+    theme.title === "light"
+      ? css`
+          background-color: ${theme.colors.lightGray};
+          box-shadow: 0 0 2px 0px #c3c3c3;
+        `
+      : css`
+          background-color: ${theme.colors.gray};
+          box-shadow: 0 0 2px 0px #fff;
+        `}
+
+  ${({ position }) => {
+    console.log(position === "center", position);
+    if (position == "center") {
+      return css`
+        left: 50%;
+        transform: translateX(-50%);
+      `;
+    } else if (position === "left") {
+      return css`
+        transform: translateX(-50%);
+      `;
+    }
+  }}
 
   > li {
     ${baseTransition}
