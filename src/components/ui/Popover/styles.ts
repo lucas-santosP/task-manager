@@ -3,6 +3,8 @@ import styled, { css } from "styled-components";
 import { baseTransition, flexCenter, noFocus } from "../../../styles/shared";
 import { IPosition } from "./index";
 
+const popoverBorderColor = "#c3c3c3";
+
 const trianglePseudoElement = css`
   &:after,
   &:before {
@@ -26,7 +28,7 @@ const trianglePseudoElement = css`
 
   &::before {
     bottom: -11px;
-    border-bottom: 10px solid #c3c3c3;
+    border-bottom: 10px solid ${popoverBorderColor};
   }
 `;
 
@@ -82,7 +84,7 @@ export const PopoverList = styled.ul<IPropsPopoverList>`
   overflow: hidden;
   border-radius: 0.375rem;
   padding-top: 0.35rem;
-  border: 1px solid #c3c3c3;
+  border: 1px solid ${popoverBorderColor};
   font-size: 0.85rem;
   text-align: center;
   font-weight: 600;
@@ -93,25 +95,24 @@ export const PopoverList = styled.ul<IPropsPopoverList>`
     theme.title === "light"
       ? css`
           background-color: ${theme.colors.lightGray};
-          box-shadow: 0 0 2px 0px #c3c3c3;
+          box-shadow: 0 0 2px 0px ${popoverBorderColor};
         `
       : css`
           background-color: ${theme.colors.gray};
-          box-shadow: 0 0 2px 0px #fff;
+          box-shadow: 0 0 1px 0px #fff;
         `}
 
   ${({ position }) => {
     console.log(position === "center", position);
-    if (position == "center") {
+    if (position == "center")
       return css`
         left: 50%;
         transform: translateX(-50%);
       `;
-    } else if (position === "left") {
+    else if (position === "left")
       return css`
         transform: translateX(-50%);
       `;
-    }
   }}
 
   > li {

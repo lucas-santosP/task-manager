@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { useTemplateContext } from "../../contexts/templates";
 import { PageContainer, PageTitle } from "../../styles/shared";
 import { ITemplate } from "../../types/template";
-import { HiOutlinePencilAlt, HiOutlineTrash } from "react-icons/hi";
+import { HiDotsHorizontal } from "react-icons/hi";
 import { TitleIconsContainer } from "./styles";
 import { Form, Input, Modal, ModalRef, Popover } from "../../components/ui";
 
@@ -49,27 +49,19 @@ const TemplateTasks: React.FC<IProps> = (props) => {
     <PageContainer>
       <PageTitle>
         <TitleIconsContainer>
-          <span className="text">{template.name}</span>
-
-          <HiOutlinePencilAlt
-            title="Edit Template"
-            className="icon edit"
-            onClick={() => refModalEdit.current?.setVisibility(true)}
-          />
+          {template.name}
 
           <Popover
-            className="icon delete"
+            className="icon"
             title="Delete Template"
-            content={<HiOutlineTrash />}
+            content={<HiDotsHorizontal />}
             options={[
               {
-                content: "Cancel",
-                onClick: () => {
-                  console.log("Cancel");
-                },
+                content: "Edit",
+                onClick: () => refModalEdit.current?.setVisibility(true),
               },
               {
-                content: "Confirm",
+                content: "Delete",
                 onClick: () => {
                   console.log("Confirm");
                 },
