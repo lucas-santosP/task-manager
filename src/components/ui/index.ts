@@ -8,6 +8,7 @@ import AppendButtonToggleTheme from "./AppendButtonToggleTheme";
 import AppendButtonAdd from "./AppendButtonAdd";
 import Modal from "./Modal";
 export type ModalRef = import("./Modal").ModalRef;
+import Popover from "./Popover";
 
 export {
   Button,
@@ -19,4 +20,5 @@ export {
   AppendButtonToggleTheme,
   HorizontalDivider,
   AppendButtonAdd,
+  Popover,
 };

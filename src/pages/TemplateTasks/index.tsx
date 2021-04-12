@@ -4,7 +4,7 @@ import { PageContainer, PageTitle } from "../../styles/shared";
 import { ITemplate } from "../../types/template";
 import { HiOutlinePencilAlt, HiOutlineTrash } from "react-icons/hi";
 import { TitleIconsContainer } from "./styles";
-import { Form, Input, Modal, ModalRef } from "../../components/ui";
+import { Form, Input, Modal, ModalRef, Popover } from "../../components/ui";
 
 interface IProps {
   templateId: string;
@@ -57,7 +57,25 @@ const TemplateTasks: React.FC<IProps> = (props) => {
             onClick={() => refModalEdit.current?.setVisibility(true)}
           />
 
-          <HiOutlineTrash className="icon delete" title="Delete Template" />
+          <Popover
+            className="icon delete"
+            title="Delete Template"
+            content={<HiOutlineTrash />}
+            options={[
+              {
+                text: "Cancel",
+                onClick: () => {
+                  console.log("Cancel");
+                },
+              },
+              {
+                text: "Confirm",
+                onClick: () => {
+                  console.log("Confirm");
+                },
+              },
+            ]}
+          />
         </TitleIconsContainer>
       </PageTitle>
 
@@ -66,7 +84,6 @@ const TemplateTasks: React.FC<IProps> = (props) => {
       <Modal ref={refModalEdit} title="Edit Template" maxWidth="500">
         <Form onSubmit={handleSubmitTemplateForm} buttonText={"Update"}>
           <Input
-            focused
             autoComplete="off"
             label="Name"
             name="name"
