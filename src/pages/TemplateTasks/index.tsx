@@ -49,14 +49,15 @@ const TemplateTasks: React.FC<IProps> = (props) => {
     <PageContainer>
       <PageTitle>
         <TitleIconsContainer>
-          {template.name}
+          <span className="text">{template.name}</span>
 
           <HiOutlinePencilAlt
             title="Edit Template"
-            className="edit"
+            className="icon edit"
             onClick={() => refModalEdit.current?.setVisibility(true)}
           />
-          <HiOutlineTrash title="Delete Template" className="delete" />
+
+          <HiOutlineTrash className="icon delete" title="Delete Template" />
         </TitleIconsContainer>
       </PageTitle>
 

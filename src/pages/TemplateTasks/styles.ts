@@ -6,18 +6,18 @@ export const TitleIconsContainer = styled.div`
   ${flexCenter}
   justify-content: flex-start;
 
-  > svg {
+  .text {
+    margin-right: 1rem;
+  }
+
+  .icon {
     ${baseTransition}
     margin: 0 0.35rem;
-
-    &:first-of-type {
-      margin-left: 1rem;
-    }
 
     &:hover {
       cursor: pointer;
       border-radius: 0.3rem;
-      background-color: ${({ theme }) => shade(0.07, theme.colors.background)};
+      background-color: ${({ theme }) => shade(0.08, theme.colors.background)};
 
       ${({ theme }) =>
         theme.title === "dark" &&
