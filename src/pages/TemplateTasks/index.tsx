@@ -1,10 +1,11 @@
-import React, { useEffect, useRef, useState } from "react";
-import { useTemplateContext } from "../../contexts/templates";
-import { PageContainer, PageTitle } from "../../styles/shared";
-import { ITemplate } from "../../types/template";
-import { HiDotsHorizontal } from "react-icons/hi";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import { TitleIconsContainer } from "./styles";
-import { Form, Input, Modal, ModalRef, Popover } from "../../components/ui";
+import { PageContainer, PageTitle } from "../../styles/shared";
+import { Form, Alert, Input, Modal, ModalRef, Popover } from "../../components/ui";
+import { HiDotsHorizontal } from "react-icons/hi";
+import { useLocation } from "wouter";
+import { useTemplateContext } from "../../contexts/templates";
+import { ITemplate } from "../../types/template";
 
 interface IProps {
   templateId: string;
@@ -12,10 +13,19 @@ interface IProps {
 
 const TemplateTasks: React.FC<IProps> = (props) => {
   const { templateId } = props;
-  const { templates, updateTemplate } = useTemplateContext();
+
+  const { templates, updateTemplate, deleteTemplate } = useTemplateContext();
+  const [, setLocation] = useLocation();
   const [template, setTemplate] = useState<ITemplate | null>(null);
   const [templateForm, setTemplateForm] = useState<ITemplate | null>(null);
+  const [confirmDeletion, setConfirmDeletion] = useState("");
+
   const refModalEdit = useRef<ModalRef>(null);
+  const refModalDelete = useRef<ModalRef>(null);
+
+  const confirmDeleteIsValid = useMemo(() => {
+    return confirmDeletion === template?.name;
+  }, [confirmDeletion, template]);
 
   function handleUpdateTemplateForm(event: React.ChangeEvent<HTMLInputElement>) {
     const { value, name } = event.target;
@@ -25,15 +35,26 @@ const TemplateTasks: React.FC<IProps> = (props) => {
     });
   }
 
-  async function handleSubmitTemplateForm() {
-    try {
-      if (!templateForm) return;
+  async function handleSubmitUpdate() {
+    if (!templateForm) return;
 
+    try {
       await updateTemplate(templateForm);
       setTemplateForm(template);
       refModalEdit.current?.setVisibility(false);
     } catch (error) {
       alert(error?.response?.data);
+    }
+  }
+
+  async function handleSubmitDelete() {
+    if (!template) return;
+
+    try {
+      await deleteTemplate({ templateId: template._id });
+      setLocation("/");
+    } catch (error) {
+      alert(error.message);
     }
   }
 
@@ -63,7 +84,8 @@ const TemplateTasks: React.FC<IProps> = (props) => {
               {
                 content: "Delete",
                 onClick: () => {
-                  console.log("Confirm");
+                  setConfirmDeletion("");
+                  refModalDelete.current?.setVisibility(true);
                 },
               },
             ]}
@@ -73,8 +95,8 @@ const TemplateTasks: React.FC<IProps> = (props) => {
 
       <p style={{ marginBottom: "2rem" }}>Description: {template.description}</p>
 
-      <Modal ref={refModalEdit} title="Edit Template" maxWidth="500">
-        <Form onSubmit={handleSubmitTemplateForm} buttonText={"Update"}>
+      <Modal ref={refModalEdit} title="Edit Template">
+        <Form onSubmit={handleSubmitUpdate} buttonText={"Update"}>
           <Input
             autoComplete="off"
             label="Name"
@@ -90,6 +112,31 @@ const TemplateTasks: React.FC<IProps> = (props) => {
             placeholder="Ex: Tasks to do every day"
             value={templateForm?.description}
             onChange={handleUpdateTemplateForm}
+          />
+        </Form>
+      </Modal>
+
+      <Modal ref={refModalDelete} title="Confirm deletion">
+        <Form
+          onSubmit={handleSubmitDelete}
+          buttonIsDisable={!confirmDeleteIsValid}
+          buttonText={"Delete"}
+        >
+          <Alert>
+            This action <b>cannot</b> be undone.This will permanently delete the current template
+            {template.tasks.length ? ` and its existence ${template.tasks.length} tasks` : ""}.
+          </Alert>
+
+          <Input
+            autoComplete="off"
+            label={
+              <>
+                Please type <b>{template.name}</b> to confirm:
+              </>
+            }
+            name="name"
+            value={confirmDeletion}
+            onChange={(e) => setConfirmDeletion(e.target.value)}
           />
         </Form>
       </Modal>
