@@ -1,3 +1,4 @@
+import Alert from "./Alert";
 import Card from "./Card";
 import Form from "./Form";
 import Button from "./Button";
@@ -11,6 +12,7 @@ export type ModalRef = import("./Modal").ModalRef;
 import Popover from "./Popover";
 
 export {
+  Alert,
   Button,
   Input,
   Link,
