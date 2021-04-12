@@ -13,33 +13,31 @@ export const StyledButton = styled.button`
   font-size: 1.2rem;
   text-align: center;
   border-radius: 9999px;
+  background-color: ${({ theme }) => theme.colors.primary};
 
-  ${({ theme }) =>
-    theme.title === "light"
-      ? css`
-          background-color: ${theme.colors.primary};
-          &:hover {
-            transition: all ease 0.3s;
-            background-color: ${lighten(0.09, theme.colors.primary)};
-          }
-        `
-      : css`
-          background-color: ${theme.colors.gray};
-          &:hover {
-            background-color: ${lighten(0.09, theme.colors.gray)};
-          }
-        `}
-
-  &:disabled {
-    cursor: wait;
-    filter: brightness(120%);
+  &:hover {
+    background-color: ${({ theme }) => lighten(0.09, theme.colors.primary)};
   }
 
-  svg {
+  ${({ theme }) =>
+    theme.title === "dark" &&
+    css`
+      background-color: ${theme.colors.gray};
+      &:hover {
+        background-color: ${lighten(0.09, theme.colors.gray)};
+      }
+    `}
+
+  &:disabled {
+    opacity: 0.6;
+    pointer-events: none;
+  }
+
+  .loading-icon {
     position: absolute;
     top: 50%;
     left: 50%;
-    animation: spin 1s infinite linear;
+    animation: spin 1s linear infinite;
   }
 
   @keyframes spin {

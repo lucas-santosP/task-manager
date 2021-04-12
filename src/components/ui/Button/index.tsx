@@ -11,7 +11,7 @@ const Button: React.FC<IProps> = (props: IProps) => {
 
   return (
     <StyledButton type={type} disabled={isLoading ? isLoading : disabled} {...rest}>
-      {isLoading && <FaSpinner />}
+      {isLoading && <FaSpinner className="loading-icon" />}
 
       <div style={{ opacity: isLoading ? 0 : 1 }}>{children}</div>
     </StyledButton>
