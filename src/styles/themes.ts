@@ -24,6 +24,7 @@ const baseTheme = {
     gray: "#5c5c5c",
     yellow: "#f6e75c",
     red: "#ff5757",
+    lightGray: "#f5f5f5",
   },
 };
 

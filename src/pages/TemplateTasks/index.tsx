@@ -63,13 +63,13 @@ const TemplateTasks: React.FC<IProps> = (props) => {
             content={<HiOutlineTrash />}
             options={[
               {
-                text: "Cancel",
+                content: "Cancel",
                 onClick: () => {
                   console.log("Cancel");
                 },
               },
               {
-                text: "Confirm",
+                content: "Confirm",
                 onClick: () => {
                   console.log("Confirm");
                 },

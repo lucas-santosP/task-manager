@@ -3,7 +3,7 @@ import { PopoverContainer, PopoverList } from "./styles";
 import { v4 as uuidv4 } from "uuid";
 
 interface IOptions {
-  text: string | ReactNode;
+  content: ReactNode;
   onClick: () => unknown;
 }
 
@@ -28,8 +28,12 @@ const Popover: React.FC<IProps> = (props) => {
 
       <PopoverList>
         {options.map((option, index) => (
-          <li key={uniqueKeys[index]} onClick={() => handleClick(option.onClick)}>
-            {option.text}
+          <li
+            key={uniqueKeys[index]}
+            title={typeof option.content === "string" ? option.content : ""}
+            onClick={() => handleClick(option.onClick)}
+          >
+            {option.content}
           </li>
         ))}
       </PopoverList>

@@ -1,3 +1,4 @@
+import { lighten, shade } from "polished";
 import styled from "styled-components";
 import { baseTransition, flexCenter, noFocus } from "../../../styles/shared";
 
@@ -29,47 +30,17 @@ export const PopoverContainer = styled.div`
     > ul {
       display: flex;
     }
-  }
-`;
-
-export const PopoverList = styled.ul`
-  position: absolute;
-  top: calc(100% + 0.7rem);
-  left: 50%;
-  z-index: 15;
-  transform: translateX(-50%);
-  flex-direction: column;
-  background-color: #dedede;
-  box-shadow: 0 0 2px 0px #333;
-  border-radius: 0.5rem;
-  font-size: 0.9rem;
-  text-align: center;
-  font-family: ${({ theme }) => theme.fontFamily.secondary};
-  color: ${({ theme }) => theme.colors.text};
-  font-weight: 600;
-  ${noFocus}
-
-  li {
-    ${noFocus}
-    ${baseTransition}
-    ${flexCenter}
-    flex: 1;
-    padding: 0.3rem 0.8rem;
-
-    &:hover {
-      background-color: #cccccc;
-      cursor: pointer;
-    }
-    &:not(:last-of-type) {
-      margin-bottom: 0.2rem;
+    &::after {
+      display: block;
     }
   }
 
   /* triangle */
   &::after {
     content: "";
+    display: none;
     position: absolute;
-    top: -10px;
+    top: calc(100% + 2px);
     left: 50%;
     transform: translateX(-50%);
     width: 0;
@@ -77,5 +48,42 @@ export const PopoverList = styled.ul`
     border-left: 10px solid transparent;
     border-right: 10px solid transparent;
     border-bottom: 10px solid #bdbdbd;
+  }
+`;
+
+export const PopoverList = styled.ul`
+  ${baseTransition}
+  position: absolute;
+  z-index: 15;
+  top: calc(100% + 0.7rem);
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+
+  border-radius: 0.5rem;
+  box-shadow: 0 0 3px 0px #333;
+  background-color: ${({ theme }) =>
+    theme.title === "light" ? theme.colors.lightGray : theme.colors.gray};
+  font-size: 1rem;
+  text-align: center;
+  font-weight: 600;
+  font-family: ${({ theme }) => theme.fontFamily.secondary};
+  color: ${({ theme }) => theme.colors.text};
+
+  > li {
+    ${baseTransition}
+    ${flexCenter} 
+    flex: 1;
+    padding: 0.5rem 0.8rem;
+
+    &:hover {
+      cursor: pointer;
+      background-color: ${({ theme }) =>
+        theme.title === "light"
+          ? shade(0.1, theme.colors.lightGray)
+          : lighten(0.1, theme.colors.gray)};
+    }
   }
 `;
