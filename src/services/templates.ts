@@ -38,6 +38,6 @@ export const TemplateServices = {
   },
 
   delete(payload: IDeleteTemplatePayload) {
-    return API.delete<IDeleteResponse>(`/template/login/${payload.templateId}`);
+    return API.delete<IDeleteResponse>(`/template/${payload.templateId}`);
   },
 };

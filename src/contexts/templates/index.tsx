@@ -34,9 +34,16 @@ export const TemplateContextProvider: React.FC = ({ children }) => {
   }
 
   async function deleteTemplate(payload: IDeleteTemplatePayload) {
-    const response = await TemplateServices.delete(payload);
-    if (response.data?.template?.ok) {
-      dispatch({ type: TemplateActions.DELETE, payload: { templateId: payload.templateId } });
+    try {
+      const response = await TemplateServices.delete(payload);
+      const { template } = response.data;
+      if (template?.ok) {
+        dispatch({ type: TemplateActions.DELETE, payload: { templateId: payload.templateId } });
+      } else {
+        throw new Error();
+      }
+    } catch (error) {
+      throw new Error("Unable to delete the template, try later.");
     }
   }
 

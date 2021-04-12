@@ -31,8 +31,8 @@ const TemplateReducer = (
 
     case TemplateActions.DELETE: {
       const { payload } = action;
-      state.templates = state.templates.filter((template) => template._id !== payload.templateId);
-      return { ...state };
+      const templates = state.templates.filter((template) => template._id !== payload.templateId);
+      return { ...state, templates };
     }
 
     default:
