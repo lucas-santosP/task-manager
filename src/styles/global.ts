@@ -40,7 +40,7 @@ export default createGlobalStyle`
     }
   }
 
-  @media (max-width: ${breakPoints.xl}) {
+  @media (max-width: ${breakPoints.xs}) {
     body{
       font-size: 14px;
     }

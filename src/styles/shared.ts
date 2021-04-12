@@ -1,7 +1,7 @@
 import styled, { css, keyframes } from "styled-components";
 
 export const breakPoints = {
-  xl: "576px",
+  xs: "576px",
   sm: "768px",
 };
 
@@ -85,7 +85,7 @@ export const PageTitle = styled.h1<IPropsPageTitle>`
   margin-bottom: 1rem;
   text-align: ${({ align }) => align || "start"};
 
-  @media (max-width: ${breakPoints.xl}) {
+  @media (max-width: ${breakPoints.xs}) {
     font-size: 2rem;
   }
 `;

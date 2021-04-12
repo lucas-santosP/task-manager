@@ -37,7 +37,7 @@ export const SidebarContainer = styled.aside<IStyledProps>`
     flex: 1;
   }
 
-  @media (max-width: ${breakPoints.xl}) {
+  @media (max-width: ${breakPoints.xs}) {
     width: ${({ isExpanded }) => (isExpanded ? "70%" : "50px")};
   }
 `;
@@ -78,7 +78,7 @@ export const NavItem = styled.li<INavItem>`
     width: 22px;
     height: 22px;
 
-    @media (max-width: ${breakPoints.xl}) {
+    @media (max-width: ${breakPoints.xs}) {
       left: 25px;
       width: 20px;
       height: 20px;
@@ -105,7 +105,7 @@ export const NavItemText = styled.span<IStyledProps>`
       transition-delay: 200ms;
     `};
 
-  @media (max-width: ${breakPoints.xl}) {
+  @media (max-width: ${breakPoints.xs}) {
     left: 55px;
   }
 `;

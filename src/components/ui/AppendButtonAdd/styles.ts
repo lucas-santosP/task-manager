@@ -31,7 +31,7 @@ export const AppendButton = styled.button.attrs({ type: "button" })`
     pointer-events: auto;
   }
 
-  @media (max-width: ${breakPoints.xl}) {
+  @media (max-width: ${breakPoints.xs}) {
     width: 3rem;
     height: 3rem;
   }
@@ -64,7 +64,7 @@ export const ContainerFixed = styled.div`
       background-image: linear-gradient(#696969, transparent);
     `}
 
-  @media (max-width: ${breakPoints.xl}) {
+  @media (max-width: ${breakPoints.xs}) {
     height: 110px;
     width: 160px;
   }
@@ -85,7 +85,7 @@ export const ContainerFixed = styled.div`
       filter: brightness(115%);
     }
 
-    @media (max-width: ${breakPoints.xl}) {
+    @media (max-width: ${breakPoints.xs}) {
       font-size: 0.8rem;
     }
   }
