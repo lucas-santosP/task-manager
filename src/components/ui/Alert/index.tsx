@@ -13,6 +13,7 @@ const StyledAlert = styled.p`
   margin-bottom: 1rem;
   border: 1px solid var(--border-clr);
   box-shadow: 0 3px 2px 1px var(--border-clr);
+  line-height: 1.3;
 
   ${({ theme }) =>
     theme.title === "dark" &&
