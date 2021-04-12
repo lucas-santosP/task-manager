@@ -5,6 +5,7 @@ import {
   zoomInAnimation,
   flexCenter,
   baseTransition,
+  breakPoints,
 } from "../../../styles/shared";
 
 export const ModalOverlay = styled.div`
@@ -42,6 +43,10 @@ export const ModalContainer = styled.div`
     css`
       box-shadow: 0 0 3px 0 #c1c1c1;
     `}
+
+  @media (max-width: ${breakPoints.xl}) {
+    top: 50%;
+  }
 `;
 
 export const ModalHeader = styled.header`
