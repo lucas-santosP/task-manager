@@ -2,11 +2,7 @@ import { lighten } from "polished";
 import styled, { css } from "styled-components";
 import { baseTransition } from "../../../styles/shared";
 
-interface IProps {
-  isLoading?: boolean;
-}
-
-export const StyledButton = styled.button<IProps>`
+export const StyledButton = styled.button`
   ${baseTransition}
   position: relative;
   display: flex;
