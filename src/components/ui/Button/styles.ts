@@ -38,13 +38,13 @@ export const StyledButton = styled.button<IPropsStyledButton>`
       }
     `}
 
-  ${({ isLoading }) =>
+  ${({ isLoading, theme }) =>
     isLoading &&
     css`
       &:disabled,
       &:hover {
         opacity: 1;
-        background-color: ${({ theme }) => theme.colors.primary};
+        background-color: ${theme.title === "light" ? theme.colors.primary : theme.colors.gray};
       }
     `}
 

@@ -32,7 +32,7 @@ export const ModalContainer = styled.div`
   padding: 1rem 3rem;
   width: 100%;
   overflow-y: auto;
-  background-color: ${({ theme }) => theme.colors.background};
+  background-color: #fff;
   box-shadow: 0 0 3px 0 #000;
   border-radius: 10px;
   animation: ${zoomInAnimation} 0.2s ease;
@@ -40,6 +40,7 @@ export const ModalContainer = styled.div`
   ${({ theme }) =>
     theme.title === "dark" &&
     css`
+      background-color: ${theme.colors.background};
       box-shadow: 0 0 3px 0 #c1c1c1;
     `}
 

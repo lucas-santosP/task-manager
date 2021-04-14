@@ -1,4 +1,4 @@
-import { createGlobalStyle } from "styled-components";
+import { createGlobalStyle, css } from "styled-components";
 import { breakPoints } from "./shared";
 
 export default createGlobalStyle`
@@ -14,23 +14,30 @@ export default createGlobalStyle`
     text-decoration: none; 
   }
   
-  *:focus{ 
+  *:focus { 
     box-shadow: 0 0 1px 2px #59b6ec;
     outline: none;
   }
 
-  body{
+  body {
     font-size:16px;
-    color:${(props) => props.theme.colors.text};
-    background-color:${(props) => props.theme.colors.background};
-    font-family:${(props) => props.theme.fontFamily.primary};
+    color:${({ theme }) => theme.colors.text};
+    background-color:${({ theme }) => theme.colors.background};
+    font-family:${({ theme }) => theme.fontFamily.primary};
     transition: all ease .2s;
     overflow: hidden;
   }
 
-  button{
+  button {
     cursor:pointer;
-  } 
+  }
+
+  input,
+  select,
+  textarea {
+    font-family:${({ theme }) => theme.fontFamily.secondary};
+    font-size:inherit;
+  }
   
   a {
     color:${(props) => props.theme.colors.textHighlight};
