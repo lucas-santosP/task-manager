@@ -5,7 +5,7 @@ import Login from "./Login";
 import Register from "./Register";
 import NotFound from "./NotFound";
 
-const MINIMUM_LAZY_WAIT = 700;
+const MINIMUM_LAZY_WAIT = 600;
 
 const Home = React.lazy(async () => {
   await waitAsync(MINIMUM_LAZY_WAIT);
