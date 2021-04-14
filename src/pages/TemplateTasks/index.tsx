@@ -1,7 +1,7 @@
-import React, { useEffect, useMemo, useRef, useState } from "react";
+import React, { ChangeEvent, useEffect, useMemo, useRef, useState } from "react";
 import { TitleIconsContainer } from "./styles";
 import { PageContainer, PageTitle } from "../../styles/shared";
-import { Form, Alert, Input, Modal, ModalRef, Popover } from "../../components/ui";
+import { Form, Alert, Input, Modal, ModalRef, Popover, TextArea } from "../../components/ui";
 import { HiDotsHorizontal } from "react-icons/hi";
 import { useLocation } from "wouter";
 import { useTemplateContext } from "../../contexts/templates";
@@ -27,7 +27,7 @@ const TemplateTasks: React.FC<IProps> = (props) => {
     return confirmDeletion === template?.name;
   }, [confirmDeletion, template]);
 
-  function handleUpdateTemplateForm(event: React.ChangeEvent<HTMLInputElement>) {
+  function handleUpdateTemplateForm(event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) {
     const { value, name } = event.target;
     setTemplateForm((prev) => {
       if (prev) return { ...prev, [name]: value };
@@ -106,7 +106,7 @@ const TemplateTasks: React.FC<IProps> = (props) => {
             onChange={handleUpdateTemplateForm}
           />
 
-          <Input
+          <TextArea
             label="Description"
             name="description"
             placeholder="Ex: Tasks to do every day"

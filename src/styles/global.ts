@@ -1,4 +1,4 @@
-import { createGlobalStyle, css } from "styled-components";
+import { createGlobalStyle } from "styled-components";
 import { breakPoints } from "./shared";
 
 export default createGlobalStyle`

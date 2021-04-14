@@ -1,7 +1,7 @@
-import React, { useRef, useState } from "react";
+import React, { ChangeEvent, useRef, useState } from "react";
 import { PageContainer, PageTitle } from "../../styles/shared";
 import { Section, SectionTitle } from "./styles";
-import { Modal, ModalRef, Form, Input, AppendButtonAdd } from "../../components/ui";
+import { Modal, ModalRef, Form, Input, TextArea, AppendButtonAdd } from "../../components/ui";
 import TemplateList from "./TemplatesList";
 import LatestTaskList from "./LatestTasksList";
 import { useTemplateContext } from "../../contexts/templates";
@@ -13,8 +13,8 @@ const Home: React.FC = () => {
   const [templateForm, setTemplateForm] = useState(initialTemplateForm);
   const modalRef = useRef<ModalRef>(null);
 
-  function handleUpdateTemplateForm(event: React.ChangeEvent<HTMLInputElement>) {
-    const { value, name } = event.target;
+  function handleUpdateTemplateForm(e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) {
+    const { value, name } = e.target;
     setTemplateForm((prev) => ({ ...prev, [name]: value }));
   }
 
@@ -58,7 +58,7 @@ const Home: React.FC = () => {
             onChange={handleUpdateTemplateForm}
           />
 
-          <Input
+          <TextArea
             label="Description"
             name="description"
             placeholder="Ex: Tasks to do every day"
