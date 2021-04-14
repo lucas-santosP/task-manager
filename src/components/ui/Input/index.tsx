@@ -1,6 +1,7 @@
 import React, { InputHTMLAttributes, ReactNode, useEffect, useMemo, useRef } from "react";
+import { StyledInput } from "./styles";
 import { v4 as uuidv4 } from "uuid";
-import { InputContainer, StyledInput } from "./styles";
+import InputRow from "../InputRow";
 
 interface IProps extends InputHTMLAttributes<HTMLInputElement> {
   label?: ReactNode;
@@ -19,11 +20,9 @@ const Input: React.FC<IProps> = (props) => {
   }, []);
 
   return (
-    <InputContainer>
-      {label && <label htmlFor={uniqueId}>{label}</label>}
-
+    <InputRow htmlFor={uniqueId} label={label}>
       <StyledInput ref={inputRef} type={type} id={uniqueId} {...rest} />
-    </InputContainer>
+    </InputRow>
   );
 };
 
