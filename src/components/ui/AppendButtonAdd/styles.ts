@@ -64,11 +64,6 @@ export const ContainerFixed = styled.div`
       background-image: linear-gradient(#696969, transparent);
     `}
 
-  @media (max-width: ${breakPoints.xs}) {
-    height: 110px;
-    width: 160px;
-  }
-
   .text {
     ${baseTransition}
     ${flexCenter}
@@ -84,8 +79,13 @@ export const ContainerFixed = styled.div`
     &:hover {
       filter: brightness(115%);
     }
+  }
 
-    @media (max-width: ${breakPoints.xs}) {
+  @media (max-width: ${breakPoints.xs}) {
+    height: 110px;
+    width: 160px;
+
+    .text {
       font-size: 0.8rem;
     }
   }

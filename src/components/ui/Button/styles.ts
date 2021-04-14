@@ -1,8 +1,12 @@
-import { lighten } from "polished";
+import { lighten, grayscale } from "polished";
 import styled, { css } from "styled-components";
 import { baseTransition } from "../../../styles/shared";
 
-export const StyledButton = styled.button`
+interface IPropsStyledButton {
+  isLoading?: boolean;
+}
+
+export const StyledButton = styled.button<IPropsStyledButton>`
   ${baseTransition}
   position: relative;
   display: flex;
@@ -16,7 +20,13 @@ export const StyledButton = styled.button`
   background-color: ${({ theme }) => theme.colors.primary};
 
   &:hover {
-    background-color: ${({ theme }) => lighten(0.09, theme.colors.primary)};
+    background-color: ${({ theme }) => lighten(0.06, theme.colors.primary)};
+  }
+
+  &:disabled {
+    opacity: 0.6;
+    pointer-events: none;
+    background-color: ${({ theme }) => grayscale(theme.colors.primary)};
   }
 
   ${({ theme }) =>
@@ -28,10 +38,15 @@ export const StyledButton = styled.button`
       }
     `}
 
-  &:disabled {
-    opacity: 0.6;
-    pointer-events: none;
-  }
+  ${({ isLoading }) =>
+    isLoading &&
+    css`
+      &:disabled,
+      &:hover {
+        opacity: 1;
+        background-color: ${({ theme }) => theme.colors.primary};
+      }
+    `}
 
   .loading-icon {
     position: absolute;

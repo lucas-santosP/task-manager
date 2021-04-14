@@ -3,7 +3,7 @@ import { HiOutlinePlus } from "react-icons/hi";
 import { AppendButton, ContainerFixed } from "./styles";
 
 interface IProps {
-  onClick: (e: MouseEvent) => void;
+  onClick: (e: MouseEvent) => unknown;
   text: string;
 }
 
