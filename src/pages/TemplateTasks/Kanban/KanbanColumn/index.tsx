@@ -43,7 +43,13 @@ const KanbanColumn: React.FC<IProps> = (props) => {
       </Header>
 
       {isAdding && (
-        <TextArea focused rows={2} placeholder="Enter a task" onChange={() => console.log("!!")} />
+        <TextArea
+          rows={2}
+          placeholder="Enter a task"
+          onChange={() => console.log("!!")}
+          autoResizeY
+          focused
+        />
       )}
 
       <TasksList>

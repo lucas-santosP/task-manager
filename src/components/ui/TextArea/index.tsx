@@ -6,11 +6,12 @@ import InputRow from "../InputRow";
 interface IProps extends TextareaHTMLAttributes<HTMLTextAreaElement> {
   label?: ReactNode;
   focused?: boolean;
+  autoResizeY?: boolean;
   onChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => unknown;
 }
 
 const TextArea: React.FC<IProps> = (props) => {
-  const { label = "", rows = 4, focused = false, ...rest } = props;
+  const { label = "", rows = 4, focused = false, autoResizeY = false, ...rest } = props;
 
   const inputRef = useRef<HTMLInputElement>(null);
   const uniqueId = useMemo(() => uuidv4(), []);
@@ -21,7 +22,7 @@ const TextArea: React.FC<IProps> = (props) => {
 
   return (
     <InputRow htmlFor={uniqueId} label={label}>
-      <StyledTextArea id={uniqueId} {...rest} rows={rows} />
+      <StyledTextArea id={uniqueId} autoResizeY={autoResizeY} {...rest} rows={rows} />
     </InputRow>
   );
 };
