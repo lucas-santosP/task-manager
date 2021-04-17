@@ -11,6 +11,7 @@ import AppendButtonAdd from "./AppendButtonAdd";
 import Modal from "./Modal";
 export type ModalRef = import("./Modal").ModalRef;
 import Popover from "./Popover";
+import IconWrapper from "./IconWrapper";
 
 export {
   Alert,
@@ -25,4 +26,5 @@ export {
   HorizontalDivider,
   AppendButtonAdd,
   Popover,
+  IconWrapper,
 };

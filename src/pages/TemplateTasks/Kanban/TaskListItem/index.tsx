@@ -1,6 +1,7 @@
 import React from "react";
-import { ContainerTaskItem, StyledDotsIcon, Text } from "./styles";
+import { ContainerTaskItem, DotsIcon, Text } from "./styles";
 import { Popover } from "../../../../components/ui";
+import { HiDotsHorizontal } from "react-icons/hi";
 import { ITask } from "../../../../types/task";
 
 interface IProps {
@@ -17,7 +18,7 @@ const TaskListItem: React.FC<IProps> = (props) => {
 
       <Popover
         position="left"
-        content={<StyledDotsIcon hoverBgColor={rest.color} />}
+        content={<DotsIcon icon={<HiDotsHorizontal />} hoverBgColor={rest.color} />}
         options={[
           {
             content: "Edit",

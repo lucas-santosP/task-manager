@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { shade } from "polished";
 import { flexCenter } from "../../../../styles/shared";
+import { IconWrapper } from "../../../../components/ui";
 
 export const ContainerKanbanColumn = styled.div<{ color: string }>`
   display: flex;
@@ -19,17 +20,23 @@ export const Header = styled.header`
   height: 3.5rem;
 `;
 
-export const HeaderTitle = styled.h3`
+export const HeaderTitle = styled.h2`
   flex: 1;
-  width: 100%;
-  font-size: 1.3rem;
+  font-size: 1.4rem;
+`;
+
+export const AddIcon = styled(IconWrapper)`
+  height: 2rem;
+  font-size: 1.7rem;
+  margin: 0 0.5rem;
 `;
 
 export const Badge = styled.div<{ color: string }>`
   ${flexCenter}
   width: 2.5rem;
-  height: 1.8rem;
+  height: 2rem;
   font-size: 0.9rem;
+  font-family: ${({ theme }) => theme.fontFamily.mono};
   background-color: ${({ color }) => shade(0.08, color)};
   border-radius: 9999px;
 `;

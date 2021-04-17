@@ -1,6 +1,8 @@
-import React, { useMemo } from "react";
-import { ContainerKanbanColumn, Header, HeaderTitle, Badge, TasksList } from "./styles";
+import React, { useMemo, useState } from "react";
+import { ContainerKanbanColumn, Header, HeaderTitle, AddIcon, Badge, TasksList } from "./styles";
 import TaskListItem from "../TaskListItem";
+import { TextArea } from "../../../../components/ui";
+import { HiOutlinePlus } from "react-icons/hi";
 import { ITask } from "../../../../types/task";
 
 type IVariant = "blue" | "green" | "red";
@@ -24,6 +26,7 @@ const baseColors: IBaseColors = {
 const KanbanColumn: React.FC<IProps> = (props) => {
   const { title, variant = "blue", tasks, ...rest } = props;
 
+  const [isAdding, setIsAdding] = useState(false);
   const color = useMemo(() => baseColors[variant], [variant]);
 
   return (
@@ -31,8 +34,17 @@ const KanbanColumn: React.FC<IProps> = (props) => {
       <Header>
         <HeaderTitle>{title}</HeaderTitle>
 
+        <AddIcon
+          icon={<HiOutlinePlus />}
+          hoverBgColor={color}
+          onClick={() => setIsAdding((prev) => !prev)}
+        />
         <Badge color={color}>{tasks.length}</Badge>
       </Header>
+
+      {isAdding && (
+        <TextArea focused rows={2} placeholder="Enter a task" onChange={() => console.log("!!")} />
+      )}
 
       <TasksList>
         {tasks.map((task) => (

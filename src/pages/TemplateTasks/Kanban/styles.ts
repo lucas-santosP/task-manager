@@ -6,8 +6,8 @@ export const ContainerKanban = styled.div`
   display: flex;
   gap: 1rem;
   width: 100%;
-  overflow-y: auto;
   padding-bottom: 1rem;
+  color: #333;
 
   > * {
     flex: 1;
@@ -16,6 +16,7 @@ export const ContainerKanban = styled.div`
   @media (max-width: ${breakPoints.sm}) {
     flex-direction: column;
   }
+
   @media (min-width: ${breakPoints.md}) {
     gap: 2rem;
   }

@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { shade } from "polished";
-import { HiDotsHorizontal } from "react-icons/hi";
+import { IconWrapper } from "../../../../components/ui";
 
 export const ContainerTaskItem = styled.li<{ color: string }>`
   display: flex;
@@ -16,12 +16,7 @@ export const Text = styled.span`
   font-size: 1.1rem;
 `;
 
-export const StyledDotsIcon = styled(HiDotsHorizontal)<{ hoverBgColor: string }>`
+export const DotsIcon = styled(IconWrapper)`
   font-size: 1.2rem;
   margin-left: 0.3rem;
-
-  &:hover {
-    cursor: pointer;
-    background-color: ${({ hoverBgColor }) => shade(0.1, hoverBgColor)};
-  }
 `;
