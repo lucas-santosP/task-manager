@@ -67,7 +67,7 @@ export const PageContainer = styled.div`
   padding: 0 1rem;
   overflow-y: auto;
   overflow-x: hidden;
-  min-width: 300px;
+  min-width: 250px;
   max-width: 2000px;
 `;
 
@@ -95,6 +95,7 @@ export const PageTitle = styled.h1<IPropsPageTitle>`
 
 export const baseInput = css`
   ${baseFocus}
+  width:100%;
   padding: 0.5rem 1rem;
   border-radius: 0.2rem;
   color: ${({ theme }) => theme.colors.text};

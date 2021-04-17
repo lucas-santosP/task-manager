@@ -20,10 +20,10 @@ export default createGlobalStyle`
   }
 
   body {
-    font-size:16px;
-    color:${({ theme }) => theme.colors.text};
-    background-color:${({ theme }) => theme.colors.background};
-    font-family:${({ theme }) => theme.fontFamily.primary};
+    font-size: 1rem;
+    color: ${({ theme }) => theme.colors.text};
+    background-color: ${({ theme }) => theme.colors.background};
+    font-family: ${({ theme }) => theme.fontFamily.primary};
     transition: all ease .2s;
     overflow: hidden;
   }
@@ -35,12 +35,12 @@ export default createGlobalStyle`
   input,
   select,
   textarea {
-    font-family:${({ theme }) => theme.fontFamily.secondary};
-    font-size:inherit;
+    font-family: ${({ theme }) => theme.fontFamily.secondary};
+    font-size: inherit;
   }
   
   a {
-    color:${(props) => props.theme.colors.textHighlight};
+    color: ${(props) => props.theme.colors.textHighlight};
     
     &:hover{
       text-decoration: underline;
@@ -48,8 +48,8 @@ export default createGlobalStyle`
   }
 
   @media (max-width: ${breakPoints.xs}) {
-    body{
-      font-size: 14px;
+    html {
+      font-size: 13px;
     }
   }
 `;
