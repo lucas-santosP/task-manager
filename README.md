@@ -1,4 +1,8 @@
-# Getting Started
+# Task Manager - Lucid Task
+
+This is the frontend of the app, the backend can be found on [this repository](https://github.com/lucas-santosP/task-manager-backend). 
+
+# Setup
 
 Create a file in the root folder named .env and type:
 
