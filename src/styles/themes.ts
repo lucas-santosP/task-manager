@@ -16,6 +16,7 @@ const baseTheme = {
   fontFamily: {
     primary: "'Roboto', sans-serif",
     secondary: "'Inter', sans-serif",
+    mono: "'Roboto Mono', monospace",
   },
   colors: {
     blue: "#2374ab",

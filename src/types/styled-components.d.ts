@@ -34,6 +34,7 @@ declare module "styled-components" {
     fontFamily: {
       primary: string;
       secondary: string;
+      mono: string;
     };
   }
 }
