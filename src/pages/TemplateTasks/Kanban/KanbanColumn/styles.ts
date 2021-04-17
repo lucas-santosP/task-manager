@@ -8,8 +8,8 @@ export const ContainerKanbanColumn = styled.div<{ color: string }>`
   align-items: flex-start;
   flex-direction: column;
   width: 100%;
-  height: 100%;
   padding: 0.5rem 1rem;
+  padding-bottom: 1.5rem;
   background-color: ${({ color }) => color};
   border-radius: 0.5rem;
 `;
@@ -17,7 +17,7 @@ export const ContainerKanbanColumn = styled.div<{ color: string }>`
 export const Header = styled.header`
   ${flexCenter}
   width: 100%;
-  height: 3.5rem;
+  margin-bottom: 1rem;
 `;
 
 export const HeaderTitle = styled.h2`
