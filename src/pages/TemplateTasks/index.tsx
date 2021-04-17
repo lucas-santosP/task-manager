@@ -6,6 +6,7 @@ import { HiDotsHorizontal } from "react-icons/hi";
 import { useLocation } from "wouter";
 import { useTemplateContext } from "../../contexts/templates";
 import { ITemplate } from "../../types/template";
+import Kanban from "./Kanban";
 
 interface IProps {
   templateId: string;
@@ -94,6 +95,8 @@ const TemplateTasks: React.FC<IProps> = (props) => {
       </PageTitle>
 
       <p style={{ marginBottom: "2rem" }}>Description: {template.description}</p>
+
+      <Kanban tasks={template.tasks} />
 
       <Modal ref={refModalEdit} title="Edit Template">
         <Form onSubmit={handleSubmitUpdate} buttonText={"Update"}>

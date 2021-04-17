@@ -3,6 +3,8 @@ import styled, { css, keyframes } from "styled-components";
 export const breakPoints = {
   xs: "576px",
   sm: "768px",
+  md: "1024px",
+  lg: "1536px",
 };
 
 export const baseFocus = css`
@@ -66,6 +68,7 @@ export const PageContainer = styled.div`
   overflow-y: auto;
   overflow-x: hidden;
   min-width: 300px;
+  max-width: 2000px;
 `;
 
 export const CardWrapper = styled.div`
