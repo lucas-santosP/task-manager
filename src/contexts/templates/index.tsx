@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useMemo } from "react";
 import { TemplateServices } from "../../services/templates";
-import { ITask } from "../../types/task";
+import { TaskServices } from "../../services/tasks";
+import { ICreateTaskPayload, ITask } from "../../types/task";
 import {
   ICreateTemplatePayload,
   IUpdateTemplatePayload,
@@ -47,6 +48,20 @@ export const TemplateContextProvider: React.FC = ({ children }) => {
     }
   }
 
+  async function createTask(payload: ICreateTaskPayload) {
+    try {
+      const templateToUpdate = state.templates.find(
+        (template) => template._id === payload.templateId
+      );
+      if (!templateToUpdate) throw new Error();
+
+      const response = await TaskServices.create(payload);
+      const { task } = response.data;
+      templateToUpdate.tasks.push(task);
+      dispatch({ type: TemplateActions.UPDATE, payload: { template: templateToUpdate } });
+    } catch (error) {}
+  }
+
   const latestTasks = useMemo(() => {
     let allTasks: ITask[] = [];
 
@@ -75,6 +90,7 @@ export const TemplateContextProvider: React.FC = ({ children }) => {
         createTemplate,
         updateTemplate,
         deleteTemplate,
+        createTask,
       }}
     >
       {children}

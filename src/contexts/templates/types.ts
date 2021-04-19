@@ -1,4 +1,4 @@
-import { ITask } from "../../types/task";
+import { ICreateTaskPayload, ITask } from "../../types/task";
 import {
   ICreateTemplatePayload,
   ITemplate,
@@ -46,5 +46,6 @@ export interface ITemplateContext extends ITemplateReducerState {
   createTemplate: (payload: ICreateTemplatePayload) => Promise<void>;
   updateTemplate: (payload: IUpdateTemplatePayload) => Promise<void>;
   deleteTemplate: (payload: IDeleteTemplatePayload) => Promise<void>;
+  createTask: (payload: ICreateTaskPayload) => Promise<void>;
   latestTasks: ITask[];
 }
