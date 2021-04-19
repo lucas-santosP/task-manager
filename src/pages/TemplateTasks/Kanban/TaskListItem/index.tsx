@@ -17,6 +17,7 @@ const TaskListItem: React.FC<IProps> = (props) => {
       <Text>{task.name}</Text>
 
       <Popover
+        className="popover"
         position="left"
         content={<DotsIcon icon={<HiDotsHorizontal />} hoverBgColor={rest.color} />}
         options={[
