@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { shade } from "polished";
 import { flexCenter } from "../../../../styles/mixins";
 import { IconWrapper } from "../../../../components/ui";
@@ -12,12 +12,24 @@ export const ContainerKanbanColumn = styled.div<{ color: string }>`
   padding-bottom: 1.5rem;
   background-color: ${({ color }) => color};
   border-radius: 0.5rem;
+
+  ${({ theme }) =>
+    theme.title === "dark" &&
+    css`
+      background-color: #2a2a2a;
+      box-shadow: 0 0 3px 0 #fff;
+    `}
 `;
 
 export const Header = styled.header`
   ${flexCenter}
   width: 100%;
   margin-bottom: 1rem;
+  ${({ theme }) =>
+    theme.title === "dark" &&
+    css`
+      color: #fff;
+    `}
 `;
 
 export const HeaderTitle = styled.h2`
@@ -36,6 +48,7 @@ export const Badge = styled.div<{ color: string }>`
   width: 2.5rem;
   height: 2rem;
   font-size: 0.9rem;
+  color: #333;
   font-family: ${({ theme }) => theme.fontFamily.mono};
   background-color: ${({ color }) => shade(0.08, color)};
   border-radius: 9999px;
@@ -46,12 +59,17 @@ export const ContainerAddTask = styled.div`
   width: 100%;
   flex-direction: column;
   align-items: flex-start;
-  padding: 0.5rem 0;
+  margin-bottom: 1rem;
 
   .btn-group {
     display: flex;
     width: 100%;
-    justify-content: space-between;
+    justify-content: flex-end;
+    gap: 1rem;
+    button {
+      width: 100%;
+      text-align: center;
+    }
   }
 `;
 

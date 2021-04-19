@@ -1,45 +1,41 @@
 import { lighten, grayscale } from "polished";
 import styled, { css } from "styled-components";
-import { baseTransition } from "../../../styles/mixins";
+import { baseTransition, flexCenter } from "../../../styles/mixins";
 
 interface IPropsStyledButton {
   isLoading?: boolean;
+  variant?: "gray";
+  size: "sm" | "md";
+  rounded: "low" | "full";
 }
 
 export const StyledButton = styled.button<IPropsStyledButton>`
   ${baseTransition}
+  ${flexCenter}
   position: relative;
-  display: flex;
-  align-items: center;
   min-height: 2rem;
-  padding: ${({ theme }) => theme.spacing.xs + " " + theme.spacing.lg};
-  color: ${({ theme }) => theme.colors.secondary};
   font-size: 1.2rem;
   text-align: center;
-  border-radius: 9999px;
-  background-color: ${({ theme }) => theme.colors.primary};
+  padding: 0.5rem 2.5rem;
 
-  &:hover {
-    background-color: ${({ theme }) => lighten(0.06, theme.colors.primary)};
-  }
+  ${({ theme, isLoading, variant, size, rounded }) => css`
+    border-radius: ${rounded === "full" ? "9999px" : "0.5rem"};
+    color: ${theme.colors.secondary};
+    background-color: ${theme.title === "light" ? theme.colors.primary : theme.colors.gray};
 
-  &:disabled {
-    opacity: 0.6;
-    pointer-events: none;
-    background-color: ${({ theme }) => grayscale(theme.colors.primary)};
-  }
+    &:hover {
+      background-color: ${theme.title === "light"
+        ? lighten(0.06, theme.colors.primary)
+        : lighten(0.09, theme.colors.gray)};
+    }
 
-  ${({ theme }) =>
-    theme.title === "dark" &&
-    css`
-      background-color: ${theme.colors.gray};
-      &:hover {
-        background-color: ${lighten(0.09, theme.colors.gray)};
-      }
-    `}
+    &:disabled {
+      opacity: 0.6;
+      pointer-events: none;
+      background-color: ${grayscale(theme.colors.primary)};
+    }
 
-  ${({ isLoading, theme }) =>
-    isLoading &&
+    ${isLoading &&
     css`
       &:disabled,
       &:hover {
@@ -47,6 +43,21 @@ export const StyledButton = styled.button<IPropsStyledButton>`
         background-color: ${theme.title === "light" ? theme.colors.primary : theme.colors.gray};
       }
     `}
+
+    ${size === "sm" &&
+    css`
+      padding: 0.35rem 1.5rem;
+      font-size: 1rem;
+    `}
+
+    ${variant === "gray" &&
+    css`
+      background-color: #a2a2a2;
+      &:hover {
+        background-color: ${lighten(0.06, "#a2a2a2")};
+      }
+    `}
+  `}
 
   .loading-icon {
     position: absolute;

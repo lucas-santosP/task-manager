@@ -23,3 +23,8 @@ export const TitleIconsContainer = styled.div`
     }
   }
 `;
+
+export const Description = styled.p`
+  min-height: 3rem;
+  margin-bottom: 2rem;
+`;

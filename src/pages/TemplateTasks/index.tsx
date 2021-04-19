@@ -1,5 +1,5 @@
 import React, { ChangeEvent, useEffect, useMemo, useRef, useState } from "react";
-import { TitleIconsContainer } from "./styles";
+import { TitleIconsContainer, Description } from "./styles";
 import { PageContainer, PageTitle } from "../../styles/shared";
 import { Form, Alert, Input, Modal, ModalRef, Popover, TextArea } from "../../components/ui";
 import { HiDotsHorizontal } from "react-icons/hi";
@@ -94,7 +94,7 @@ const TemplateTasks: React.FC<IProps> = (props) => {
         </TitleIconsContainer>
       </PageTitle>
 
-      <p style={{ marginBottom: "2rem" }}>Description: {template.description}</p>
+      <Description>Description: {template.description}</Description>
 
       <Kanban tasks={template.tasks} />
 

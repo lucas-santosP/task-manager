@@ -26,8 +26,8 @@ type IBaseColors = {
 };
 
 const baseColors: IBaseColors = {
-  blue: "#d8ebeb",
   red: "#ebd9d8",
+  blue: "#d0ebeb",
   green: "#ddebd8",
 };
 
@@ -56,12 +56,17 @@ const KanbanColumn: React.FC<IProps> = (props) => {
             rows={2}
             placeholder="Enter a task"
             onChange={() => console.log("!!")}
+            marginBottom={0.5}
             autoResizeY
             focused
           />
           <div className="btn-group">
-            <Button>Cancel</Button>
-            <Button>Add</Button>
+            <Button size="sm" rounded="low" variant="gray" onClick={() => setIsAdding(false)}>
+              Cancel
+            </Button>
+            <Button size="sm" rounded="low">
+              Add
+            </Button>
           </div>
         </ContainerAddTask>
       )}

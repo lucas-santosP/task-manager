@@ -26,6 +26,7 @@ export const flexCenter = css`
 
 export const baseInput = css`
   ${baseFocus}
+  ${baseTransition}
   width:100%;
   padding: 0.5rem 1rem;
   border-radius: 0.2rem;
