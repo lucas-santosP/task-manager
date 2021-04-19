@@ -11,13 +11,17 @@ import {
 import TaskListItem from "../TaskListItem";
 import { Button, TextArea } from "../../../../components/ui";
 import { HiOutlinePlus } from "react-icons/hi";
-import { ITask } from "../../../../types/task";
+import { ITask, ITaskStatus, ICreateTaskPayload } from "../../../../types/task";
+import { capitalizeText } from "../../../../utils";
+import { useTemplateContext } from "../../../../contexts/templates";
 
 type IVariant = "blue" | "green" | "red";
 
 interface IProps {
-  title: string;
+  title?: string;
   variant?: IVariant;
+  status: ITaskStatus;
+  templateId: string;
   tasks: ITask[];
 }
 
@@ -32,15 +36,29 @@ const baseColors: IBaseColors = {
 };
 
 const KanbanColumn: React.FC<IProps> = (props) => {
-  const { title, variant = "blue", tasks, ...rest } = props;
+  const { title, status, variant = "blue", tasks, templateId, ...rest } = props;
 
+  const { createTask } = useTemplateContext();
   const [isAdding, setIsAdding] = useState(false);
+  const [newTask, setNewTask] = useState<ICreateTaskPayload>({
+    name: "",
+    status,
+    templateId,
+  });
+
+  async function handleCreateTask() {
+    if (!newTask.name) return;
+
+    await createTask(newTask);
+    setNewTask((prev) => ({ ...prev, name: "" }));
+  }
+
   const color = useMemo(() => baseColors[variant], [variant]);
 
   return (
     <ContainerKanbanColumn color={color} {...rest}>
       <Header>
-        <HeaderTitle>{title}</HeaderTitle>
+        <HeaderTitle>{title ? title : capitalizeText(status)}</HeaderTitle>
 
         <AddIcon
           icon={<HiOutlinePlus />}
@@ -55,7 +73,8 @@ const KanbanColumn: React.FC<IProps> = (props) => {
           <TextArea
             rows={2}
             placeholder="Enter a task"
-            onChange={() => console.log("!!")}
+            onChange={(e) => setNewTask((prev) => ({ ...prev, name: e.target.value }))}
+            value={newTask.name}
             marginBottom={0.5}
             autoResizeY
             focused
@@ -64,7 +83,7 @@ const KanbanColumn: React.FC<IProps> = (props) => {
             <Button size="sm" rounded="low" variant="gray" onClick={() => setIsAdding(false)}>
               Cancel
             </Button>
-            <Button size="sm" rounded="low">
+            <Button size="sm" rounded="low" onClick={handleCreateTask}>
               Add
             </Button>
           </div>

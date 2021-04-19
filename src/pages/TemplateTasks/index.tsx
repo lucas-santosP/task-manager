@@ -96,7 +96,7 @@ const TemplateTasks: React.FC<IProps> = (props) => {
 
       <Description>Description: {template.description}</Description>
 
-      <Kanban tasks={template.tasks} />
+      <Kanban template={template} />
 
       <Modal ref={refModalEdit} title="Edit Template">
         <Form onSubmit={handleSubmitUpdate} buttonText={"Update"}>
