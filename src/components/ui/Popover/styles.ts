@@ -1,6 +1,6 @@
 import { lighten, shade } from "polished";
 import styled, { css } from "styled-components";
-import { baseTransition, flexCenter, noFocus } from "../../../styles/shared";
+import { baseTransition, flexCenter, noFocus } from "../../../styles/mixins";
 import { IPosition } from "./index";
 
 const popoverBorderColor = "#c3c3c3";

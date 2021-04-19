@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { useLocation, useRoute } from "wouter";
 import { useTheme } from "../../../contexts/theme";
 import { SidebarContainer, NavList, NavItem, NavItemText } from "./styles";
-
 import {
   HiOutlineMenu,
   HiOutlineHome,

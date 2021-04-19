@@ -1,6 +1,6 @@
 import { lighten, grayscale } from "polished";
 import styled, { css } from "styled-components";
-import { baseTransition } from "../../../styles/shared";
+import { baseTransition } from "../../../styles/mixins";
 
 interface IPropsStyledButton {
   isLoading?: boolean;

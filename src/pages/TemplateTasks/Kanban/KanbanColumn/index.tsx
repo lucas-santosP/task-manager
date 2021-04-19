@@ -1,7 +1,15 @@
 import React, { useMemo, useState } from "react";
-import { ContainerKanbanColumn, Header, HeaderTitle, AddIcon, Badge, TasksList } from "./styles";
+import {
+  ContainerKanbanColumn,
+  Header,
+  HeaderTitle,
+  AddIcon,
+  Badge,
+  TasksList,
+  ContainerAddTask,
+} from "./styles";
 import TaskListItem from "../TaskListItem";
-import { TextArea } from "../../../../components/ui";
+import { Button, TextArea } from "../../../../components/ui";
 import { HiOutlinePlus } from "react-icons/hi";
 import { ITask } from "../../../../types/task";
 
@@ -43,13 +51,19 @@ const KanbanColumn: React.FC<IProps> = (props) => {
       </Header>
 
       {isAdding && (
-        <TextArea
-          rows={2}
-          placeholder="Enter a task"
-          onChange={() => console.log("!!")}
-          autoResizeY
-          focused
-        />
+        <ContainerAddTask>
+          <TextArea
+            rows={2}
+            placeholder="Enter a task"
+            onChange={() => console.log("!!")}
+            autoResizeY
+            focused
+          />
+          <div className="btn-group">
+            <Button>Cancel</Button>
+            <Button>Add</Button>
+          </div>
+        </ContainerAddTask>
       )}
 
       <TasksList>

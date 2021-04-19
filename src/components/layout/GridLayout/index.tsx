@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import Sidebar from "../Sidebar";
-import { fadeInAnimation } from "../../../styles/shared";
+import { fadeInAnimation } from "../../../styles/animations";
 
 const StyledGridLayout = styled.div`
   display: flex;

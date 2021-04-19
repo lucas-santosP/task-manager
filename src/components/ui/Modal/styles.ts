@@ -1,12 +1,8 @@
 import styled, { css } from "styled-components";
 import { shade, lighten } from "polished";
-import {
-  fadeInAnimation,
-  zoomInAnimation,
-  flexCenter,
-  baseTransition,
-  breakPoints,
-} from "../../../styles/shared";
+import { breakPoints } from "../../../styles/shared";
+import { flexCenter, baseTransition } from "../../../styles/mixins";
+import { fadeInAnimation, zoomInAnimation } from "../../../styles/animations";
 
 export const ModalOverlay = styled.div`
   position: fixed;

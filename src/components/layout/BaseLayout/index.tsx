@@ -1,6 +1,6 @@
 import React from "react";
 import styled, { css } from "styled-components";
-import { fadeInAnimation } from "../../../styles/shared";
+import { fadeInAnimation } from "../../../styles/animations";
 import { AppendButtonToggleTheme } from "../../ui";
 
 const StyledBaseLayout = styled.div`

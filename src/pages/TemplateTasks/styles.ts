@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { baseTransition, flexCenter } from "../../styles/shared";
+import { baseTransition, flexCenter } from "../../styles/mixins";
 import { lighten, shade } from "polished";
 
 export const TitleIconsContainer = styled.div`

@@ -1,5 +1,5 @@
 import styled, { css } from "styled-components";
-import { baseTransition } from "../../../styles/shared";
+import { baseTransition } from "../../../styles/mixins";
 
 export const StyledList = styled.ul`
   display: flex;

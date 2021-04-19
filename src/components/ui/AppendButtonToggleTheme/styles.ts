@@ -1,6 +1,6 @@
 import styled, { css } from "styled-components";
 import { HiOutlineMoon, HiOutlineSun } from "react-icons/hi";
-import { fadeInAnimation } from "../../../styles/shared";
+import { fadeInAnimation } from "../../../styles/animations";
 
 export const ButtonContainer = styled.button`
   position: fixed;

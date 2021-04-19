@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { shade } from "polished";
-import { flexCenter } from "../../../../styles/shared";
+import { flexCenter } from "../../../../styles/mixins";
 import { IconWrapper } from "../../../../components/ui";
 
 export const ContainerKanbanColumn = styled.div<{ color: string }>`
@@ -39,6 +39,20 @@ export const Badge = styled.div<{ color: string }>`
   font-family: ${({ theme }) => theme.fontFamily.mono};
   background-color: ${({ color }) => shade(0.08, color)};
   border-radius: 9999px;
+`;
+
+export const ContainerAddTask = styled.div`
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0.5rem 0;
+
+  .btn-group {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+  }
 `;
 
 export const TasksList = styled.ul`

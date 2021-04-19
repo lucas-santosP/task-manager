@@ -1,7 +1,7 @@
-import { shade } from "polished";
 import React, { ReactChild } from "react";
 import styled, { css } from "styled-components";
-import { baseTransition, flexCenter } from "../../../styles/shared";
+import { shade } from "polished";
+import { baseTransition, flexCenter } from "../../../styles/mixins";
 
 interface IProps extends React.InputHTMLAttributes<HTMLDivElement> {
   icon: ReactChild;

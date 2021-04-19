@@ -1,5 +1,6 @@
 import styled, { css } from "styled-components";
-import { baseTransition, noFocus, breakPoints, flexCenter } from "../../../styles/shared";
+import { breakPoints } from "../../../styles/shared";
+import { baseTransition, noFocus, flexCenter } from "../../../styles/mixins";
 
 export const AppendButton = styled.button.attrs({ type: "button" })`
   ${baseTransition}

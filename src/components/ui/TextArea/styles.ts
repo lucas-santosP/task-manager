@@ -1,5 +1,6 @@
 import styled, { css } from "styled-components";
-import { baseInput, breakPoints } from "../../../styles/shared";
+import { breakPoints } from "../../../styles/shared";
+import { baseInput } from "../../../styles/mixins";
 
 interface IProps {
   autoResizeY?: boolean;

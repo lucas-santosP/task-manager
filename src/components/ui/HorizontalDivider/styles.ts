@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { baseTransition } from "../../../styles/shared";
+import { baseTransition } from "../../../styles/mixins";
 
 interface IProps {
   width?: string;
