@@ -1,4 +1,4 @@
-import { lighten, grayscale } from "polished";
+import { lighten, shade } from "polished";
 import styled, { css } from "styled-components";
 import { baseTransition, flexCenter } from "../../../styles/mixins";
 
@@ -25,14 +25,14 @@ export const StyledButton = styled.button<IPropsStyledButton>`
 
     &:hover {
       background-color: ${theme.title === "light"
-        ? lighten(0.06, theme.colors.primary)
-        : lighten(0.09, theme.colors.gray)};
+        ? shade(0.06, theme.colors.primary)
+        : shade(0.1, theme.colors.gray)};
     }
 
     &:disabled {
       opacity: 0.6;
       pointer-events: none;
-      background-color: ${grayscale(theme.colors.primary)};
+      background-color: ${lighten(0.06, theme.colors.primary)};
     }
 
     ${isLoading &&
@@ -54,7 +54,7 @@ export const StyledButton = styled.button<IPropsStyledButton>`
     css`
       background-color: #a2a2a2;
       &:hover {
-        background-color: ${lighten(0.06, "#a2a2a2")};
+        background-color: ${shade(0.1, "#a2a2a2")};
       }
     `}
   `}
