@@ -41,10 +41,10 @@ const FormCreateTask: React.FC<IProps> = (props) => {
       />
 
       <div className="btn-group">
-        <Button size="sm" rounded="low" variant="gray" onClick={hideForm}>
+        <Button variant="rounded" size="sm" color="gray" onClick={hideForm}>
           Cancel
         </Button>
-        <Button disabled={!newTask.name} type="submit" size="sm" rounded="low">
+        <Button type="submit" variant="rounded" size="sm" disabled={!newTask.name}>
           Add
         </Button>
       </div>

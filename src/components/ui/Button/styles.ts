@@ -4,9 +4,9 @@ import { baseTransition, flexCenter } from "../../../styles/mixins";
 
 interface IPropsStyledButton {
   isLoading?: boolean;
-  variant?: "gray";
+  variant: "pill" | "rounded";
+  color: "default" | "gray";
   size: "sm" | "md";
-  rounded: "low" | "full";
 }
 
 export const StyledButton = styled.button<IPropsStyledButton>`
@@ -18,8 +18,8 @@ export const StyledButton = styled.button<IPropsStyledButton>`
   text-align: center;
   padding: 0.5rem 2.5rem;
 
-  ${({ theme, isLoading, variant, size, rounded }) => css`
-    border-radius: ${rounded === "full" ? "9999px" : "0.5rem"};
+  ${({ theme, isLoading, color, variant, size }) => css`
+    border-radius: ${variant === "pill" ? "9999px" : "0.5rem"};
     color: ${theme.colors.secondary};
     background-color: ${theme.title === "light" ? theme.colors.primary : theme.colors.gray};
 
@@ -50,11 +50,11 @@ export const StyledButton = styled.button<IPropsStyledButton>`
       font-size: 1rem;
     `}
 
-    ${variant === "gray" &&
+    ${color === "gray" &&
     css`
-      background-color: #a2a2a2;
+      background-color: #8f8f8f;
       &:hover {
-        background-color: ${shade(0.1, "#a2a2a2")};
+        background-color: ${shade(0.1, "#8f8f8f")};
       }
     `}
   `}

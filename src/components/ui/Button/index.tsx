@@ -4,16 +4,17 @@ import { FaSpinner } from "react-icons/fa";
 
 interface IProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   isLoading?: boolean;
-  variant?: "gray";
+  variant?: "pill" | "rounded";
+  color?: "default" | "gray";
   size?: "sm" | "md";
-  rounded?: "low" | "full";
 }
 
 const Button: React.FC<IProps> = (props: IProps) => {
   const {
     type = "button",
+    variant = "pill",
+    color = "default",
     size = "md",
-    rounded = "full",
     children,
     isLoading,
     disabled,
@@ -24,8 +25,9 @@ const Button: React.FC<IProps> = (props: IProps) => {
     <StyledButton
       type={type}
       disabled={isLoading ? isLoading : disabled}
+      variant={variant}
+      color={color}
       size={size}
-      rounded={rounded}
       {...rest}
     >
       {isLoading && <FaSpinner className="loading-icon" />}
