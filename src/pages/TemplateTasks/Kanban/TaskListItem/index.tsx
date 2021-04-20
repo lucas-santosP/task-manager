@@ -3,6 +3,7 @@ import { ContainerTaskItem, DotsIcon, Text } from "./styles";
 import { Popover } from "../../../../components/ui";
 import { HiDotsHorizontal } from "react-icons/hi";
 import { ITask } from "../../../../types/task";
+import { useTemplateContext } from "../../../../contexts/templates";
 
 interface IProps {
   task: ITask;
@@ -11,6 +12,16 @@ interface IProps {
 
 const TaskListItem: React.FC<IProps> = (props) => {
   const { task, ...rest } = props;
+
+  const { deleteTask } = useTemplateContext();
+
+  async function handleDeleteTask() {
+    try {
+      await deleteTask({ taskId: task._id });
+    } catch (error) {
+      alert(error.message);
+    }
+  }
 
   return (
     <ContainerTaskItem {...rest}>
@@ -27,7 +38,7 @@ const TaskListItem: React.FC<IProps> = (props) => {
           },
           {
             content: "Delete",
-            onClick: () => console.log("Delete"),
+            onClick: handleDeleteTask,
           },
         ]}
       />

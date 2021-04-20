@@ -4,14 +4,15 @@ import { ICreateTaskPayload, ITaskStatus } from "../../../../types/task";
 import { Button, TextArea } from "../../../../components/ui";
 import { useTemplateContext } from "../../../../contexts/templates";
 
-interface IProps {
+interface IProps extends React.HTMLAttributes<HTMLFormElement> {
   templateId: string;
   status: ITaskStatus;
+  visibility: boolean;
   hideForm: () => void;
 }
 
 const FormCreateTask: React.FC<IProps> = (props) => {
-  const { templateId, hideForm, status } = props;
+  const { templateId, hideForm, status, visibility } = props;
 
   const { createTask } = useTemplateContext();
   const [newTask, setNewTask] = useState<ICreateTaskPayload>({ name: "", status, templateId });
@@ -28,7 +29,7 @@ const FormCreateTask: React.FC<IProps> = (props) => {
   }
 
   return (
-    <StyledForm onSubmit={handleCreateTask}>
+    <StyledForm onSubmit={handleCreateTask} style={{ display: visibility ? "unset" : "none" }}>
       <TextArea
         rows={2}
         marginBottom={0.5}
@@ -43,7 +44,7 @@ const FormCreateTask: React.FC<IProps> = (props) => {
         <Button size="sm" rounded="low" variant="gray" onClick={hideForm}>
           Cancel
         </Button>
-        <Button type="submit" size="sm" rounded="low">
+        <Button disabled={!newTask.name} type="submit" size="sm" rounded="low">
           Add
         </Button>
       </div>

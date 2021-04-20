@@ -1,10 +1,11 @@
 import React, { useMemo, useState } from "react";
 import { ContainerKanbanColumn, Header, HeaderTitle, AddIcon, Badge, TasksList } from "./styles";
+import { useTemplateContext } from "../../../../contexts/templates";
 import TaskListItem from "../TaskListItem";
 import FormCreateTask from "../FormAddTask";
 import { HiOutlinePlus } from "react-icons/hi";
 import { capitalizeText } from "../../../../utils";
-import { ITask, ITaskStatus } from "../../../../types/task";
+import { ITask, ITaskStatus, IUpdateTaskPayload } from "../../../../types/task";
 
 type IVariant = "blue" | "green" | "red";
 
@@ -29,8 +30,25 @@ const baseColors: IBaseColors = {
 const KanbanColumn: React.FC<IProps> = (props) => {
   const { title, status, variant = "blue", tasks, templateId, ...rest } = props;
 
+  const { updateTask } = useTemplateContext();
   const [isCreating, setIsCreating] = useState(false);
+  const [taskForm, setTaskForm] = useState<IUpdateTaskPayload>({
+    _id: "",
+    name: "",
+    status: "to do",
+  });
   const color = useMemo(() => baseColors[variant], [variant]);
+
+  async function handleUpdateTask() {
+    if (!taskForm._id) return;
+
+    try {
+      await updateTask(taskForm);
+      setTaskForm((prev) => ({ ...prev, name: "", _id: "" }));
+    } catch (error) {
+      alert(error.message);
+    }
+  }
 
   return (
     <ContainerKanbanColumn color={color} {...rest}>
@@ -45,13 +63,12 @@ const KanbanColumn: React.FC<IProps> = (props) => {
         <Badge color={color}>{tasks.length}</Badge>
       </Header>
 
-      {isCreating && (
-        <FormCreateTask
-          templateId={templateId}
-          status={status}
-          hideForm={() => setIsCreating(false)}
-        />
-      )}
+      <FormCreateTask
+        visibility={isCreating}
+        templateId={templateId}
+        status={status}
+        hideForm={() => setIsCreating(false)}
+      />
 
       <TasksList>
         {tasks.map((task) => (

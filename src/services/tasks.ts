@@ -23,6 +23,6 @@ export const TaskServices = {
   },
 
   delete(payload: IDeleteTaskPayload) {
-    return API.delete<IDeleteResponse>(`/template/${payload.taskId}`);
+    return API.delete<IDeleteResponse>(`/task/${payload.taskId}`);
   },
 };

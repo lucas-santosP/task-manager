@@ -1,7 +1,12 @@
 import React, { createContext, useContext, useMemo } from "react";
 import { TemplateServices } from "../../services/templates";
 import { TaskServices } from "../../services/tasks";
-import { ICreateTaskPayload, ITask } from "../../types/task";
+import {
+  ITask,
+  ICreateTaskPayload,
+  IUpdateTaskPayload,
+  IDeleteTaskPayload,
+} from "../../types/task";
 import {
   ICreateTemplatePayload,
   IUpdateTemplatePayload,
@@ -59,7 +64,44 @@ export const TemplateContextProvider: React.FC = ({ children }) => {
       const { task } = response.data;
       templateToUpdate.tasks.push(task);
       dispatch({ type: TemplateActions.UPDATE, payload: { template: templateToUpdate } });
-    } catch (error) {}
+    } catch (error) {
+      throw new Error("Unable to create the task the template, try later.");
+    }
+  }
+
+  async function updateTask(payload: IUpdateTaskPayload) {
+    try {
+      const templateToUpdate = state.templates.find((template) =>
+        template.tasks.some((task) => task._id === payload._id)
+      );
+      if (!templateToUpdate) throw new Error();
+
+      const response = await TaskServices.update(payload);
+      const { task } = response.data;
+      const index = templateToUpdate.tasks.findIndex((task) => task._id === payload._id);
+      templateToUpdate.tasks[index] = { ...task };
+      dispatch({ type: TemplateActions.UPDATE, payload: { template: templateToUpdate } });
+    } catch (error) {
+      throw new Error("Unable to update the task, try later.");
+    }
+  }
+
+  async function deleteTask(payload: IDeleteTaskPayload) {
+    try {
+      const templateToUpdate = state.templates.find((template) =>
+        template.tasks.some((task) => task._id === payload.taskId)
+      );
+      if (!templateToUpdate) throw new Error();
+
+      const response = await TaskServices.delete(payload);
+      if (!response.data.task?.ok) throw new Error();
+
+      const index = templateToUpdate.tasks.findIndex((task) => task._id === payload.taskId);
+      templateToUpdate.tasks.splice(index, 1);
+      dispatch({ type: TemplateActions.UPDATE, payload: { template: templateToUpdate } });
+    } catch (error) {
+      throw new Error("Unable to update the task, try later.");
+    }
   }
 
   const latestTasks = useMemo(() => {
@@ -78,7 +120,7 @@ export const TemplateContextProvider: React.FC = ({ children }) => {
       return 0;
     });
 
-    return tasksOrdered.slice(0, 10);
+    return tasksOrdered.slice(0, 5);
   }, [state.templates]);
 
   return (
@@ -91,6 +133,8 @@ export const TemplateContextProvider: React.FC = ({ children }) => {
         updateTemplate,
         deleteTemplate,
         createTask,
+        updateTask,
+        deleteTask,
       }}
     >
       {children}
