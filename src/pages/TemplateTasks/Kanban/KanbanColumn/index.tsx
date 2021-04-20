@@ -1,19 +1,10 @@
 import React, { useMemo, useState } from "react";
-import {
-  ContainerKanbanColumn,
-  Header,
-  HeaderTitle,
-  AddIcon,
-  Badge,
-  TasksList,
-  ContainerAddTask,
-} from "./styles";
+import { ContainerKanbanColumn, Header, HeaderTitle, AddIcon, Badge, TasksList } from "./styles";
 import TaskListItem from "../TaskListItem";
-import { Button, TextArea } from "../../../../components/ui";
+import FormCreateTask from "../FormAddTask";
 import { HiOutlinePlus } from "react-icons/hi";
-import { ITask, ITaskStatus, ICreateTaskPayload } from "../../../../types/task";
 import { capitalizeText } from "../../../../utils";
-import { useTemplateContext } from "../../../../contexts/templates";
+import { ITask, ITaskStatus } from "../../../../types/task";
 
 type IVariant = "blue" | "green" | "red";
 
@@ -38,21 +29,7 @@ const baseColors: IBaseColors = {
 const KanbanColumn: React.FC<IProps> = (props) => {
   const { title, status, variant = "blue", tasks, templateId, ...rest } = props;
 
-  const { createTask } = useTemplateContext();
-  const [isAdding, setIsAdding] = useState(false);
-  const [newTask, setNewTask] = useState<ICreateTaskPayload>({
-    name: "",
-    status,
-    templateId,
-  });
-
-  async function handleCreateTask() {
-    if (!newTask.name) return;
-
-    await createTask(newTask);
-    setNewTask((prev) => ({ ...prev, name: "" }));
-  }
-
+  const [isCreating, setIsCreating] = useState(false);
   const color = useMemo(() => baseColors[variant], [variant]);
 
   return (
@@ -63,31 +40,17 @@ const KanbanColumn: React.FC<IProps> = (props) => {
         <AddIcon
           icon={<HiOutlinePlus />}
           hoverBgColor={color}
-          onClick={() => setIsAdding((prev) => !prev)}
+          onClick={() => setIsCreating((prev) => !prev)}
         />
         <Badge color={color}>{tasks.length}</Badge>
       </Header>
 
-      {isAdding && (
-        <ContainerAddTask>
-          <TextArea
-            rows={2}
-            placeholder="Enter a task"
-            onChange={(e) => setNewTask((prev) => ({ ...prev, name: e.target.value }))}
-            value={newTask.name}
-            marginBottom={0.5}
-            autoResizeY
-            focused
-          />
-          <div className="btn-group">
-            <Button size="sm" rounded="low" variant="gray" onClick={() => setIsAdding(false)}>
-              Cancel
-            </Button>
-            <Button size="sm" rounded="low" onClick={handleCreateTask}>
-              Add
-            </Button>
-          </div>
-        </ContainerAddTask>
+      {isCreating && (
+        <FormCreateTask
+          templateId={templateId}
+          status={status}
+          hideForm={() => setIsCreating(false)}
+        />
       )}
 
       <TasksList>

@@ -54,25 +54,6 @@ export const Badge = styled.div<{ color: string }>`
   border-radius: 9999px;
 `;
 
-export const ContainerAddTask = styled.div`
-  display: flex;
-  width: 100%;
-  flex-direction: column;
-  align-items: flex-start;
-  margin-bottom: 1rem;
-
-  .btn-group {
-    display: flex;
-    width: 100%;
-    justify-content: flex-end;
-    gap: 1rem;
-    button {
-      width: 100%;
-      text-align: center;
-    }
-  }
-`;
-
 export const TasksList = styled.ul`
   flex: 1;
   display: flex;

@@ -3,7 +3,7 @@ import { StyledForm } from "./styles";
 import { Button, HorizontalDivider } from "../";
 
 interface IProps extends React.FormHTMLAttributes<HTMLFormElement> {
-  buttonText: string;
+  buttonText?: string;
   bottomText?: ReactNode;
   buttonIsDisable?: boolean;
   isLoading?: boolean;
@@ -22,9 +22,11 @@ const Form: React.FC<IProps> = (props) => {
     <StyledForm onSubmit={handleSubmit} {...rest}>
       {children}
 
-      <Button type="submit" className="button" disabled={buttonIsDisable} isLoading={isLoading}>
-        {buttonText}
-      </Button>
+      {buttonText && (
+        <Button type="submit" className="button" disabled={buttonIsDisable} isLoading={isLoading}>
+          {buttonText}
+        </Button>
+      )}
 
       {bottomText && (
         <>

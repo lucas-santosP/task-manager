@@ -18,7 +18,7 @@ export const PageContainer = styled.div`
   overflow-y: auto;
   overflow-x: hidden;
   min-width: 250px;
-  max-width: 2000px;
+  max-width: 1600px;
 `;
 
 export const CardWrapper = styled.div`
