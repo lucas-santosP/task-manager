@@ -53,12 +53,3 @@ export const Badge = styled.div<{ color: string }>`
   background-color: ${({ color }) => shade(0.08, color)};
   border-radius: 9999px;
 `;
-
-export const TasksList = styled.ul`
-  flex: 1;
-  display: flex;
-  align-items: flex-start;
-  flex-direction: column;
-  gap: 1rem;
-  width: 100%;
-`;

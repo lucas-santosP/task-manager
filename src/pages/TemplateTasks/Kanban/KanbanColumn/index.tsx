@@ -1,7 +1,8 @@
-import React, { useMemo, useState } from "react";
-import { ContainerKanbanColumn, Header, HeaderTitle, AddIcon, Badge, TasksList } from "./styles";
+import React, { useMemo, useRef, useState } from "react";
+import { ContainerKanbanColumn, Header, HeaderTitle, AddIcon, Badge } from "./styles";
 import { useTemplateContext } from "../../../../contexts/templates";
-import TaskListItem from "../TaskListItem";
+import { Form, Modal, ModalRef, TextArea } from "../../../../components/ui";
+import TasksList from "../TasksList";
 import FormCreateTask from "../FormAddTask";
 import { HiOutlinePlus } from "react-icons/hi";
 import { capitalizeText } from "../../../../utils";
@@ -29,15 +30,19 @@ const baseColors: IBaseColors = {
 
 const KanbanColumn: React.FC<IProps> = (props) => {
   const { title, status, variant = "blue", tasks, templateId, ...rest } = props;
+  const taskFormInitialState: IUpdateTaskPayload = { _id: "", name: "", status };
 
   const { updateTask } = useTemplateContext();
   const [isCreating, setIsCreating] = useState(false);
-  const [taskForm, setTaskForm] = useState<IUpdateTaskPayload>({
-    _id: "",
-    name: "",
-    status: "to do",
-  });
+  const [taskForm, setTaskForm] = useState(taskFormInitialState);
+
   const color = useMemo(() => baseColors[variant], [variant]);
+  const refModalEdit = useRef<ModalRef>(null);
+
+  function openModalEdit(task: ITask) {
+    setTaskForm(task);
+    refModalEdit.current?.setVisibility(true);
+  }
 
   async function handleUpdateTask() {
     if (!taskForm._id) return;
@@ -45,6 +50,7 @@ const KanbanColumn: React.FC<IProps> = (props) => {
     try {
       await updateTask(taskForm);
       setTaskForm((prev) => ({ ...prev, name: "", _id: "" }));
+      refModalEdit.current?.setVisibility(false);
     } catch (error) {
       alert(error.message);
     }
@@ -70,11 +76,18 @@ const KanbanColumn: React.FC<IProps> = (props) => {
         hideForm={() => setIsCreating(false)}
       />
 
-      <TasksList>
-        {tasks.map((task) => (
-          <TaskListItem key={task._id} color={color} task={task} />
-        ))}
-      </TasksList>
+      <TasksList tasks={tasks} color={color} openModalEdit={openModalEdit} />
+
+      <Modal ref={refModalEdit} title="Edit Task">
+        <Form onSubmit={handleUpdateTask} buttonText={"Update"} buttonIsDisable={!taskForm.name}>
+          <TextArea
+            label="Name"
+            name="name"
+            value={taskForm.name}
+            onChange={(e) => setTaskForm((prev) => ({ ...prev, name: e.target.value }))}
+          />
+        </Form>
+      </Modal>
     </ContainerKanbanColumn>
   );
 };

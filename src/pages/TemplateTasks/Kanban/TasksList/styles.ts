@@ -2,7 +2,16 @@ import styled from "styled-components";
 import { shade } from "polished";
 import { IconWrapper } from "../../../../components/ui";
 
-export const ContainerTaskItem = styled.li<{ color: string }>`
+export const ContainerList = styled.ul`
+  flex: 1;
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  gap: 1rem;
+  width: 100%;
+`;
+
+export const TaskItem = styled.li<{ color: string }>`
   display: flex;
   align-items: flex-start;
   width: 100%;
