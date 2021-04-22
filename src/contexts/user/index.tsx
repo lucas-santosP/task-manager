@@ -5,14 +5,14 @@ import { useUserReducer } from "./userReducer";
 import { UserServices } from "../../services/user";
 import { usePersistentState } from "../../utils";
 import { IUserContext, UserActions, IStorageAuth } from "./types";
-import { ILoginPayload, IRegisterPayload } from "../../types/user";
+import { IAuthPayload, ILoginPayload, IRegisterPayload } from "../../types/user";
 
 const UserContext = createContext({} as IUserContext);
 
 export const UserContextProvider: React.FC = ({ children }) => {
-  const [location, setLocation] = useLocation();
-  const { setLoading } = useSharedContext();
   const [userState, dispatch] = useUserReducer();
+  const { setLoading } = useSharedContext();
+  const [location, setLocation] = useLocation();
   const [storageAuth, setStorageAuth] = usePersistentState<IStorageAuth>("user_auth", null);
 
   async function login(userData: ILoginPayload) {
@@ -39,29 +39,37 @@ export const UserContextProvider: React.FC = ({ children }) => {
     setLoading(false);
   }
 
-  async function checkUserStorageAuth() {
-    if (storageAuth) {
-      try {
-        setLoading(true);
-        const { _id, token } = storageAuth;
-        const response = await UserServices.auth({ userId: _id, token });
-        const { user } = response.data;
-        dispatch({ type: UserActions.LOGIN, payload: { user, token } });
-        if (location === "/login" || location === "/register")
-          setLocation("/home", { replace: true });
-      } catch (error) {
-        console.log("Storage user not found");
-        setLocation("/login", { replace: true });
-      } finally {
-        setLoading(false, 1000);
-      }
-    } else {
+  async function auth(userAuth: IAuthPayload) {
+    const response = await UserServices.auth(userAuth);
+    const { user } = response.data;
+    setStorageAuth({ _id: user._id, token: userAuth.token });
+    dispatch({ type: UserActions.LOGIN, payload: { user, token: userAuth.token } });
+  }
+
+  async function checkUserAuth() {
+    if (!storageAuth) {
       setLocation("/login", { replace: true });
+      return;
+    }
+
+    try {
+      setLoading(true);
+      const { _id, token } = storageAuth;
+      await auth({ userId: _id, token });
+
+      if (location === "/login" || location === "/register") {
+        setLocation("/home", { replace: true });
+      }
+    } catch (error) {
+      console.log("Storage user not found");
+      setLocation("/login", { replace: true });
+    } finally {
+      setLoading(false, 800);
     }
   }
 
   useEffect(() => {
-    checkUserStorageAuth();
+    checkUserAuth();
   }, []);
 
   return (

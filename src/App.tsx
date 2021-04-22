@@ -1,20 +1,12 @@
-import React, { useEffect } from "react";
-import { useTemplateContext } from "./contexts/templates";
-import { setAPIAuthHeader } from "./services/api";
-import { useUserContext } from "./contexts/user";
+import React from "react";
+import { useSharedContext } from "./contexts/shared";
+import { LoadingView } from "./components/layout";
 import Routes from "./Routes";
 
 const App: React.FC = () => {
-  const { token } = useUserContext();
-  const { fetchTemplates } = useTemplateContext();
+  const { isLoading } = useSharedContext();
 
-  useEffect(() => {
-    if (token) {
-      setAPIAuthHeader(token);
-      fetchTemplates();
-    }
-  }, [token]);
-
+  if (isLoading) return <LoadingView />;
   return <Routes />;
 };
 

@@ -1,7 +1,7 @@
 import styled, { DefaultTheme, css } from "styled-components";
 import { shade } from "polished";
-import { baseTransition } from "../../../styles/mixins";
-import { breakPoints } from "../../../styles/shared";
+import { baseTransition } from "../../../../styles/mixins";
+import { breakPoints } from "../../../../styles/shared";
 
 interface IStyledProps {
   isExpanded: boolean;

@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { useLocation, useRoute } from "wouter";
-import { useTheme } from "../../../contexts/theme";
 import { SidebarContainer, NavList, NavItem, NavItemText } from "./styles";
+import { useTheme } from "../../../../contexts/theme";
+import { useUserContext } from "../../../../contexts/user";
 import {
   HiOutlineMenu,
   HiOutlineHome,
@@ -10,7 +11,6 @@ import {
   HiOutlineSun,
   HiOutlineLogout,
 } from "react-icons/hi";
-import { useUserContext } from "../../../contexts/user";
 
 const Sidebar: React.FC = () => {
   const { logout } = useUserContext();

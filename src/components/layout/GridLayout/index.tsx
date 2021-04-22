@@ -1,13 +1,16 @@
-import React from "react";
+import React, { Suspense } from "react";
 import { StyledGridLayout } from "./styles";
-import Sidebar from "../Sidebar";
+import Sidebar from "./Sidebar";
+import LoadingBar from "./LoadingBar";
 
 const BaseLayout: React.FC = ({ children }) => {
   return (
     <StyledGridLayout>
       <Sidebar />
 
-      <main> {children}</main>
+      <main>
+        <Suspense fallback={<LoadingBar />}>{children}</Suspense>
+      </main>
     </StyledGridLayout>
   );
 };

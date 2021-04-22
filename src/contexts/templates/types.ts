@@ -47,7 +47,6 @@ export type TemplateActionsTypes = ISetAction | ICreateAction | IUpdateAction | 
 
 // Template Context
 export interface ITemplateContext extends ITemplateReducerState {
-  fetchTemplates: () => Promise<void>;
   createTemplate: (payload: ICreateTemplatePayload) => Promise<void>;
   updateTemplate: (payload: IUpdateTemplatePayload) => Promise<void>;
   deleteTemplate: (payload: IDeleteTemplatePayload) => Promise<void>;

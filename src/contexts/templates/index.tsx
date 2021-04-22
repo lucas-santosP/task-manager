@@ -1,6 +1,10 @@
-import React, { createContext, useContext, useMemo } from "react";
+import React, { createContext, useContext, useEffect, useMemo } from "react";
 import { TemplateServices } from "../../services/templates";
 import { TaskServices } from "../../services/tasks";
+import { useTemplateReducer } from "./templateReducer";
+import { ITemplateContext, TemplateActions } from "./types";
+import { useUserContext } from "../user";
+import { setAPIAuthHeader } from "../../services/api";
 import {
   ITask,
   ICreateTaskPayload,
@@ -12,13 +16,12 @@ import {
   IUpdateTemplatePayload,
   IDeleteTemplatePayload,
 } from "../../types/template";
-import { useTemplateReducer } from "./templateReducer";
-import { ITemplateContext, TemplateActions } from "./types";
 
 const TemplateContext = createContext({} as ITemplateContext);
 
 export const TemplateContextProvider: React.FC = ({ children }) => {
   const [state, dispatch] = useTemplateReducer();
+  const { token } = useUserContext();
 
   async function fetchTemplates() {
     const response = await TemplateServices.get();
@@ -123,12 +126,18 @@ export const TemplateContextProvider: React.FC = ({ children }) => {
     return tasksOrdered.slice(0, 5);
   }, [state.templates]);
 
+  useEffect(() => {
+    if (token) {
+      setAPIAuthHeader(token);
+      fetchTemplates();
+    }
+  }, [token]);
+
   return (
     <TemplateContext.Provider
       value={{
         ...state,
         latestTasks,
-        fetchTemplates,
         createTemplate,
         updateTemplate,
         deleteTemplate,
