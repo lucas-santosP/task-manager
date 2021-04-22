@@ -19,6 +19,8 @@ export const StyledBaseLayout = styled.div`
 
   > main {
     position: relative;
+    display: flex;
+    justify-content: center;
     overflow: hidden;
     width: 100%;
     height: 100%;
