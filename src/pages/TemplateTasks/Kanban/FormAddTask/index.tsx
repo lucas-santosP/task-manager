@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { StyledForm } from "./styles";
+import { useTaskContext } from "../../../../contexts/tasks";
 import { ICreateTaskPayload, ITaskStatus } from "../../../../types/task";
 import { Button, TextArea } from "../../../../components/ui";
-import { useTemplateContext } from "../../../../contexts/templates";
 
 interface IProps extends React.HTMLAttributes<HTMLFormElement> {
   templateId: string;
@@ -14,7 +14,7 @@ interface IProps extends React.HTMLAttributes<HTMLFormElement> {
 const FormCreateTask: React.FC<IProps> = (props) => {
   const { templateId, hideForm, status, visibility } = props;
 
-  const { createTask } = useTemplateContext();
+  const { createTask } = useTaskContext();
   const [newTask, setNewTask] = useState<ICreateTaskPayload>({ name: "", status, templateId });
 
   async function handleCreateTask() {

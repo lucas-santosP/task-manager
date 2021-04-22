@@ -1,10 +1,10 @@
 import React from "react";
 import { StyledList } from "./styles";
-import { useTemplateContext } from "../../../contexts/templates";
+import { useTaskContext } from "../../../contexts/tasks";
 import { normalizeDateString } from "../../../utils";
 
 const LatestTaskList: React.FC = () => {
-  const { latestTasks } = useTemplateContext();
+  const { latestTasks } = useTaskContext();
 
   return (
     <StyledList>

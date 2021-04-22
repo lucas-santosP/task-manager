@@ -1,8 +1,8 @@
 import React from "react";
 import { ContainerList, TaskItem, DotsIcon, Text } from "./styles";
+import { useTaskContext } from "../../../../contexts/tasks";
 import { Popover } from "../../../../components/ui";
 import { HiDotsHorizontal } from "react-icons/hi";
-import { useTemplateContext } from "../../../../contexts/templates";
 import { ITask } from "../../../../types/task";
 
 interface IProps {
@@ -14,7 +14,7 @@ interface IProps {
 const TasksList: React.FC<IProps> = (props) => {
   const { tasks, openModalEdit, ...rest } = props;
 
-  const { deleteTask } = useTemplateContext();
+  const { deleteTask } = useTaskContext();
 
   async function handleDeleteTask(taskId: string) {
     try {

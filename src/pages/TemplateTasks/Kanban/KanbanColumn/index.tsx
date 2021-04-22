@@ -1,12 +1,12 @@
 import React, { useMemo, useRef, useState } from "react";
 import { ContainerKanbanColumn, Header, HeaderTitle, AddIcon, Badge } from "./styles";
-import { useTemplateContext } from "../../../../contexts/templates";
 import { Form, Modal, ModalRef, TextArea } from "../../../../components/ui";
-import TasksList from "../TasksList";
-import FormCreateTask from "../FormAddTask";
+import { useTaskContext } from "../../../../contexts/tasks";
 import { HiOutlinePlus } from "react-icons/hi";
 import { capitalizeText } from "../../../../utils";
 import { ITask, ITaskStatus, IUpdateTaskPayload } from "../../../../types/task";
+import TasksList from "../TasksList";
+import FormCreateTask from "../FormAddTask";
 
 type IVariant = "blue" | "green" | "red";
 
@@ -32,7 +32,7 @@ const KanbanColumn: React.FC<IProps> = (props) => {
   const { title, status, variant = "blue", tasks, templateId, ...rest } = props;
   const taskFormInitialState: IUpdateTaskPayload = { _id: "", name: "", status };
 
-  const { updateTask } = useTemplateContext();
+  const { updateTask } = useTaskContext();
   const [isCreating, setIsCreating] = useState(false);
   const [taskForm, setTaskForm] = useState(taskFormInitialState);
 

@@ -1,9 +1,4 @@
-import {
-  ITask,
-  ICreateTaskPayload,
-  IDeleteTaskPayload,
-  IUpdateTaskPayload,
-} from "../../types/task";
+import { Dispatch } from "react";
 import {
   ITemplate,
   ICreateTemplatePayload,
@@ -50,8 +45,5 @@ export interface ITemplateContext extends ITemplateReducerState {
   createTemplate: (payload: ICreateTemplatePayload) => Promise<void>;
   updateTemplate: (payload: IUpdateTemplatePayload) => Promise<void>;
   deleteTemplate: (payload: IDeleteTemplatePayload) => Promise<void>;
-  createTask: (payload: ICreateTaskPayload) => Promise<void>;
-  updateTask: (payload: IUpdateTaskPayload) => Promise<void>;
-  deleteTask: (payload: IDeleteTaskPayload) => Promise<void>;
-  latestTasks: ITask[];
+  dispatch: Dispatch<TemplateActionsTypes>;
 }
