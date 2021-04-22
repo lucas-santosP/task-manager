@@ -1,6 +1,7 @@
 import { lighten, shade } from "polished";
 import styled, { css } from "styled-components";
 import { baseTransition, flexCenter, noFocus } from "../../../styles/mixins";
+import { breakPoints } from "../../../styles/shared";
 import { IPosition } from "./index";
 
 const popoverBorderColor = "#c3c3c3";
@@ -127,5 +128,13 @@ export const PopoverList = styled.ul<IPropsPopoverList>`
           ? shade(0.1, theme.colors.lightGray)
           : lighten(0.1, theme.colors.gray)};
     }
+
+    @media (max-width: ${breakPoints.xs}) {
+      padding: 0.75rem 0.8rem;
+    }
   }
+`;
+
+export const Divider = styled.hr`
+  border: 1px solid #a4a4a4;
 `;

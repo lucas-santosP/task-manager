@@ -1,5 +1,5 @@
 import React, { HTMLAttributes, ReactNode, useMemo } from "react";
-import { PopoverContainer, PopoverList } from "./styles";
+import { Divider, PopoverContainer, PopoverList } from "./styles";
 import { v4 as uuidv4 } from "uuid";
 
 interface IOptions {
@@ -31,13 +31,17 @@ const Popover: React.FC<IProps> = (props) => {
 
       <PopoverList position={position} title="">
         {options.map((option, index) => (
-          <li
-            key={uniqueKeys[index]}
-            title={typeof option.content === "string" ? option.content : ""}
-            onClick={() => handleClick(option.onClick)}
-          >
-            {option.content}
-          </li>
+          <>
+            <li
+              key={uniqueKeys[index]}
+              title={typeof option.content === "string" ? option.content : ""}
+              onClick={() => handleClick(option.onClick)}
+            >
+              {option.content}
+            </li>
+
+            {index !== options.length - 1 && <Divider />}
+          </>
         ))}
       </PopoverList>
     </PopoverContainer>

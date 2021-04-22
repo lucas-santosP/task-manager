@@ -42,6 +42,7 @@ export const ModalContainer = styled.div`
 
   @media (max-width: ${breakPoints.xs}) {
     top: 50%;
+    width: calc(100% - 16px);
   }
 `;
 
