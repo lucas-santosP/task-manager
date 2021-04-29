@@ -30,6 +30,8 @@ export default createGlobalStyle`
 
   button {
     cursor:pointer;
+    font-family: inherit;
+    color:inherit;
   }
 
   input,
@@ -37,6 +39,7 @@ export default createGlobalStyle`
   textarea {
     font-family: ${({ theme }) => theme.fontFamily.secondary};
     font-size: inherit;
+    color:inherit;
   }
   
   a {

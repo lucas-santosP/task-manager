@@ -25,13 +25,14 @@ export const ModalContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: 1rem 3rem;
+  padding: 1rem 2rem;
   width: 100%;
   overflow-y: auto;
   background-color: #fff;
   box-shadow: 0 0 3px 0 #000;
   border-radius: 10px;
   animation: ${zoomInAnimation} 0.2s ease;
+  color: ${({ theme }) => theme.colors.text};
 
   ${({ theme }) =>
     theme.title === "dark" &&
@@ -39,8 +40,8 @@ export const ModalContainer = styled.div`
       background-color: ${theme.colors.background};
       box-shadow: 0 0 3px 0 #c1c1c1;
     `}
-
-  @media (max-width: ${breakPoints.xs}) {
+  @media
+    (max-width: ${breakPoints.xs}) {
     top: 50%;
     width: calc(100% - 16px);
   }
@@ -49,8 +50,11 @@ export const ModalContainer = styled.div`
 export const ModalHeader = styled.header`
   ${flexCenter}
   position: relative;
-  font-size: 1.2rem;
   text-align: center;
+
+  .title {
+    font-size: 1.5rem;
+  }
 
   .btn-close {
     ${flexCenter}
@@ -58,20 +62,20 @@ export const ModalHeader = styled.header`
     position: absolute;
     top: 45%;
     left: 100%;
-    transform: translateY(-50%);
-    padding: 0.5rem;
+    transform: translate(-50%, -50%);
     background-color: transparent;
     font-weight: bold;
-    font-size: inherit;
-    color: inherit;
-  }
+    width: 2.5rem;
+    height: 2.5rem;
+    font-size: 1.5rem;
 
-  .btn-close:hover {
-    border-radius: 25px;
-    background-color: ${({ theme }) =>
-      theme.title === "light"
-        ? shade(0.15, theme.colors.background)
-        : lighten(0.15, theme.colors.background)};
+    &:hover {
+      border-radius: 25px;
+      background-color: ${({ theme }) =>
+        theme.title === "light"
+          ? shade(0.15, theme.colors.background)
+          : lighten(0.15, theme.colors.background)};
+    }
   }
 `;
 

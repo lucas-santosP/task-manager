@@ -5,7 +5,7 @@ export const breakPoints = {
   xs: "576px",
   sm: "768px",
   md: "1024px",
-  lg: "1536px",
+  lg: "1330px",
 };
 
 export const PageContainer = styled.div`

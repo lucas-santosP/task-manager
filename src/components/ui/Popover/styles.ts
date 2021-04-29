@@ -134,7 +134,3 @@ export const PopoverList = styled.ul<IPropsPopoverList>`
     }
   }
 `;
-
-export const Divider = styled.hr`
-  border: 1px solid #a4a4a4;
-`;
