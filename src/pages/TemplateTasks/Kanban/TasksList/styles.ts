@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { shade } from "polished";
-import { IconWrapper } from "../../../../components/ui";
+import { baseTransition } from "../../../../styles/mixins";
 
 export const ContainerList = styled.ul`
   flex: 1;
@@ -20,15 +20,21 @@ export const TaskItem = styled.li<{ color: string }>`
   box-shadow: 0 0 2px 0px ${({ color }) => shade(0.5, color)};
 
   .popover {
+    ${baseTransition}
     margin-left: 0.3rem;
+    font-size: 1.2rem;
+    border-radius: 0.3rem;
+    padding: 0.25rem;
+
+    &:hover {
+      cursor: pointer;
+      background-color: ${({ color }) => shade(0.1, color)};
+    }
   }
 `;
 
 export const Text = styled.span`
   flex: 1;
   font-size: 1.1rem;
-`;
-
-export const DotsIcon = styled(IconWrapper)`
-  font-size: 1.2rem;
+  word-break: break-word;
 `;
