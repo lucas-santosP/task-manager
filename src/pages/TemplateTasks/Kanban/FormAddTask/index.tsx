@@ -3,19 +3,24 @@ import { StyledForm } from "./styles";
 import { useTaskContext } from "../../../../contexts/tasks";
 import { ICreateTaskPayload, ITaskStatus } from "../../../../types/task";
 import { Button, TextArea } from "../../../../components/ui";
+import { useKanbanContext } from "../../../../contexts/kanban";
 
 interface IProps extends React.HTMLAttributes<HTMLFormElement> {
-  templateId: string;
   status: ITaskStatus;
   visibility: boolean;
   hideForm: () => void;
 }
 
 const FormCreateTask: React.FC<IProps> = (props) => {
-  const { templateId, hideForm, status, visibility } = props;
+  const { hideForm, status, visibility } = props;
+  const { currentTemplate } = useKanbanContext();
 
   const { createTask } = useTaskContext();
-  const [newTask, setNewTask] = useState<ICreateTaskPayload>({ name: "", status, templateId });
+  const [newTask, setNewTask] = useState<ICreateTaskPayload>({
+    name: "",
+    status,
+    templateId: currentTemplate._id,
+  });
 
   async function handleCreateTask() {
     if (!newTask.name) return;

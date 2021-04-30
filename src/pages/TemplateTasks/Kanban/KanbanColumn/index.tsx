@@ -6,7 +6,7 @@ import { HiOutlinePlus } from "react-icons/hi";
 import { capitalizeText } from "../../../../utils";
 import { ITask, ITaskStatus, IUpdateTaskPayload } from "../../../../types/task";
 import TasksList from "../TasksList";
-import FormCreateTask from "../FormAddTask";
+import FormAddTask from "../FormAddTask";
 
 type IVariant = "blue" | "green" | "red";
 
@@ -14,7 +14,6 @@ interface IProps {
   title?: string;
   variant?: IVariant;
   status: ITaskStatus;
-  templateId: string;
   tasks: ITask[];
 }
 
@@ -29,7 +28,7 @@ const baseColors: IBaseColors = {
 };
 
 const KanbanColumn: React.FC<IProps> = (props) => {
-  const { title, status, variant = "blue", tasks, templateId, ...rest } = props;
+  const { title, status, variant = "blue", tasks, ...rest } = props;
   const taskFormInitialState: IUpdateTaskPayload = { _id: "", name: "", status };
 
   const { updateTask } = useTaskContext();
@@ -69,12 +68,7 @@ const KanbanColumn: React.FC<IProps> = (props) => {
         <Badge color={color}>{tasks.length}</Badge>
       </Header>
 
-      <FormCreateTask
-        visibility={isCreating}
-        templateId={templateId}
-        status={status}
-        hideForm={() => setIsCreating(false)}
-      />
+      <FormAddTask visibility={isCreating} status={status} hideForm={() => setIsCreating(false)} />
 
       <TasksList tasks={tasks} color={color} openModalEdit={openModalEdit} />
 

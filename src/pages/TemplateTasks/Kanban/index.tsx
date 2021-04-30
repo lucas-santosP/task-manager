@@ -1,43 +1,16 @@
-import React, { useMemo } from "react";
+import React from "react";
 import { ContainerKanban } from "./styles";
+import { useKanbanContext } from "../../../contexts/kanban";
 import KanbanColumn from "./KanbanColumn";
-import { ITemplate } from "../../../types/template";
 
-interface IProps {
-  template: ITemplate;
-}
-
-const Kanban: React.FC<IProps> = (props) => {
-  const { template } = props;
-
-  const tasksSegregated = useMemo(() => {
-    return {
-      onTodo: template.tasks.filter((task) => task.status === "to do"),
-      onDoing: template.tasks.filter((task) => task.status === "doing"),
-      onDone: template.tasks.filter((task) => task.status === "done"),
-    };
-  }, [template]);
+const Kanban: React.FC = () => {
+  const { tasksTodo, tasksDoing, tasksDone } = useKanbanContext();
 
   return (
     <ContainerKanban>
-      <KanbanColumn
-        variant="red"
-        status="to do"
-        templateId={template._id}
-        tasks={tasksSegregated.onTodo}
-      />
-      <KanbanColumn
-        variant="green"
-        status="doing"
-        templateId={template._id}
-        tasks={tasksSegregated.onDoing}
-      />
-      <KanbanColumn
-        variant="blue"
-        status="done"
-        templateId={template._id}
-        tasks={tasksSegregated.onDone}
-      />
+      <KanbanColumn variant="red" status="to do" tasks={tasksTodo} />
+      <KanbanColumn variant="green" status="doing" tasks={tasksDoing} />
+      <KanbanColumn variant="blue" status="done" tasks={tasksDone} />
     </ContainerKanban>
   );
 };

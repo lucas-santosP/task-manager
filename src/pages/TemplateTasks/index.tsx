@@ -5,6 +5,7 @@ import { Form, Alert, Input, Modal, ModalRef, Popover, TextArea } from "../../co
 import { HiDotsHorizontal } from "react-icons/hi";
 import { useLocation } from "wouter";
 import { useTemplateContext } from "../../contexts/templates";
+import { KanbanContextProvider } from "../../contexts/kanban";
 import { ITemplate } from "../../types/template";
 import Kanban from "./Kanban";
 
@@ -96,7 +97,9 @@ const TemplateTasks: React.FC<IProps> = (props) => {
 
       <Description>Description: {template.description}</Description>
 
-      <Kanban template={template} />
+      <KanbanContextProvider currentTemplate={template}>
+        <Kanban />
+      </KanbanContextProvider>
 
       <Modal ref={refModalEdit} title="Edit Template">
         <Form onSubmit={handleSubmitUpdate} buttonText={"Update"}>
