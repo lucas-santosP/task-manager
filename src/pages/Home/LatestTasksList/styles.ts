@@ -7,12 +7,14 @@ export const StyledList = styled.ul`
   min-height: 56px;
 
   > li {
-    width: 18rem;
+    width: 15rem;
     border-radius: 0.7rem;
     padding: 0.5rem 1.5rem;
+    padding-bottom: 1rem;
     text-align: center;
-    background-color: #fff;
-    box-shadow: 0 0 2px 0px #333;
+    background-color: #ffff;
+    box-shadow: 0 0 2px 0 #333;
+    cursor: pointer;
 
     ${({ theme }) =>
       theme.title === "dark" &&
@@ -31,8 +33,8 @@ export const StyledList = styled.ul`
     }
 
     .last-update {
-      display: block;
       color: #a7a7a7;
+      white-space: nowrap;
     }
   }
 `;

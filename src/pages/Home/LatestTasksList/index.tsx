@@ -16,7 +16,7 @@ const LatestTaskList: React.FC = () => {
             {task.name}
           </span>
 
-          <small className="last-update">Last update: {normalizeDateString(task.updatedAt)}</small>
+          <small className="last-update">Created at: {normalizeDateString(task.createdAt)}</small>
         </li>
       ))}
     </StyledList>
