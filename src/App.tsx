@@ -9,9 +9,7 @@ const App: React.FC = () => {
   const [location, setLocation] = useLocation();
 
   useEffect(() => {
-    store.userStore.checkUserAuth(location, setLocation).then(() => {
-      store.setLoading(false);
-    });
+    store.userStore.checkUserAuth(location, setLocation);
   }, []);
 
   useEffect(() => {

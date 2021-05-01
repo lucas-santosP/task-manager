@@ -2,6 +2,7 @@ import { UserServices } from "../../services/user";
 import Cookies from "js-cookie";
 import { IAuthPayload, ILoginPayload, IRegisterPayload, IUser } from "../../types/user";
 import { IRootStore } from "../index";
+import { makeAutoObservable } from "mobx";
 
 const AUTH_COOKIE = "user_auth";
 
@@ -15,6 +16,7 @@ export class UserStore {
 
   constructor(rootStore: IRootStore) {
     this.rootStore = rootStore;
+    makeAutoObservable(this);
   }
 
   async login(userData: ILoginPayload, setLocation: ISetLocation) {
@@ -36,10 +38,12 @@ export class UserStore {
   }
 
   logout(setLocation: ISetLocation) {
+    this.rootStore.setLoading(true);
     this.token = null;
     this.user = null;
     Cookies.remove(AUTH_COOKIE);
     setLocation("/login", { replace: true });
+    this.rootStore.setLoading(false);
   }
 
   async auth(userAuth: IAuthPayload) {

@@ -16,7 +16,6 @@ interface IProps {
 
 const TemplateTasks: React.FC<IProps> = (props) => {
   const { templateId } = props;
-  const { templateStore } = store;
 
   const [, setLocation] = useLocation();
   const [template, setTemplate] = useState<ITemplate | null>(null);
@@ -42,7 +41,7 @@ const TemplateTasks: React.FC<IProps> = (props) => {
     if (!templateForm) return;
 
     try {
-      await templateStore.updateTemplate(templateForm);
+      await store.templateStore.updateTemplate(templateForm);
       setTemplateForm(template);
       refModalEdit.current?.setVisibility(false);
     } catch (error) {
@@ -54,7 +53,7 @@ const TemplateTasks: React.FC<IProps> = (props) => {
     if (!template) return;
 
     try {
-      await templateStore.deleteTemplate({ templateId: template._id });
+      await store.templateStore.deleteTemplate({ templateId: template._id });
       setLocation("/");
     } catch (error) {
       alert(error.message);
@@ -63,10 +62,10 @@ const TemplateTasks: React.FC<IProps> = (props) => {
 
   useEffect(() => {
     const templateFound =
-      templateStore.templates.find((template) => template._id === templateId) || null;
+      store.templateStore.templates.find((template) => template._id === templateId) || null;
     setTemplate(templateFound);
     setTemplateForm(templateFound);
-  }, [templateStore.templates]);
+  }, [store.templateStore.templates]);
 
   if (!template) return <span>Template not found</span>;
 

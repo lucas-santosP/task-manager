@@ -17,9 +17,9 @@ class Store implements IRootStore {
   templateStore;
 
   constructor() {
+    makeAutoObservable(this);
     this.userStore = new UserStore(this);
     this.templateStore = new TemplateStore(this);
-    makeAutoObservable(this);
   }
 
   setLoading(value: boolean, minimumWait = 500) {

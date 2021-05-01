@@ -1,3 +1,4 @@
+import { makeAutoObservable } from "mobx";
 import { setAPIAuthHeader } from "../../services/api";
 import { TaskServices } from "../../services/tasks";
 import { TemplateServices } from "../../services/templates";
@@ -21,6 +22,7 @@ export class TemplateStore {
 
   constructor(rootStore: IRootStore) {
     this.rootStore = rootStore;
+    makeAutoObservable(this);
   }
 
   async fetchTemplates(token: string) {
