@@ -1,18 +1,18 @@
 import React from "react";
 import { StyledList } from "./styles";
 import { normalizeDateString } from "../../../utils";
-import { useTemplateContext } from "../../../contexts/templates";
+import { observer } from "mobx-react";
+import store from "../../../store";
 import useLocation from "wouter/use-location";
 
 const TemplateList: React.FC = () => {
-  const { templates } = useTemplateContext();
   const [, setLocation] = useLocation();
 
   return (
     <StyledList>
-      {!templates.length && <span>No Templates found.</span>}
+      {!store.templateStore.templates.length && <span>No Templates found.</span>}
 
-      {templates.map((template) => (
+      {store.templateStore.templates.map((template) => (
         <li key={template._id} onClick={() => setLocation(`template/${template._id}`)}>
           <span className="name" title={template.name}>
             {template.name}
@@ -31,4 +31,4 @@ const TemplateList: React.FC = () => {
   );
 };
 
-export default TemplateList;
+export default observer(TemplateList);

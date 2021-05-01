@@ -2,14 +2,13 @@ import React from "react";
 import { Switch, Route, Router, Redirect } from "wouter";
 import { BaseLayout, GridLayout } from "./components/layout";
 import { Login, Register, NotFound, Home, Profile, TemplateTasks } from "./pages";
-import { useUserContext } from "./contexts/user";
+import { observer } from "mobx-react";
+import store from "./store";
 
 const Routes: React.FC = () => {
-  const { user } = useUserContext();
-
   return (
     <Router>
-      {user ? (
+      {store.userStore.user ? (
         <GridLayout>
           <Switch>
             <Route path="/home" component={Home} />
@@ -35,4 +34,4 @@ const Routes: React.FC = () => {
   );
 };
 
-export default Routes;
+export default observer(Routes);

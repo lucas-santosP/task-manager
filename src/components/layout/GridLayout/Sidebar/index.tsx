@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useLocation, useRoute } from "wouter";
 import { SidebarContainer, NavList, NavItem, NavItemText } from "./styles";
 import { useTheme } from "../../../../contexts/theme";
-import { useUserContext } from "../../../../contexts/user";
+import store from "../../../../store";
 import {
   HiOutlineMenu,
   HiOutlineHome,
@@ -13,7 +13,6 @@ import {
 } from "react-icons/hi";
 
 const Sidebar: React.FC = () => {
-  const { logout } = useUserContext();
   const [, setLocation] = useLocation();
   const [currentPageIsHome] = useRoute("/home");
   const [currentPageIsProfile] = useRoute("/profile");
@@ -45,7 +44,7 @@ const Sidebar: React.FC = () => {
               <NavItemText isExpanded={isExpanded}>Toggle theme</NavItemText>
             </NavItem>
 
-            <NavItem onClick={logout}>
+            <NavItem onClick={() => store.userStore.logout(setLocation)}>
               <HiOutlineLogout />
               <NavItemText isExpanded={isExpanded}>Logout</NavItemText>
             </NavItem>

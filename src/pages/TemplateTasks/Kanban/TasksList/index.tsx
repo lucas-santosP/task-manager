@@ -1,9 +1,10 @@
 import React from "react";
 import { ContainerList, TaskItem, Text } from "./styles";
-import { useTaskContext } from "../../../../contexts/tasks";
+import store from "../../../../store";
 import { Popover } from "../../../../components/ui";
 import { HiDotsHorizontal } from "react-icons/hi";
 import { ITask } from "../../../../types/task";
+import { observer } from "mobx-react";
 
 interface IProps {
   tasks: ITask[];
@@ -13,12 +14,11 @@ interface IProps {
 
 const TasksList: React.FC<IProps> = (props) => {
   const { tasks, openModalEdit, ...rest } = props;
-
-  const { deleteTask } = useTaskContext();
+  const { templateStore } = store;
 
   async function handleDeleteTask(taskId: string) {
     try {
-      await deleteTask({ taskId });
+      await templateStore.deleteTask({ taskId });
     } catch (error) {
       alert(error.message);
     }
@@ -51,4 +51,4 @@ const TasksList: React.FC<IProps> = (props) => {
   );
 };
 
-export default TasksList;
+export default observer(TasksList);

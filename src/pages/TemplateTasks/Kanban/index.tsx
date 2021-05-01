@@ -2,6 +2,7 @@ import React from "react";
 import { ContainerKanban } from "./styles";
 import { useKanbanContext } from "../../../contexts/kanban";
 import KanbanColumn from "./KanbanColumn";
+import { observer } from "mobx-react";
 
 const Kanban: React.FC = () => {
   const { tasksTodo, tasksDoing, tasksDone } = useKanbanContext();
@@ -15,4 +16,4 @@ const Kanban: React.FC = () => {
   );
 };
 
-export default Kanban;
+export default observer(Kanban);

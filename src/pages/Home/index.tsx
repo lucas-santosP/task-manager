@@ -1,15 +1,14 @@
 import React, { ChangeEvent, useRef, useState } from "react";
-import { PageContainer, PageTitle } from "../../styles/shared";
 import { Section, SectionTitle } from "./styles";
+import { PageContainer, PageTitle } from "../../styles/shared";
 import { Modal, ModalRef, Form, Input, TextArea, AppendButtonAdd } from "../../components/ui";
+import { observer } from "mobx-react";
+import store from "../../store";
 import TemplateList from "./TemplatesList";
 import LatestTaskList from "./LatestTasksList";
-import { useTemplateContext } from "../../contexts/templates";
-
 const initialTemplateForm = { name: "", description: "" };
 
 const Home: React.FC = () => {
-  const { createTemplate } = useTemplateContext();
   const [templateForm, setTemplateForm] = useState(initialTemplateForm);
   const modalRef = useRef<ModalRef>(null);
 
@@ -20,7 +19,7 @@ const Home: React.FC = () => {
 
   async function handleSubmitTemplateForm() {
     try {
-      await createTemplate(templateForm);
+      await store.templateStore.createTemplate(templateForm);
       setTemplateForm(initialTemplateForm);
       modalRef.current?.setVisibility(false);
     } catch (error) {
@@ -71,4 +70,4 @@ const Home: React.FC = () => {
   );
 };
 
-export default Home;
+export default observer(Home);

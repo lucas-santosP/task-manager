@@ -1,21 +1,18 @@
 import React from "react";
 import { StyledList } from "./styles";
-import { useTaskContext } from "../../../contexts/tasks";
+import store from "../../../store";
 import { normalizeDateString } from "../../../utils";
+import { observer } from "mobx-react";
 
 const LatestTaskList: React.FC = () => {
-  const { latestTasks } = useTaskContext();
-
   return (
     <StyledList>
-      {!latestTasks.length && <span>No Tasks added recently.</span>}
-
-      {latestTasks.map((task) => (
+      {!store.templateStore.latestTasks.length && <span>No Tasks added recently.</span>}
+      {store.templateStore.latestTasks.map((task) => (
         <li key={task._id}>
           <span className="name" title={task.name}>
             {task.name}
           </span>
-
           <small className="last-update">Created at: {normalizeDateString(task.createdAt)}</small>
         </li>
       ))}
@@ -23,4 +20,4 @@ const LatestTaskList: React.FC = () => {
   );
 };
 
-export default LatestTaskList;
+export default observer(LatestTaskList);

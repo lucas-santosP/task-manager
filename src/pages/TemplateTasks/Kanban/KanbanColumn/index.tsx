@@ -1,12 +1,13 @@
 import React, { useMemo, useRef, useState } from "react";
 import { ContainerKanbanColumn, Header, HeaderTitle, AddIcon, Badge } from "./styles";
 import { Form, Modal, ModalRef, TextArea } from "../../../../components/ui";
-import { useTaskContext } from "../../../../contexts/tasks";
+import store from "../../../../store";
 import { HiOutlinePlus } from "react-icons/hi";
 import { capitalizeText } from "../../../../utils";
 import { ITask, ITaskStatus, IUpdateTaskPayload } from "../../../../types/task";
 import TasksList from "../TasksList";
 import FormAddTask from "../FormAddTask";
+import { observer } from "mobx-react";
 
 type IVariant = "blue" | "green" | "red";
 
@@ -31,7 +32,7 @@ const KanbanColumn: React.FC<IProps> = (props) => {
   const { title, status, variant = "blue", tasks, ...rest } = props;
   const taskFormInitialState: IUpdateTaskPayload = { _id: "", name: "", status };
 
-  const { updateTask } = useTaskContext();
+  const { templateStore } = store;
   const [isCreating, setIsCreating] = useState(false);
   const [taskForm, setTaskForm] = useState(taskFormInitialState);
 
@@ -47,7 +48,7 @@ const KanbanColumn: React.FC<IProps> = (props) => {
     if (!taskForm._id) return;
 
     try {
-      await updateTask(taskForm);
+      await templateStore.updateTask(taskForm);
       setTaskForm((prev) => ({ ...prev, name: "", _id: "" }));
       refModalEdit.current?.setVisibility(false);
     } catch (error) {
@@ -86,4 +87,4 @@ const KanbanColumn: React.FC<IProps> = (props) => {
   );
 };
 
-export default KanbanColumn;
+export default observer(KanbanColumn);
