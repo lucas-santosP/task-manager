@@ -6,7 +6,6 @@ import { Form, Alert, Input, Modal, ModalRef, Popover, TextArea } from "../../co
 import { HiDotsHorizontal } from "react-icons/hi";
 import { useLocation } from "wouter";
 import store from "../../store";
-import { KanbanContextProvider } from "../../contexts/kanban";
 import { ITemplate } from "../../types/template";
 import Kanban from "./Kanban";
 
@@ -61,10 +60,14 @@ const TemplateTasks: React.FC<IProps> = (props) => {
   }
 
   useEffect(() => {
-    const templateFound =
-      store.templateStore.templates.find((template) => template._id === templateId) || null;
-    setTemplate(templateFound);
-    setTemplateForm(templateFound);
+    const templateFound = store.templateStore.templates.find(
+      (template) => template._id === templateId
+    );
+    if (templateFound) {
+      setTemplate(templateFound);
+      setTemplateForm(templateFound);
+      store.templateStore.setCurrentTemplate(templateFound);
+    }
   }, [store.templateStore.templates]);
 
   if (!template) return <span>Template not found</span>;
@@ -98,9 +101,7 @@ const TemplateTasks: React.FC<IProps> = (props) => {
 
       <Description>Description: {template.description}</Description>
 
-      <KanbanContextProvider currentTemplate={template}>
-        <Kanban />
-      </KanbanContextProvider>
+      <Kanban />
 
       <Modal ref={refModalEdit} title="Edit Template">
         <Form onSubmit={handleSubmitUpdate} buttonText={"Update"}>

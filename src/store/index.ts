@@ -1,15 +1,11 @@
 import { configure, makeAutoObservable } from "mobx";
 import { UserStore } from "./modules/user";
 import { TemplateStore } from "./modules/template";
+import { IRootStore } from "./types";
 
 configure({
   enforceActions: "never",
 });
-
-export interface IRootStore {
-  isLoading: boolean;
-  setLoading: (value: boolean, minimumWait?: number) => void;
-}
 
 class Store implements IRootStore {
   isLoading = true;
@@ -17,9 +13,9 @@ class Store implements IRootStore {
   templateStore;
 
   constructor() {
-    makeAutoObservable(this);
     this.userStore = new UserStore(this);
     this.templateStore = new TemplateStore(this);
+    makeAutoObservable(this);
   }
 
   setLoading(value: boolean, minimumWait = 500) {

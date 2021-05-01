@@ -7,7 +7,6 @@ import { capitalizeText } from "../../../../utils";
 import { ITask, ITaskStatus, IUpdateTaskPayload } from "../../../../types/task";
 import TasksList from "../TasksList";
 import FormAddTask from "../FormAddTask";
-import { observer } from "mobx-react";
 
 type IVariant = "blue" | "green" | "red";
 
@@ -32,7 +31,6 @@ const KanbanColumn: React.FC<IProps> = (props) => {
   const { title, status, variant = "blue", tasks, ...rest } = props;
   const taskFormInitialState: IUpdateTaskPayload = { _id: "", name: "", status };
 
-  const { templateStore } = store;
   const [isCreating, setIsCreating] = useState(false);
   const [taskForm, setTaskForm] = useState(taskFormInitialState);
 
@@ -48,7 +46,7 @@ const KanbanColumn: React.FC<IProps> = (props) => {
     if (!taskForm._id) return;
 
     try {
-      await templateStore.updateTask(taskForm);
+      await store.templateStore.updateTask(taskForm);
       setTaskForm((prev) => ({ ...prev, name: "", _id: "" }));
       refModalEdit.current?.setVisibility(false);
     } catch (error) {
@@ -87,4 +85,4 @@ const KanbanColumn: React.FC<IProps> = (props) => {
   );
 };
 
-export default observer(KanbanColumn);
+export default KanbanColumn;

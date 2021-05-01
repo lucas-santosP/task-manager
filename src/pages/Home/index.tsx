@@ -2,7 +2,6 @@ import React, { ChangeEvent, useRef, useState } from "react";
 import { Section, SectionTitle } from "./styles";
 import { PageContainer, PageTitle } from "../../styles/shared";
 import { Modal, ModalRef, Form, Input, TextArea, AppendButtonAdd } from "../../components/ui";
-import { observer } from "mobx-react";
 import store from "../../store";
 import TemplateList from "./TemplatesList";
 import LatestTaskList from "./LatestTasksList";
@@ -70,4 +69,4 @@ const Home: React.FC = () => {
   );
 };
 
-export default observer(Home);
+export default Home;

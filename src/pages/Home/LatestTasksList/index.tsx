@@ -1,8 +1,8 @@
 import React from "react";
 import { StyledList } from "./styles";
 import store from "../../../store";
-import { normalizeDateString } from "../../../utils";
 import { observer } from "mobx-react";
+import { normalizeDateString } from "../../../utils";
 
 const LatestTaskList: React.FC = () => {
   return (

@@ -21,7 +21,7 @@ const Input: React.FC<IProps> = (props) => {
 
   return (
     <InputRow htmlFor={uniqueId} label={label}>
-      <StyledInput ref={inputRef} type={type} id={uniqueId} {...rest} />
+      <StyledInput ref={inputRef} type={type} autoComplete="off" id={uniqueId} {...rest} />
     </InputRow>
   );
 };

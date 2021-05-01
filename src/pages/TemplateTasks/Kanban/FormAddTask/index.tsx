@@ -3,7 +3,6 @@ import { StyledForm } from "./styles";
 import store from "../../../../store";
 import { ICreateTaskPayload, ITaskStatus } from "../../../../types/task";
 import { Button, TextArea } from "../../../../components/ui";
-import { useKanbanContext } from "../../../../contexts/kanban";
 import { observer } from "mobx-react";
 
 interface IProps extends React.HTMLAttributes<HTMLFormElement> {
@@ -14,20 +13,25 @@ interface IProps extends React.HTMLAttributes<HTMLFormElement> {
 
 const FormCreateTask: React.FC<IProps> = (props) => {
   const { hideForm, status, visibility } = props;
-  const { templateStore } = store;
-  const { currentTemplate } = useKanbanContext();
 
-  const [newTask, setNewTask] = useState<ICreateTaskPayload>({
-    name: "",
-    status,
-    templateId: currentTemplate._id,
-  });
+  const [newTask, setNewTask] = useState<ICreateTaskPayload>(makeEmptyNewTask());
+
+  function makeEmptyNewTask() {
+    if (!store.templateStore.currentTemplate) {
+      return { name: "", status, templateId: "" };
+    }
+    return {
+      name: "",
+      status,
+      templateId: store.templateStore.currentTemplate._id,
+    };
+  }
 
   async function handleCreateTask() {
-    if (!newTask.name) return;
+    if (!newTask.templateId) return;
 
     try {
-      await templateStore.createTask(newTask);
+      await store.templateStore.createTask(newTask);
       setNewTask((prev) => ({ ...prev, name: "" }));
     } catch (error) {
       alert(error.message);

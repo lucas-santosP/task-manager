@@ -14,7 +14,6 @@ export const StyledList = styled.ul`
     text-align: center;
     background-color: #ffff;
     box-shadow: 0 0 2px 0 #333;
-    cursor: pointer;
 
     ${({ theme }) =>
       theme.title === "dark" &&

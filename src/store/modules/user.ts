@@ -1,13 +1,10 @@
-import { UserServices } from "../../services/user";
+import { makeAutoObservable, runInAction } from "mobx";
 import Cookies from "js-cookie";
+import { UserServices } from "../../services/user";
 import { IAuthPayload, ILoginPayload, IRegisterPayload, IUser } from "../../types/user";
-import { IRootStore } from "../index";
-import { makeAutoObservable } from "mobx";
+import { IRootStore, ISetLocation, IStorageAuth } from "../types";
 
 const AUTH_COOKIE = "user_auth";
-
-type ISetLocation = (to: string, options?: { replace: boolean }) => void;
-export type IStorageAuth = { _id: string; token: string } | undefined;
 
 export class UserStore {
   user: IUser | null = null;
@@ -22,8 +19,10 @@ export class UserStore {
   async login(userData: ILoginPayload, setLocation: ISetLocation) {
     const response = await UserServices.login(userData);
     const { user, token } = response.data;
-    this.user = { ...user };
-    this.token = token;
+    runInAction(() => {
+      this.user = user;
+      this.token = token;
+    });
     Cookies.set(AUTH_COOKIE, JSON.stringify({ _id: user._id, token } as IStorageAuth));
     setLocation("/home", { replace: true });
   }
@@ -31,16 +30,20 @@ export class UserStore {
   async register(userData: IRegisterPayload, setLocation: ISetLocation) {
     const response = await UserServices.register(userData);
     const { user, token } = response.data;
-    this.user = { ...user };
-    this.token = token;
+    runInAction(() => {
+      this.user = user;
+      this.token = token;
+    });
     Cookies.set(AUTH_COOKIE, JSON.stringify({ _id: user._id, token } as IStorageAuth));
     setLocation("/home", { replace: true });
   }
 
   logout(setLocation: ISetLocation) {
     this.rootStore.setLoading(true);
-    this.token = null;
-    this.user = null;
+    runInAction(() => {
+      this.token = null;
+      this.user = null;
+    });
     Cookies.remove(AUTH_COOKIE);
     setLocation("/login", { replace: true });
     this.rootStore.setLoading(false);
@@ -50,8 +53,10 @@ export class UserStore {
     const response = await UserServices.auth(userAuth);
     const { user } = response.data;
     const { token } = userAuth;
-    this.user = user;
-    this.token = token;
+    runInAction(() => {
+      this.user = user;
+      this.token = token;
+    });
     Cookies.set(AUTH_COOKIE, JSON.stringify({ _id: user._id, token } as IStorageAuth));
   }
 

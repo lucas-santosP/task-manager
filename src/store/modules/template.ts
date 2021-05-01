@@ -1,4 +1,4 @@
-import { makeAutoObservable } from "mobx";
+import { makeAutoObservable, runInAction } from "mobx";
 import { setAPIAuthHeader } from "../../services/api";
 import { TaskServices } from "../../services/tasks";
 import { TemplateServices } from "../../services/templates";
@@ -14,11 +14,12 @@ import {
   ITemplate,
   IUpdateTemplatePayload,
 } from "../../types/template";
-import { IRootStore } from "../index";
+import { IRootStore } from "../types";
 
 export class TemplateStore {
   rootStore;
   templates: ITemplate[] = [];
+  currentTemplate: ITemplate | null = null;
 
   constructor(rootStore: IRootStore) {
     this.rootStore = rootStore;
@@ -30,8 +31,10 @@ export class TemplateStore {
     const response = await TemplateServices.get();
     const { templates } = response.data;
 
-    this.templates = templates;
-    console.log("templates fetched", templates);
+    runInAction(() => {
+      this.templates = templates;
+      console.log("templates fetched", templates);
+    });
   }
 
   async createTemplate(payload: ICreateTemplatePayload) {
@@ -40,7 +43,9 @@ export class TemplateStore {
 
     const newState = [...this.templates];
     newState.push(template);
-    this.templates = newState;
+    runInAction(() => {
+      this.templates = newState;
+    });
   }
 
   async updateTemplate(payload: IUpdateTemplatePayload) {
@@ -51,7 +56,9 @@ export class TemplateStore {
     if (index !== -1) {
       const newState = [...this.templates];
       newState[index] = { ...template };
-      this.templates = newState;
+      runInAction(() => {
+        this.templates = newState;
+      });
     }
   }
 
@@ -60,7 +67,9 @@ export class TemplateStore {
     const { template } = response.data;
 
     if (template.ok) {
-      this.templates = this.templates.filter((template) => template._id !== payload.templateId);
+      runInAction(() => {
+        this.templates = this.templates.filter((template) => template._id !== payload.templateId);
+      });
     }
   }
 
@@ -73,7 +82,9 @@ export class TemplateStore {
 
     const newState = [...this.templates];
     newState[indexTemplateToUpdate].tasks.push(task);
-    this.templates = newState;
+    runInAction(() => {
+      this.templates = [...newState];
+    });
   }
 
   async updateTask(payload: IUpdateTaskPayload) {
@@ -88,7 +99,9 @@ export class TemplateStore {
 
     const newState = [...this.templates];
     newState[indexTemplateToUpdate].tasks[indexTaskToUpdate] = { ...task };
-    this.templates = newState;
+    runInAction(() => {
+      this.templates = newState;
+    });
   }
 
   async deleteTask(payload: IDeleteTaskPayload) {
@@ -104,8 +117,24 @@ export class TemplateStore {
     if (task.ok) {
       const newState = [...this.templates];
       newState[indexTemplateToUpdate].tasks.splice(indexTaskToDelete, 1);
-      this.templates = newState;
+      runInAction(() => {
+        this.templates = newState;
+      });
     }
+  }
+
+  setCurrentTemplate(payload: ITemplate) {
+    this.currentTemplate = payload;
+  }
+
+  get tasksSegregated() {
+    if (!this.currentTemplate) return null;
+
+    return {
+      tasksTodo: this.currentTemplate.tasks.filter((task) => task.status === "to do"),
+      tasksDoing: this.currentTemplate.tasks.filter((task) => task.status === "doing"),
+      tasksDone: this.currentTemplate.tasks.filter((task) => task.status === "done"),
+    };
   }
 
   get latestTasks() {
