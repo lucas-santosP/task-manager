@@ -5,9 +5,6 @@ export const API = axios.create({
   headers: { "Content-Type": "application/json" },
 });
 
-export function setAPIAuthHeader(token: string): void {
-  API.interceptors.request.use((req) => {
-    req.headers.Authorization = `Bearer ${token}`;
-    return req;
-  });
+export function setAPIAuthHeader(token: string) {
+  API.defaults.headers.common["Authorization"] = `Bearer ${token}`;
 }
