@@ -1,27 +1,37 @@
 import React, { useState } from "react";
 import { StyledForm } from "./styles";
-import { useTaskContext } from "../../../../contexts/tasks";
+import store from "../../../../store";
 import { ICreateTaskPayload, ITaskStatus } from "../../../../types/task";
 import { Button, TextArea } from "../../../../components/ui";
+import { observer } from "mobx-react";
 
 interface IProps extends React.HTMLAttributes<HTMLFormElement> {
-  templateId: string;
   status: ITaskStatus;
   visibility: boolean;
   hideForm: () => void;
 }
 
 const FormCreateTask: React.FC<IProps> = (props) => {
-  const { templateId, hideForm, status, visibility } = props;
+  const { hideForm, status, visibility } = props;
 
-  const { createTask } = useTaskContext();
-  const [newTask, setNewTask] = useState<ICreateTaskPayload>({ name: "", status, templateId });
+  const [newTask, setNewTask] = useState<ICreateTaskPayload>(makeEmptyNewTask());
+
+  function makeEmptyNewTask() {
+    if (!store.templateStore.currentTemplate) {
+      return { name: "", status, templateId: "" };
+    }
+    return {
+      name: "",
+      status,
+      templateId: store.templateStore.currentTemplate._id,
+    };
+  }
 
   async function handleCreateTask() {
-    if (!newTask.name) return;
+    if (!newTask.templateId) return;
 
     try {
-      await createTask(newTask);
+      await store.templateStore.createTask(newTask);
       setNewTask((prev) => ({ ...prev, name: "" }));
     } catch (error) {
       alert(error.message);
@@ -52,4 +62,4 @@ const FormCreateTask: React.FC<IProps> = (props) => {
   );
 };
 
-export default FormCreateTask;
+export default observer(FormCreateTask);

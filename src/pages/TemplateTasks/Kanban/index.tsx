@@ -1,45 +1,30 @@
-import React, { useMemo } from "react";
+import React from "react";
 import { ContainerKanban } from "./styles";
 import KanbanColumn from "./KanbanColumn";
-import { ITemplate } from "../../../types/template";
+import { observer } from "mobx-react";
+import store from "../../../store";
 
-interface IProps {
-  template: ITemplate;
-}
-
-const Kanban: React.FC<IProps> = (props) => {
-  const { template } = props;
-
-  const tasksSegregated = useMemo(() => {
-    return {
-      onTodo: template.tasks.filter((task) => task.status === "to do"),
-      onDoing: template.tasks.filter((task) => task.status === "doing"),
-      onDone: template.tasks.filter((task) => task.status === "done"),
-    };
-  }, [template]);
-
+const Kanban: React.FC = () => {
+  if (!store.templateStore.tasksSegregated) return null;
   return (
     <ContainerKanban>
       <KanbanColumn
         variant="red"
         status="to do"
-        templateId={template._id}
-        tasks={tasksSegregated.onTodo}
+        tasks={store.templateStore.tasksSegregated.tasksTodo}
       />
       <KanbanColumn
         variant="green"
         status="doing"
-        templateId={template._id}
-        tasks={tasksSegregated.onDoing}
+        tasks={store.templateStore.tasksSegregated.tasksDoing}
       />
       <KanbanColumn
         variant="blue"
         status="done"
-        templateId={template._id}
-        tasks={tasksSegregated.onDone}
+        tasks={store.templateStore.tasksSegregated.tasksDone}
       />
     </ContainerKanban>
   );
 };
 
-export default Kanban;
+export default observer(Kanban);

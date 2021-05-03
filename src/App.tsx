@@ -1,13 +1,25 @@
-import React from "react";
-import { useSharedContext } from "./contexts/shared";
+import React, { useEffect } from "react";
+import store from "./store";
+import { useLocation } from "wouter";
+import { observer } from "mobx-react";
 import { LoadingView } from "./components/layout";
 import Routes from "./Routes";
 
 const App: React.FC = () => {
-  const { isLoading } = useSharedContext();
+  const [location, setLocation] = useLocation();
 
-  if (isLoading) return <LoadingView />;
+  useEffect(() => {
+    store.userStore.checkUserAuth(location, setLocation);
+  }, []);
+
+  useEffect(() => {
+    if (store.userStore.token) {
+      store.templateStore.fetchTemplates(store.userStore.token);
+    }
+  }, [store.userStore.token]);
+
+  if (store.isLoading) return <LoadingView />;
   return <Routes />;
 };
 
-export default App;
+export default observer(App);

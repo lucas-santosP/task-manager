@@ -1,12 +1,12 @@
 import React, { useMemo, useRef, useState } from "react";
 import { ContainerKanbanColumn, Header, HeaderTitle, AddIcon, Badge } from "./styles";
 import { Form, Modal, ModalRef, TextArea } from "../../../../components/ui";
-import { useTaskContext } from "../../../../contexts/tasks";
+import store from "../../../../store";
 import { HiOutlinePlus } from "react-icons/hi";
 import { capitalizeText } from "../../../../utils";
 import { ITask, ITaskStatus, IUpdateTaskPayload } from "../../../../types/task";
 import TasksList from "../TasksList";
-import FormCreateTask from "../FormAddTask";
+import FormAddTask from "../FormAddTask";
 
 type IVariant = "blue" | "green" | "red";
 
@@ -14,7 +14,6 @@ interface IProps {
   title?: string;
   variant?: IVariant;
   status: ITaskStatus;
-  templateId: string;
   tasks: ITask[];
 }
 
@@ -29,10 +28,9 @@ const baseColors: IBaseColors = {
 };
 
 const KanbanColumn: React.FC<IProps> = (props) => {
-  const { title, status, variant = "blue", tasks, templateId, ...rest } = props;
+  const { title, status, variant = "blue", tasks, ...rest } = props;
   const taskFormInitialState: IUpdateTaskPayload = { _id: "", name: "", status };
 
-  const { updateTask } = useTaskContext();
   const [isCreating, setIsCreating] = useState(false);
   const [taskForm, setTaskForm] = useState(taskFormInitialState);
 
@@ -48,7 +46,7 @@ const KanbanColumn: React.FC<IProps> = (props) => {
     if (!taskForm._id) return;
 
     try {
-      await updateTask(taskForm);
+      await store.templateStore.updateTask(taskForm);
       setTaskForm((prev) => ({ ...prev, name: "", _id: "" }));
       refModalEdit.current?.setVisibility(false);
     } catch (error) {
@@ -69,12 +67,7 @@ const KanbanColumn: React.FC<IProps> = (props) => {
         <Badge color={color}>{tasks.length}</Badge>
       </Header>
 
-      <FormCreateTask
-        visibility={isCreating}
-        templateId={templateId}
-        status={status}
-        hideForm={() => setIsCreating(false)}
-      />
+      <FormAddTask visibility={isCreating} status={status} hideForm={() => setIsCreating(false)} />
 
       <TasksList tasks={tasks} color={color} openModalEdit={openModalEdit} />
 

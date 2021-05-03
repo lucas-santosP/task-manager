@@ -1,9 +1,9 @@
-import React, { HTMLAttributes, ReactNode, useMemo } from "react";
+import React, { HTMLAttributes, Fragment, ReactNode, useMemo } from "react";
 import { PopoverContainer, PopoverList } from "./styles";
 import { v4 as uuidv4 } from "uuid";
 
 interface IOptions {
-  content: ReactNode;
+  content: string;
   onClick: () => unknown;
 }
 
@@ -31,13 +31,11 @@ const Popover: React.FC<IProps> = (props) => {
 
       <PopoverList position={position} title="">
         {options.map((option, index) => (
-          <li
-            key={uniqueKeys[index]}
-            title={typeof option.content === "string" ? option.content : ""}
-            onClick={() => handleClick(option.onClick)}
-          >
-            {option.content}
-          </li>
+          <Fragment key={uniqueKeys[index]}>
+            <li title={option.content} onClick={() => handleClick(option.onClick)}>
+              {option.content}
+            </li>
+          </Fragment>
         ))}
       </PopoverList>
     </PopoverContainer>

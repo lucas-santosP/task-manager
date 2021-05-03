@@ -1,9 +1,20 @@
 {
-  "name": "frontend-kanban",
+  "name": "lucid-task-frontend",
   "version": "0.1.0",
   "private": true,
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "format": "prettier --write src/**/*.ts{,x}",
+    "lint": "tsc --noEmit && eslint src/**/*.ts{,x}"
+  },
   "dependencies": {
     "axios": "^0.21.1",
+    "js-cookie": "^2.2.1",
+    "mobx": "^6.3.0",
+    "mobx-react": "^7.1.0",
     "polished": "^4.1.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
@@ -14,13 +25,14 @@
     "wouter": "^2.7.4"
   },
   "devDependencies": {
-    "@types/uuid": "^8.3.0",
     "@types/axios": "^0.14.0",
+    "@types/js-cookie": "^2.2.6",
     "@types/node": "^12.0.0",
     "@types/react": "^17.0.0",
     "@types/react-dom": "^17.0.0",
     "@types/react-icons": "^3.0.0",
     "@types/styled-components": "^5.1.9",
+    "@types/uuid": "^8.3.0",
     "@types/wouter": "^2.2.0",
     "@typescript-eslint/eslint-plugin": "^4.18.0",
     "@typescript-eslint/parser": "^4.18.0",
@@ -34,14 +46,6 @@
     "eslint-plugin-react-hooks": "^4.2.0",
     "prettier": "^2.2.1",
     "typescript": "^4.1.2"
-  },
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "format": "prettier --write src/**/*.ts{,x}",
-    "lint": "tsc --noEmit && eslint src/**/*.ts{,x}"
   },
   "browserslist": {
     "production": [

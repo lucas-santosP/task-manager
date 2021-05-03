@@ -13,7 +13,7 @@ export const ContainerKanban = styled.div`
     flex-direction: column;
   }
 
-  @media (min-width: ${breakPoints.md}) {
+  @media (min-width: ${breakPoints.lg}) {
     gap: 2rem;
   }
 `;

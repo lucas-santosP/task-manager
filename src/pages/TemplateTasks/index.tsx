@@ -1,10 +1,11 @@
 import React, { ChangeEvent, useEffect, useMemo, useRef, useState } from "react";
+import { observer } from "mobx-react";
 import { TitleIconsContainer, Description } from "./styles";
 import { PageContainer, PageTitle } from "../../styles/shared";
 import { Form, Alert, Input, Modal, ModalRef, Popover, TextArea } from "../../components/ui";
 import { HiDotsHorizontal } from "react-icons/hi";
 import { useLocation } from "wouter";
-import { useTemplateContext } from "../../contexts/templates";
+import store from "../../store";
 import { ITemplate } from "../../types/template";
 import Kanban from "./Kanban";
 
@@ -15,8 +16,8 @@ interface IProps {
 const TemplateTasks: React.FC<IProps> = (props) => {
   const { templateId } = props;
 
-  const { templates, updateTemplate, deleteTemplate } = useTemplateContext();
   const [, setLocation] = useLocation();
+  const [pending, setPending] = useState(true);
   const [template, setTemplate] = useState<ITemplate | null>(null);
   const [templateForm, setTemplateForm] = useState<ITemplate | null>(null);
   const [confirmDeletion, setConfirmDeletion] = useState("");
@@ -40,7 +41,7 @@ const TemplateTasks: React.FC<IProps> = (props) => {
     if (!templateForm) return;
 
     try {
-      await updateTemplate(templateForm);
+      await store.templateStore.updateTemplate(templateForm);
       setTemplateForm(template);
       refModalEdit.current?.setVisibility(false);
     } catch (error) {
@@ -52,7 +53,7 @@ const TemplateTasks: React.FC<IProps> = (props) => {
     if (!template) return;
 
     try {
-      await deleteTemplate({ templateId: template._id });
+      await store.templateStore.deleteTemplate({ templateId: template._id });
       setLocation("/");
     } catch (error) {
       alert(error.message);
@@ -60,13 +61,19 @@ const TemplateTasks: React.FC<IProps> = (props) => {
   }
 
   useEffect(() => {
-    const templateFound = templates.find((template) => template._id === templateId) || null;
-    setTemplate(templateFound);
-    setTemplateForm(templateFound);
-  }, [templates]);
+    const templateFound = store.templateStore.templates.find(
+      (template) => template._id === templateId
+    );
+    if (templateFound) {
+      setTemplate(templateFound);
+      setTemplateForm(templateFound);
+      store.templateStore.setCurrentTemplate(templateFound);
+    }
+    setPending(false);
+  }, [store.templateStore.templates]);
 
+  if (pending) return null;
   if (!template) return <span>Template not found</span>;
-
   return (
     <PageContainer>
       <PageTitle>
@@ -96,7 +103,7 @@ const TemplateTasks: React.FC<IProps> = (props) => {
 
       <Description>Description: {template.description}</Description>
 
-      <Kanban template={template} />
+      <Kanban />
 
       <Modal ref={refModalEdit} title="Edit Template">
         <Form onSubmit={handleSubmitUpdate} buttonText={"Update"}>
@@ -147,4 +154,4 @@ const TemplateTasks: React.FC<IProps> = (props) => {
   );
 };
 
-export default TemplateTasks;
+export default observer(TemplateTasks);

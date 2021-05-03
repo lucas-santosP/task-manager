@@ -1,5 +1,6 @@
 import React, { useState, useCallback, useImperativeHandle, forwardRef, useEffect } from "react";
 import { ModalOverlay, ModalContainer, ModalHeader, ModalMain } from "./styles";
+import { HiX } from "react-icons/hi";
 
 interface IProps {
   title?: string;
@@ -54,10 +55,10 @@ const Modal: React.ForwardRefRenderFunction<ModalRef, IProps> = (props, ref) => 
         onClick={(e) => e.stopPropagation()}
       >
         <ModalHeader>
-          <h2>{title}</h2>
+          <h2 className="title">{title}</h2>
 
           <button className="btn-close" onClick={() => setVisibility(false)}>
-            &#x2715;
+            <HiX />
           </button>
         </ModalHeader>
 

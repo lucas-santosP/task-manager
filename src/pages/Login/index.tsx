@@ -1,17 +1,12 @@
 import React, { useState } from "react";
 import { PageContainer, PageTitle, CardWrapper } from "../../styles/shared";
 import { Card, Form, Input, Link } from "../../components/ui";
-import { useUserContext } from "../../contexts/user";
+import store from "../../store";
+import { useLocation } from "wouter";
 import { waitAsync } from "../../utils";
 
-const formBottomText = (
-  <>
-    Dont have account yet ? <Link to="/register">Register here.</Link>
-  </>
-);
-
 const Login: React.FC = () => {
-  const { login } = useUserContext();
+  const [, setLocation] = useLocation();
   const [userForm, setUserForm] = useState({ email: "email@email.com", password: "pass" });
   const [isLoading, setIsLoading] = useState(false);
 
@@ -23,7 +18,7 @@ const Login: React.FC = () => {
   async function submitUserForm() {
     try {
       setIsLoading(true);
-      await login(userForm);
+      await store.userStore.login(userForm, setLocation);
     } catch (error) {
       await waitAsync(500);
       alert(error?.response?.data);
@@ -41,7 +36,11 @@ const Login: React.FC = () => {
             onSubmit={submitUserForm}
             isLoading={isLoading}
             buttonText={"Login"}
-            bottomText={formBottomText}
+            bottomText={
+              <>
+                Dont have account yet ? <Link to="/register">Register here.</Link>
+              </>
+            }
           >
             <Input
               focused

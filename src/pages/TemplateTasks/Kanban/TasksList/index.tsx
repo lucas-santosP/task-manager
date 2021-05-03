@@ -1,6 +1,6 @@
 import React from "react";
-import { ContainerList, TaskItem, DotsIcon, Text } from "./styles";
-import { useTaskContext } from "../../../../contexts/tasks";
+import { ContainerList, TaskItem, Text } from "./styles";
+import store from "../../../../store";
 import { Popover } from "../../../../components/ui";
 import { HiDotsHorizontal } from "react-icons/hi";
 import { ITask } from "../../../../types/task";
@@ -14,11 +14,9 @@ interface IProps {
 const TasksList: React.FC<IProps> = (props) => {
   const { tasks, openModalEdit, ...rest } = props;
 
-  const { deleteTask } = useTaskContext();
-
   async function handleDeleteTask(taskId: string) {
     try {
-      await deleteTask({ taskId });
+      await store.templateStore.deleteTask({ taskId });
     } catch (error) {
       alert(error.message);
     }
@@ -33,7 +31,7 @@ const TasksList: React.FC<IProps> = (props) => {
           <Popover
             className="popover"
             position="left"
-            content={<DotsIcon icon={<HiDotsHorizontal />} hoverBgColor={rest.color} />}
+            content={<HiDotsHorizontal />}
             options={[
               {
                 content: "Edit",
