@@ -1,10 +1,8 @@
 import { makeAutoObservable, runInAction } from "mobx";
-import Cookies from "js-cookie";
 import { UserServices } from "../../services/user";
 import { IAuthPayload, ILoginPayload, IRegisterPayload, IUser } from "../../types/user";
-import { IRootStore, ISetLocation, IStorageAuth } from "../types";
-
-const AUTH_COOKIE = "user_auth";
+import { IRootStore, ISetLocation } from "../types";
+import { userAuthCookie } from "../../utils/userAuthCookie";
 
 export class UserStore {
   user: IUser | null = null;
@@ -23,7 +21,7 @@ export class UserStore {
       this.user = user;
       this.token = token;
     });
-    Cookies.set(AUTH_COOKIE, JSON.stringify({ _id: user._id, token } as IStorageAuth));
+    userAuthCookie.set({ _id: user._id, token });
     setLocation("/home", { replace: true });
   }
 
@@ -34,7 +32,7 @@ export class UserStore {
       this.user = user;
       this.token = token;
     });
-    Cookies.set(AUTH_COOKIE, JSON.stringify({ _id: user._id, token } as IStorageAuth));
+    userAuthCookie.set({ _id: user._id, token });
     setLocation("/home", { replace: true });
   }
 
@@ -44,7 +42,7 @@ export class UserStore {
       this.token = null;
       this.user = null;
     });
-    Cookies.remove(AUTH_COOKIE);
+    userAuthCookie.remove();
     setLocation("/login", { replace: true });
     this.rootStore.setLoading(false);
   }
@@ -57,12 +55,11 @@ export class UserStore {
       this.user = user;
       this.token = token;
     });
-    Cookies.set(AUTH_COOKIE, JSON.stringify({ _id: user._id, token } as IStorageAuth));
+    userAuthCookie.set({ _id: user._id, token });
   }
 
   async checkUserAuth(currentLocation: string, setLocation: ISetLocation) {
-    const cookieAuth = Cookies.get(AUTH_COOKIE);
-    const storageAuth = cookieAuth ? (JSON.parse(cookieAuth) as IStorageAuth) : null;
+    const storageAuth = userAuthCookie.get();
 
     if (!storageAuth) {
       this.rootStore.setLoading(false);
@@ -78,7 +75,7 @@ export class UserStore {
         setLocation("/home", { replace: true });
       }
     } catch (error) {
-      console.log("Storage user not found");
+      console.log("Storage auth not found");
       setLocation("/login", { replace: true });
     } finally {
       this.rootStore.setLoading(false, 800);

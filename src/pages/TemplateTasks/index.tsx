@@ -17,6 +17,7 @@ const TemplateTasks: React.FC<IProps> = (props) => {
   const { templateId } = props;
 
   const [, setLocation] = useLocation();
+  const [pending, setPending] = useState(true);
   const [template, setTemplate] = useState<ITemplate | null>(null);
   const [templateForm, setTemplateForm] = useState<ITemplate | null>(null);
   const [confirmDeletion, setConfirmDeletion] = useState("");
@@ -68,10 +69,11 @@ const TemplateTasks: React.FC<IProps> = (props) => {
       setTemplateForm(templateFound);
       store.templateStore.setCurrentTemplate(templateFound);
     }
+    setPending(false);
   }, [store.templateStore.templates]);
 
+  if (pending) return null;
   if (!template) return <span>Template not found</span>;
-
   return (
     <PageContainer>
       <PageTitle>
