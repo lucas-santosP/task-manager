@@ -39,3 +39,10 @@ export const PageTitle = styled.h1<{ align?: "center" | "start" }>`
     font-size: 2rem;
   }
 `;
+
+export const PageSubtitle = styled.p`
+  font-size: 1rem;
+  font-family: ${({ theme }) => theme.fontFamily.secondary};
+  padding-bottom: 0.5rem;
+  width: 100%;
+`;

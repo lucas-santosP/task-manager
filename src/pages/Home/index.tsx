@@ -1,6 +1,6 @@
 import React, { ChangeEvent, useRef, useState } from "react";
 import { Section, SectionTitle } from "./styles";
-import { PageContainer, PageTitle } from "../../styles/shared";
+import { PageContainer, PageTitle, PageSubtitle } from "../../styles/shared";
 import { Modal, ModalRef, Form, Input, TextArea, AppendButtonAdd } from "../../components/ui";
 import store from "../../store";
 import TemplateList from "./TemplatesList";
@@ -29,6 +29,10 @@ const Home: React.FC = () => {
   return (
     <PageContainer>
       <PageTitle>Home</PageTitle>
+      <PageSubtitle>
+        Hello <b>{store.userStore.user?.name}</b>, here you can access all your tasks templates and
+        create new ones.
+      </PageSubtitle>
 
       <Section>
         <SectionTitle>Latest Tasks</SectionTitle>

@@ -10,11 +10,12 @@ export const StyledAlert = styled.p`
   border: 1px solid var(--border-clr);
   box-shadow: 0 3px 2px 1px var(--border-clr);
   line-height: 1.3;
+  max-width: max-content;
 
   ${({ theme }) =>
     theme.title === "dark" &&
     css`
       --border-clr: #929292;
       background-color: #575757;
-    `}
+    `};
 `;
