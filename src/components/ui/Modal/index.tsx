@@ -10,7 +10,6 @@ interface IProps {
 
 export interface ModalRef {
   setVisibility: (value: boolean) => void;
-  toggleVisibility: () => void;
 }
 
 const Modal: React.ForwardRefRenderFunction<ModalRef, IProps> = (props, ref) => {
@@ -18,17 +17,13 @@ const Modal: React.ForwardRefRenderFunction<ModalRef, IProps> = (props, ref) => 
 
   const [visibility, setVisibility] = useState(false);
 
-  const toggleVisibility = useCallback(() => {
-    setVisibility((prevState) => !prevState);
-  }, []);
-
   const handleClickOnOverlay = useCallback((e: React.MouseEvent) => {
     e.stopPropagation();
     setVisibility(false);
   }, []);
 
   useImperativeHandle(ref, () => {
-    return { setVisibility, toggleVisibility };
+    return { setVisibility };
   });
 
   const handleCloseOnEsc = (event: KeyboardEvent) => {
