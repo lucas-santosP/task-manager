@@ -17,7 +17,7 @@ interface ICreateResponse {
 type IUpdateResponse = ICreateResponse;
 
 interface IDeleteResponse {
-  template: {
+  result: {
     n: number;
     ok: number;
     deletedCount: number;
