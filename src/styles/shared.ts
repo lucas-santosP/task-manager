@@ -29,15 +29,11 @@ export const CardWrapper = styled.div`
 `;
 
 export const PageTitle = styled.h1<{ align?: "center" | "start" }>`
-  font-size: ${({ theme }) => theme.fontSize.lg};
+  font-size: 2.1rem;
   font-family: ${({ theme }) => theme.fontFamily.secondary};
   margin-top: 0.5rem;
   margin-bottom: 1rem;
   text-align: ${({ align }) => align || "start"};
-
-  @media (max-width: ${breakPoints.xs}) {
-    font-size: 2rem;
-  }
 `;
 
 export const PageSubtitle = styled.p`

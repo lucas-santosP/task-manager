@@ -4,7 +4,7 @@ import { PageContainer, PageTitle, PageSubtitle } from "../../styles/shared";
 import { Modal, ModalRef, Form, Input, TextArea, AppendButtonAdd } from "../../components/ui";
 import store from "../../store";
 import TemplateList from "./TemplatesList";
-import LatestTaskList from "./LatestTasksList";
+// import LatestTaskList from "./LatestTasksList";
 const initialTemplateForm = { name: "", description: "" };
 
 const Home: React.FC = () => {
@@ -34,13 +34,13 @@ const Home: React.FC = () => {
         create new ones.
       </PageSubtitle>
 
-      <Section>
+      {/* <Section>
         <SectionTitle>Latest Tasks</SectionTitle>
         <LatestTaskList />
-      </Section>
+      </Section> */}
 
       <Section>
-        <SectionTitle>Your Templates</SectionTitle>
+        <SectionTitle>My Projects</SectionTitle>
         <TemplateList />
       </Section>
 

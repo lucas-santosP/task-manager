@@ -10,6 +10,6 @@ export const Section = styled.section`
 `;
 
 export const SectionTitle = styled.h3`
-  font-size: 1.5rem;
-  margin-bottom: 0.7rem;
+  font-size: 1.7rem;
+  margin-bottom: 0.75rem;
 `;

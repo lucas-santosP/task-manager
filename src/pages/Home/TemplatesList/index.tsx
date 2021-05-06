@@ -1,5 +1,15 @@
 import React from "react";
-import { StyledList } from "./styles";
+import {
+  TaskList,
+  TaskItem,
+  HeaderTaskItem,
+  MainTaskItem,
+  FooterTaskItem,
+  DeleteIcon,
+  EditIcon,
+  ClockIcon,
+  AnnotationIcon,
+} from "./styles";
 import { normalizeDateString } from "../../../utils";
 import { observer } from "mobx-react";
 import store from "../../../store";
@@ -9,25 +19,49 @@ const TemplateList: React.FC = () => {
   const [, setLocation] = useLocation();
 
   return (
-    <StyledList>
+    <TaskList>
       {!store.templateStore.templates.length && <span>No Templates found.</span>}
 
       {store.templateStore.templates.map((template) => (
-        <li key={template._id} onClick={() => setLocation(`template/${template._id}`)}>
-          <span className="name" title={template.name}>
-            {template.name}
-          </span>
+        <TaskItem key={template._id} onClick={() => setLocation(`template/${template._id}`)}>
+          <HeaderTaskItem>
+            <div className="row-icons">
+              <EditIcon
+                className="edit-icon"
+                onClick={(e) => {
+                  e.stopPropagation();
+                }}
+              />
+              <DeleteIcon
+                className="delete-icon"
+                onClick={(e) => {
+                  e.stopPropagation();
+                }}
+              />
+            </div>
 
-          <p className="description" title={template.description}>
-            {template.description}
-          </p>
+            <span className="name" title={template.name}>
+              {template.name}
+            </span>
+          </HeaderTaskItem>
 
-          <small className="last-update">
-            Last update: {normalizeDateString(template.updatedAt)}
-          </small>
-        </li>
+          <MainTaskItem>
+            <p className="description" title={template.description}>
+              {template.description}
+            </p>
+          </MainTaskItem>
+
+          <FooterTaskItem>
+            <span className="tasks-count">
+              <AnnotationIcon /> Tasks: {template.tasks.length}
+            </span>
+            <span className="last-update">
+              <ClockIcon /> Last update: {normalizeDateString(template.updatedAt)}
+            </span>
+          </FooterTaskItem>
+        </TaskItem>
       ))}
-    </StyledList>
+    </TaskList>
   );
 };
 
