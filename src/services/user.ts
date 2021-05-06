@@ -19,7 +19,7 @@ interface IAuthResponse {
 }
 
 interface IDeleteUserResponse {
-  user: {
+  result: {
     n: number;
     ok: number;
     deletedCount: number;

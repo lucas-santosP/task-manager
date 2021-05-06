@@ -64,9 +64,9 @@ export class TemplateStore {
 
   async deleteTemplate(payload: IDeleteTemplatePayload) {
     const response = await TemplateServices.delete(payload);
-    const { template } = response.data;
+    const { result } = response.data;
 
-    if (template.ok) {
+    if (result.ok) {
       runInAction(() => {
         this.templates = this.templates.filter((template) => template._id !== payload.templateId);
       });
@@ -112,9 +112,9 @@ export class TemplateStore {
       (task) => task._id === payload.taskId
     );
     const response = await TaskServices.delete(payload);
-    const { task } = response.data;
+    const { result } = response.data;
 
-    if (task.ok) {
+    if (result.ok) {
       const newState = [...this.templates];
       newState[indexTemplateToUpdate].tasks.splice(indexTaskToDelete, 1);
       runInAction(() => {

@@ -6,7 +6,7 @@ interface IResponse {
 }
 
 interface IDeleteResponse {
-  task: {
+  result: {
     n: number;
     ok: number;
     deletedCount: number;
