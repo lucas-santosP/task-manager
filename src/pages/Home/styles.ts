@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const Section = styled.section`
-  padding: 0.5rem 0;
+  padding: 1rem 0;
   margin-bottom: 1rem;
 
   &:last-of-type {

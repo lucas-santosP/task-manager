@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useImperativeHandle, forwardRef, useEffect } from "react";
+import React, { useState, useImperativeHandle, forwardRef, useEffect } from "react";
 import { ModalOverlay, ModalContainer, ModalHeader, ModalMain } from "./styles";
 import { HiX } from "react-icons/hi";
 
@@ -6,6 +6,7 @@ interface IProps {
   title?: string;
   maxWidth?: number | string;
   children: React.ReactNode;
+  onClose?: () => void;
 }
 
 export interface ModalRef {
@@ -13,17 +14,24 @@ export interface ModalRef {
 }
 
 const Modal: React.ForwardRefRenderFunction<ModalRef, IProps> = (props, ref) => {
-  const { title = "Empty title", maxWidth = 500, children } = props;
+  const { title = "Empty title", maxWidth = 500, onClose, children } = props;
 
   const [visibility, setVisibility] = useState(false);
 
-  const handleClickOnOverlay = useCallback((e: React.MouseEvent) => {
+  function handleSetVisibility(newValue: boolean) {
+    if (!newValue && onClose) onClose();
+    setVisibility(newValue);
+  }
+
+  function handleClickOnOverlay(e: React.MouseEvent) {
     e.stopPropagation();
-    setVisibility(false);
-  }, []);
+    handleSetVisibility(false);
+  }
 
   useImperativeHandle(ref, () => {
-    return { setVisibility };
+    return {
+      setVisibility: handleSetVisibility,
+    };
   });
 
   const handleCloseOnEsc = (event: KeyboardEvent) => {
