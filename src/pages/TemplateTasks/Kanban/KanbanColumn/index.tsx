@@ -69,7 +69,7 @@ const KanbanColumn: React.FC<IProps> = (props) => {
 
       <FormAddTask visibility={isCreating} status={status} hideForm={() => setIsCreating(false)} />
 
-      <TasksList tasks={tasks} color={color} openModalEdit={openModalEdit} />
+      <TasksList tasks={tasks} status={status} color={color} openModalEdit={openModalEdit} />
 
       <Modal ref={refModalEdit} title="Edit Task">
         <Form onSubmit={handleUpdateTask} buttonText={"Update"} buttonIsDisable={!taskForm.name}>
