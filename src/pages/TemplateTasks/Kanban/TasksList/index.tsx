@@ -24,32 +24,57 @@ const TasksList: React.FC<IProps> = (props) => {
     }
   }
 
-  function pickupTask(e: React.DragEvent<HTMLLIElement>, task: ITask) {
-    console.log(e, task);
+  function pickupTask(e: React.DragEvent<HTMLLIElement>, taskId: string) {
     e.dataTransfer.effectAllowed = "move";
     e.dataTransfer.dropEffect = "move";
-    e.dataTransfer.setData("task-id", task._id);
+    e.dataTransfer.setData("task-id", taskId);
   }
 
-  function moveTask(e: React.DragEvent<HTMLUListElement>) {
-    const taskId = e.dataTransfer.getData("task-id");
-    const taskToMove = templateStore.currentTemplate?.tasks.find((task) => task._id === taskId);
+  function moveTaskColumn(e: React.DragEvent<HTMLUListElement>) {
+    e.stopPropagation();
+    try {
+      const taskId = e.dataTransfer.getData("task-id");
+      const taskToMove = templateStore.currentTemplate?.tasks.find((task) => task._id === taskId);
 
-    if (taskToMove) {
-      taskToMove.status = status;
-      templateStore.updateTask(taskToMove);
+      if (taskToMove && taskToMove.status !== status) {
+        taskToMove.status = status;
+        templateStore.updateTask(taskToMove);
+      }
+    } catch (error) {
+      alert(error?.response?.data || error?.message);
+    }
+  }
+
+  function moveTaskIndex(e: React.DragEvent<HTMLLIElement>, taskIdTo: string) {
+    e.stopPropagation();
+    try {
+      const taskIdFrom = e.dataTransfer.getData("task-id");
+      const templateId = templateStore.currentTemplate?._id;
+      if (taskIdTo !== taskIdFrom && templateId) {
+        templateStore.updateTasksIndexes({ templateId, taskIdFrom, taskIdTo });
+      }
+    } catch (error) {
+      alert(error?.response?.data || error?.message);
     }
   }
 
   return (
     <ContainerList
-      onDrop={moveTask}
+      onDrop={moveTaskColumn}
       onDragOver={(e) => e.preventDefault()}
       onDragEnter={(e) => e.preventDefault()}
     >
       {tasks.map((task) => (
-        <TaskItem draggable onDragStart={(e) => pickupTask(e, task)} key={task._id} {...rest}>
-          <Text>{task.name}</Text>
+        <TaskItem
+          onDrop={(e) => moveTaskIndex(e, task._id)}
+          onDragOver={(e) => e.preventDefault()}
+          onDragEnter={(e) => e.preventDefault()}
+          draggable
+          onDragStart={(e) => pickupTask(e, task._id)}
+          key={task._id}
+          {...rest}
+        >
+          <Text> {task.name}</Text>
 
           <Popover
             className="popover"

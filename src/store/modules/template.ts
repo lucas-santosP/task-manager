@@ -7,6 +7,7 @@ import {
   IDeleteTaskPayload,
   ITask,
   IUpdateTaskPayload,
+  IUpdateTasksIndexesPayload,
 } from "../../types/task";
 import {
   ICreateTemplatePayload,
@@ -99,6 +100,37 @@ export class TemplateStore {
 
     const newState = [...this.templates];
     newState[indexTemplateToUpdate].tasks[indexTaskToUpdate] = { ...task };
+    runInAction(() => {
+      this.templates = newState;
+    });
+  }
+
+  async updateTasksIndexes(payload: IUpdateTasksIndexesPayload) {
+    const templateIndex = this.templates.findIndex(
+      (template) => template._id === payload.templateId
+    );
+    if (templateIndex === -1) throw new Error("Invalid template received");
+
+    const taskIndexFrom = this.templates[templateIndex].tasks.findIndex(
+      (task) => task._id === payload.taskIdFrom
+    );
+    const taskIndexTo = this.templates[templateIndex].tasks.findIndex(
+      (task) => task._id === payload.taskIdTo
+    );
+    if (taskIndexFrom === -1 || taskIndexTo === -1) throw new Error("Invalid tasks received");
+
+    const tasksUpdated = [...this.templates[templateIndex].tasks];
+    const [taskFrom] = tasksUpdated.splice(taskIndexFrom, 1);
+    tasksUpdated.splice(taskIndexTo, 0, { ...taskFrom });
+
+    const response = await TemplateServices.updateTasksIndexes({
+      templateId: payload.templateId,
+      tasks: tasksUpdated,
+    });
+    const { template } = response.data;
+
+    const newState = [...this.templates];
+    newState[templateIndex].tasks = [...template.tasks];
     runInAction(() => {
       this.templates = newState;
     });

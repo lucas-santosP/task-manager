@@ -21,6 +21,12 @@ export interface IUpdateTaskPayload {
   status: ITaskStatus;
 }
 
+export interface IUpdateTasksIndexesPayload {
+  templateId: string;
+  taskIdFrom: string;
+  taskIdTo: string;
+}
+
 export interface IDeleteTaskPayload {
   taskId: string;
 }
