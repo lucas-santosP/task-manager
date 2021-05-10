@@ -14,7 +14,8 @@ export const ContainerIcon = styled.div<{ hoverBgColor?: string }>`
     css`
       &:hover {
         cursor: pointer;
-        background-color: ${shade(0.1, hoverBgColor)};
+        background-color: ${({ theme }) =>
+          theme.title === "light" ? shade(0.1, hoverBgColor) : shade(0.1, theme.colors.gray)};
       }
     `}
 

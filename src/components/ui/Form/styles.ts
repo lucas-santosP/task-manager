@@ -7,7 +7,6 @@ export const StyledForm = styled.form`
 
   > .button {
     margin: 1rem auto 0 auto;
-    font-weight: bold;
     padding-left: 4rem;
     padding-right: 4rem;
   }

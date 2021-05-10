@@ -83,7 +83,7 @@ export const PopoverList = styled.ul<IPropsPopoverList>`
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  border-radius: 0.375rem;
+  border-radius: 4px;
   padding-top: 0.35rem;
   border: 1px solid ${popoverBorderColor};
   font-size: 0.85rem;

@@ -4,7 +4,7 @@ export const StyledAlert = styled.p`
   --border-clr: rgba(95, 95, 95, 0.45);
   font-size: 1rem;
   background-color: #e7e7e7;
-  border-radius: 0.375rem;
+  border-radius: 4px;
   padding: 0.75rem;
   margin-bottom: 1rem;
   border: 1px solid var(--border-clr);
