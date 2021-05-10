@@ -17,7 +17,7 @@ export const TaskItem = styled.li`
   padding: 1rem 1rem 1.5rem 1rem;
   background-color: #fff;
   box-shadow: 0 1px 8px -5px #333;
-  border: 1px solid #dfdfdf;
+  border: 1px solid ${({ theme }) => (theme.title === "light" ? "#dfdfdf" : "transparent")};
   cursor: pointer;
 
   ${({ theme }) =>
@@ -129,6 +129,10 @@ export const EditIcon = styled(HiPencilAlt)`
   `};
 `;
 
-export const ClockIcon = styled(HiClock)``;
+export const ClockIcon = styled(HiClock)`
+  ${baseTransition}
+`;
 
-export const TasksIcon = styled(HiAnnotation)``;
+export const TasksIcon = styled(HiAnnotation)`
+  ${baseTransition}
+`;
