@@ -2,13 +2,13 @@ import styled, { css } from "styled-components";
 import { baseTransition } from "../../../styles/mixins";
 import { HiOutlineTrash, HiAnnotation, HiPencilAlt, HiClock } from "react-icons/hi";
 
+const mutedGray = "#a7a7a7";
+
 export const TaskList = styled.ul`
   display: flex;
   flex-wrap: wrap;
   gap: 1.5rem;
 `;
-
-const mutedGray = "#a7a7a7";
 
 export const TaskItem = styled.li`
   ${baseTransition}
@@ -42,16 +42,12 @@ export const HeaderTaskItem = styled.header`
     display: flex;
     justify-content: flex-end;
     gap: 0.75rem;
-    color: ${mutedGray};
+    margin-bottom: 0.5rem;
+    font-size: 1.7rem;
     user-select: none;
-
-    svg:hover {
-      ${baseTransition}
-      cursor: pointer;
-    }
   }
 
-  .name {
+  .title {
     font-weight: bold;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -98,18 +94,41 @@ export const FooterTaskItem = styled.main`
   }
 `;
 
+// icons
 export const DeleteIcon = styled(HiOutlineTrash)`
-  &:hover {
-    color: ${({ theme }) => theme.colors.red};
-  }
+  ${({ theme }) => css`
+    ${baseTransition}
+    cursor: pointer;
+    color: ${theme.colors.red};
+
+    @media (hover: none) and (pointer: coarse) {
+      color: ${theme.colors.red}!important;
+    }
+
+    @media (hover: hover) {
+      color: ${mutedGray};
+      &:hover {
+        color: ${theme.colors.red};
+      }
+    }
+  `};
 `;
 
 export const EditIcon = styled(HiPencilAlt)`
-  &:hover {
-    color: ${({ theme }) => theme.colors.green};
-  }
+  ${({ theme }) => css`
+    ${baseTransition}
+    cursor: pointer;
+    color: ${theme.colors.green};
+
+    @media (hover: hover) {
+      color: ${mutedGray};
+      &:hover {
+        color: ${theme.colors.green};
+      }
+    }
+  `};
 `;
 
 export const ClockIcon = styled(HiClock)``;
 
-export const AnnotationIcon = styled(HiAnnotation)``;
+export const TasksIcon = styled(HiAnnotation)``;
