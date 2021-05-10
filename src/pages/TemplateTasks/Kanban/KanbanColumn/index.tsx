@@ -3,7 +3,7 @@ import { ContainerKanbanColumn, Header, HeaderTitle, AddIcon, Badge } from "./st
 import { Form, Modal, ModalRef, TextArea } from "../../../../components/ui";
 import store from "../../../../store";
 import { HiOutlinePlus } from "react-icons/hi";
-import { capitalizeText } from "../../../../utils";
+import { capitalizeText, moveTask } from "../../../../utils";
 import { ITask, ITaskStatus, IUpdateTaskPayload } from "../../../../types/task";
 import TasksList from "../TasksList";
 import FormAddTask from "../FormAddTask";
@@ -27,11 +27,14 @@ const baseColors: IBaseColors = {
   green: "#ddebd8",
 };
 
+type IDragEvent = React.DragEvent<HTMLDivElement>;
+
 const KanbanColumn: React.FC<IProps> = (props) => {
   const { title, status, variant = "blue", tasks, ...rest } = props;
-  const taskFormInitialState: IUpdateTaskPayload = { _id: "", name: "", status };
+  const { templateStore } = store;
 
   const [isCreating, setIsCreating] = useState(false);
+  const taskFormInitialState: IUpdateTaskPayload = { _id: "", name: "", status };
   const [taskForm, setTaskForm] = useState(taskFormInitialState);
 
   const color = useMemo(() => baseColors[variant], [variant]);
@@ -46,7 +49,7 @@ const KanbanColumn: React.FC<IProps> = (props) => {
     if (!taskForm._id) return;
 
     try {
-      await store.templateStore.updateTask(taskForm);
+      await templateStore.updateTask(taskForm);
       setTaskForm((prev) => ({ ...prev, name: "", _id: "" }));
       refModalEdit.current?.setVisibility(false);
     } catch (error) {
@@ -54,8 +57,22 @@ const KanbanColumn: React.FC<IProps> = (props) => {
     }
   }
 
+  async function handleMoveTask(e: IDragEvent) {
+    try {
+      await moveTask(e, { status });
+    } catch (error) {
+      alert(error?.response?.data || error?.message);
+    }
+  }
+
   return (
-    <ContainerKanbanColumn color={color} {...rest}>
+    <ContainerKanbanColumn
+      color={color}
+      onDrop={handleMoveTask}
+      onDragOver={(e) => e.preventDefault()}
+      onDragEnter={(e) => e.preventDefault()}
+      {...rest}
+    >
       <Header>
         <HeaderTitle>{title ? title : capitalizeText(status)}</HeaderTitle>
 
