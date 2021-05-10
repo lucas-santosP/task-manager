@@ -1,18 +1,19 @@
 import { makeAutoObservable, runInAction } from "mobx";
-import { setAPIAuthHeader } from "../../services/api";
 import { TaskServices } from "../../services/tasks";
 import { TemplateServices } from "../../services/templates";
+import { setAPIAuthHeader } from "../../services/api";
 import {
+  ITask,
   ICreateTaskPayload,
   IDeleteTaskPayload,
-  ITask,
   IUpdateTaskPayload,
   IUpdateTasksIndexesPayload,
+  IUpdateTasksColumnPayload,
 } from "../../types/task";
 import {
+  ITemplate,
   ICreateTemplatePayload,
   IDeleteTemplatePayload,
-  ITemplate,
   IUpdateTemplatePayload,
 } from "../../types/template";
 import { IRootStore } from "../types";
@@ -34,7 +35,7 @@ export class TemplateStore {
 
     runInAction(() => {
       this.templates = templates;
-      console.log("templates fetched", templates);
+      console.log("templates fetched", templates.length);
     });
   }
 
@@ -103,6 +104,25 @@ export class TemplateStore {
     runInAction(() => {
       this.templates = newState;
     });
+  }
+
+  async updateTasksColumn(payload: IUpdateTasksColumnPayload) {
+    const { templateIndex, templateFound } = getTemplateById(this.templates, payload.templateId);
+    const { taskIndex, taskFound } = getTaskById(templateFound.tasks, payload.taskId);
+
+    await TaskServices.update({ ...taskFound, status: payload.status });
+
+    const tasksToUpdated = [...templateFound.tasks];
+    tasksToUpdated.splice(taskIndex, 1);
+    tasksToUpdated.splice(tasksToUpdated.length, 0, { ...taskFound });
+    const response = await TemplateServices.updateTasksIndexes({
+      templateId: payload.templateId,
+      tasks: tasksToUpdated,
+    });
+
+    const newState = [...this.templates];
+    newState[templateIndex] = { ...response.data.template };
+    runInAction(() => (this.templates = newState));
   }
 
   async updateTasksIndexes(payload: IUpdateTasksIndexesPayload) {
@@ -185,4 +205,30 @@ export class TemplateStore {
 
     return tasksOrdered.slice(0, 5);
   }
+}
+
+function getTaskById(tasks: ITask[], taskId: string) {
+  let taskIndex = -1;
+  const taskFound = tasks.find((task, i) => {
+    if (task._id === taskId) {
+      taskIndex = i;
+      return true;
+    }
+  });
+
+  if (!taskFound) throw new Error("Task not found, invalid id received");
+  return { taskIndex, taskFound: { ...taskFound } };
+}
+
+function getTemplateById(templates: ITemplate[], templateId: string) {
+  let templateIndex = -1;
+  const templateFound = templates.find((template, i) => {
+    if (template._id === templateId) {
+      templateIndex = i;
+      return true;
+    }
+  });
+
+  if (!templateFound) throw new Error("Template not found, invalid id received");
+  return { templateIndex, templateFound: { ...templateFound } };
 }

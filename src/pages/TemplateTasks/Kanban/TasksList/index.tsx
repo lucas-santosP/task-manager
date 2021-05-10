@@ -12,6 +12,8 @@ interface IProps {
   openModalEdit: (task: ITask) => void;
 }
 
+type IDragEvent = React.DragEvent<HTMLUListElement | HTMLLIElement>;
+
 const TasksList: React.FC<IProps> = (props) => {
   const { tasks, openModalEdit, status, ...rest } = props;
   const { templateStore } = store;
@@ -24,34 +26,25 @@ const TasksList: React.FC<IProps> = (props) => {
     }
   }
 
-  function pickupTask(e: React.DragEvent<HTMLLIElement>, taskId: string) {
+  function pickupTask(e: IDragEvent, taskId: string) {
     e.dataTransfer.effectAllowed = "move";
     e.dataTransfer.dropEffect = "move";
     e.dataTransfer.setData("task-id", taskId);
   }
 
-  function moveTaskColumn(e: React.DragEvent<HTMLUListElement>) {
-    e.stopPropagation();
+  async function moveTask(e: IDragEvent, taskIdTo?: string) {
     try {
-      const taskId = e.dataTransfer.getData("task-id");
-      const taskToMove = templateStore.currentTemplate?.tasks.find((task) => task._id === taskId);
-
-      if (taskToMove && taskToMove.status !== status) {
-        taskToMove.status = status;
-        templateStore.updateTask(taskToMove);
-      }
-    } catch (error) {
-      alert(error?.response?.data || error?.message);
-    }
-  }
-
-  function moveTaskIndex(e: React.DragEvent<HTMLLIElement>, taskIdTo: string) {
-    e.stopPropagation();
-    try {
+      e.stopPropagation();
       const taskIdFrom = e.dataTransfer.getData("task-id");
+      const taskFrom = templateStore.currentTemplate?.tasks.find((task) => task._id === taskIdFrom);
       const templateId = templateStore.currentTemplate?._id;
-      if (taskIdTo !== taskIdFrom && templateId) {
-        templateStore.updateTasksIndexes({ templateId, taskIdFrom, taskIdTo });
+
+      if (templateId && taskFrom) {
+        if (taskFrom.status === status && taskIdTo) {
+          await templateStore.updateTasksIndexes({ templateId, taskIdFrom, taskIdTo }); //move in the same column
+        } else if (taskFrom.status !== status) {
+          await templateStore.updateTasksColumn({ templateId, status, taskId: taskIdFrom }); //move to a different column
+        }
       }
     } catch (error) {
       alert(error?.response?.data || error?.message);
@@ -60,13 +53,13 @@ const TasksList: React.FC<IProps> = (props) => {
 
   return (
     <ContainerList
-      onDrop={moveTaskColumn}
+      onDrop={moveTask}
       onDragOver={(e) => e.preventDefault()}
       onDragEnter={(e) => e.preventDefault()}
     >
       {tasks.map((task) => (
         <TaskItem
-          onDrop={(e) => moveTaskIndex(e, task._id)}
+          onDrop={(e) => moveTask(e, task._id)}
           onDragOver={(e) => e.preventDefault()}
           onDragEnter={(e) => e.preventDefault()}
           draggable

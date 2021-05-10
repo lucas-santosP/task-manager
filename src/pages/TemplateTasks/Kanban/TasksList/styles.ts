@@ -18,6 +18,7 @@ export const TaskItem = styled.li<{ color: string }>`
   padding: 0.5rem 1rem;
   background-color: ${({ color }) => shade(0.03, color)};
   box-shadow: 0 0 2px 0px ${({ color }) => shade(0.5, color)};
+  cursor: grab;
 
   .popover {
     ${baseTransition}
