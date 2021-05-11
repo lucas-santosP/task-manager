@@ -27,8 +27,6 @@ const baseColors: IBaseColors = {
   green: "#ddebd8",
 };
 
-type IDragEvent = React.DragEvent<HTMLDivElement>;
-
 const KanbanColumn: React.FC<IProps> = (props) => {
   const { title, status, variant = "blue", tasks, ...rest } = props;
   const { templateStore } = store;
@@ -57,22 +55,16 @@ const KanbanColumn: React.FC<IProps> = (props) => {
     }
   }
 
-  async function handleMoveTask(e: IDragEvent) {
+  async function handleOnDrop(dataTransferred: string) {
     try {
-      await moveTask(e, { status });
+      await moveTask({ taskIdFrom: dataTransferred, status });
     } catch (error) {
       alert(error?.response?.data || error?.message);
     }
   }
 
   return (
-    <ContainerKanbanColumn
-      color={color}
-      onDrop={handleMoveTask}
-      onDragOver={(e) => e.preventDefault()}
-      onDragEnter={(e) => e.preventDefault()}
-      {...rest}
-    >
+    <ContainerKanbanColumn keyDataTransfer="task-id" onDrop={handleOnDrop} color={color} {...rest}>
       <Header>
         <HeaderTitle>{title ? title : capitalizeText(status)}</HeaderTitle>
 
