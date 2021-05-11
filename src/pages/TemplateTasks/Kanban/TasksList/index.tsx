@@ -5,6 +5,7 @@ import { Popover } from "../../../../components/ui";
 import { HiDotsHorizontal } from "react-icons/hi";
 import { ITask, ITaskStatus } from "../../../../types/task";
 import { moveTask } from "../../../../utils";
+import Draggable from "../../../../components/dragAndDrop/Draggable";
 
 interface IProps {
   tasks: ITask[];
@@ -12,8 +13,6 @@ interface IProps {
   color: string;
   openModalEdit: (task: ITask) => void;
 }
-
-type IDragEvent = React.DragEvent<HTMLUListElement | HTMLLIElement>;
 
 const TasksList: React.FC<IProps> = (props) => {
   const { tasks, openModalEdit, status, ...rest } = props;
@@ -27,15 +26,9 @@ const TasksList: React.FC<IProps> = (props) => {
     }
   }
 
-  function pickupTask(e: IDragEvent, taskId: string) {
-    e.dataTransfer.effectAllowed = "move";
-    e.dataTransfer.dropEffect = "move";
-    e.dataTransfer.setData("task-id", taskId);
-  }
-
-  async function handleMoveTask(e: IDragEvent, taskIdTo?: string) {
+  async function handleOnDrop(taskIdFrom: string, taskIdTo: string) {
     try {
-      await moveTask(e, { taskIdTo, status });
+      await moveTask({ taskIdFrom, taskIdTo, status });
     } catch (error) {
       alert(error?.response?.data || error?.message);
     }
@@ -45,16 +38,17 @@ const TasksList: React.FC<IProps> = (props) => {
     <ContainerList>
       {tasks.map((task) => (
         <TaskItem
-          onDrop={(e) => handleMoveTask(e, task._id)}
-          onDragOver={(e) => e.preventDefault()}
-          onDragEnter={(e) => e.preventDefault()}
-          draggable
-          onDragStart={(e) => pickupTask(e, task._id)}
           key={task._id}
+          id={`task-item-${task._id}`}
+          keyDataTransfer="task-id"
+          onDrop={(taskIdFrom) => handleOnDrop(taskIdFrom, task._id)}
           {...rest}
         >
+          <Draggable
+            dataTransfer={{ key: "task-id", data: task._id }}
+            elementId={`task-item-${task._id}`}
+          />
           <Text> {task.name}</Text>
-
           <Popover
             className="popover"
             position="left"

@@ -1,9 +1,9 @@
 import styled from "styled-components";
 import { shade } from "polished";
 import { baseTransition } from "../../../../styles/mixins";
+import DropZone from "../../../../components/dragAndDrop/DropZone";
 
 export const ContainerList = styled.ul`
-  flex: 1;
   display: flex;
   align-items: flex-start;
   flex-direction: column;
@@ -11,7 +11,7 @@ export const ContainerList = styled.ul`
   width: 100%;
 `;
 
-export const TaskItem = styled.li<{ color: string }>`
+export const TaskItem = styled(DropZone)<{ color: string }>`
   display: flex;
   align-items: flex-start;
   width: 100%;
@@ -20,7 +20,6 @@ export const TaskItem = styled.li<{ color: string }>`
   background-color: ${({ theme }) => (theme.title === "light" ? "#fff" : theme.colors.gray)};
   border-radius: 4px;
   box-shadow: 0 0 2px 0px #333;
-  cursor: grab;
 
   .popover {
     ${baseTransition}
