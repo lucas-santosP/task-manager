@@ -4,6 +4,7 @@ import { Popover } from "../../../../components/ui";
 import { HiDotsHorizontal } from "react-icons/hi";
 import { ITask } from "../../../../types/task";
 import Draggable from "../../../../components/dragAndDrop/Draggable";
+import { KEY_DATA_TRANSFER } from "../constants";
 
 interface IProps {
   task: ITask;
@@ -20,11 +21,14 @@ const TaskItem: React.FC<IProps> = (props) => {
   return (
     <ContainerTaskItem
       id={taskElementId}
-      keyDataTransfer="task-id"
+      keyDataTransfer={KEY_DATA_TRANSFER}
       onDrop={(taskIdFrom) => onDrop(taskIdFrom, task._id)}
       {...rest}
     >
-      <Draggable dataTransfer={{ key: "task-id", data: task._id }} elementId={taskElementId} />
+      <Draggable
+        dataTransfer={{ key: KEY_DATA_TRANSFER, data: task._id }}
+        elementId={taskElementId}
+      />
 
       <BodyTaskItem>
         <Text>{task.name}</Text>

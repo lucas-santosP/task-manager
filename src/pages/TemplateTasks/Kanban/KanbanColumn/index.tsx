@@ -7,6 +7,7 @@ import { capitalizeText, moveTask } from "../../../../utils";
 import { ITask, ITaskStatus, IUpdateTaskPayload } from "../../../../types/task";
 import TasksList from "../TasksList";
 import FormAddTask from "../FormAddTask";
+import { KEY_DATA_TRANSFER } from "../constants";
 
 type IVariant = "blue" | "green" | "red";
 
@@ -64,7 +65,12 @@ const KanbanColumn: React.FC<IProps> = (props) => {
   }
 
   return (
-    <ContainerKanbanColumn keyDataTransfer="task-id" onDrop={handleOnDrop} color={color} {...rest}>
+    <ContainerKanbanColumn
+      keyDataTransfer={KEY_DATA_TRANSFER}
+      onDrop={handleOnDrop}
+      color={color}
+      {...rest}
+    >
       <Header>
         <HeaderTitle>{title ? title : capitalizeText(status)}</HeaderTitle>
 
