@@ -29,7 +29,7 @@ export const baseInput = css`
   ${baseTransition}
   width:100%;
   padding: 0.5rem 1rem;
-  border-radius: 0.2rem;
+  border-radius: 4px;
   color: ${({ theme }) => theme.colors.text};
   font-size: ${({ theme }) => theme.fontSize.sm};
   background-color: #f5f5f5;

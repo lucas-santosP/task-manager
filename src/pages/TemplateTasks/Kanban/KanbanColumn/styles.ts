@@ -2,8 +2,9 @@ import styled, { css } from "styled-components";
 import { shade } from "polished";
 import { flexCenter } from "../../../../styles/mixins";
 import { IconWrapper } from "../../../../components/ui";
+import DropZone from "../../../../components/dragAndDrop/DropZone";
 
-export const ContainerKanbanColumn = styled.div<{ color: string }>`
+export const ContainerKanbanColumn = styled(DropZone)<{ color: string }>`
   display: flex;
   align-items: flex-start;
   flex-direction: column;

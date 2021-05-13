@@ -30,7 +30,6 @@ export default createGlobalStyle`
 
   button {
     cursor:pointer;
-    font-family: inherit;
     color:inherit;
   }
 

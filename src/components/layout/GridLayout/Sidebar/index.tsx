@@ -23,28 +23,32 @@ const Sidebar: React.FC = () => {
     <SidebarContainer isExpanded={isExpanded}>
       <nav>
         <NavList>
-          <NavItem onClick={() => setIsExpanded(!isExpanded)}>
+          <NavItem title="Menu" onClick={() => setIsExpanded(!isExpanded)}>
             <HiOutlineMenu />
             <NavItemText isExpanded={isExpanded}>Menu</NavItemText>
           </NavItem>
 
-          <NavItem isSelected={currentPageIsHome} onClick={() => setLocation("/home")}>
+          <NavItem title="Home" isSelected={currentPageIsHome} onClick={() => setLocation("/home")}>
             <HiOutlineHome />
             <NavItemText isExpanded={isExpanded}>Home</NavItemText>
           </NavItem>
 
-          <NavItem isSelected={currentPageIsProfile} onClick={() => setLocation("/profile")}>
+          <NavItem
+            title="Profile"
+            isSelected={currentPageIsProfile}
+            onClick={() => setLocation("/profile")}
+          >
             <HiOutlineUser />
             <NavItemText isExpanded={isExpanded}>Profile</NavItemText>
           </NavItem>
 
           <div style={{ marginTop: "auto" }}>
-            <NavItem onClick={toggleTheme}>
+            <NavItem title="Toggle theme" onClick={toggleTheme}>
               {theme.title === "light" ? <HiOutlineMoon /> : <HiOutlineSun />}
               <NavItemText isExpanded={isExpanded}>Toggle theme</NavItemText>
             </NavItem>
 
-            <NavItem onClick={() => store.userStore.logout(setLocation)}>
+            <NavItem title="Logout" onClick={() => store.userStore.logout(setLocation)}>
               <HiOutlineLogout />
               <NavItemText isExpanded={isExpanded}>Logout</NavItemText>
             </NavItem>

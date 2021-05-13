@@ -5,6 +5,7 @@ import {
   IUpdateTemplatePayload,
   IDeleteTemplatePayload,
 } from "../types/template";
+import { ITask } from "../types/task";
 
 interface IGetResponse {
   templates: ITemplate[];
@@ -15,6 +16,11 @@ interface ICreateResponse {
 }
 
 type IUpdateResponse = ICreateResponse;
+
+interface IUpdateTasksIndexesPayload {
+  templateId: string;
+  tasks: ITask[];
+}
 
 interface IDeleteResponse {
   result: {
@@ -35,6 +41,12 @@ export const TemplateServices = {
 
   update(payload: IUpdateTemplatePayload) {
     return API.put<IUpdateResponse>(`/template/${payload._id}`, payload);
+  },
+
+  updateTasksIndexes(payload: IUpdateTasksIndexesPayload) {
+    return API.put<IUpdateResponse>(`/template/tasks/${payload.templateId}`, {
+      tasks: payload.tasks,
+    });
   },
 
   delete(payload: IDeleteTemplatePayload) {

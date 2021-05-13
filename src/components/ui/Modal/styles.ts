@@ -30,7 +30,7 @@ export const ModalContainer = styled.div`
   overflow-y: auto;
   background-color: #fff;
   box-shadow: 0 0 3px 0 #000;
-  border-radius: 10px;
+  border-radius: 4px;
   animation: ${zoomInAnimation} 0.2s ease;
   color: ${({ theme }) => theme.colors.text};
 
@@ -85,5 +85,6 @@ export const ModalMain = styled.main`
   flex-direction: column;
   overflow-y: auto;
   padding: 1rem 0.2rem;
+  padding-bottom: 0.5rem;
   font-size: 18px;
 `;

@@ -3,10 +3,11 @@ import { ContainerKanbanColumn, Header, HeaderTitle, AddIcon, Badge } from "./st
 import { Form, Modal, ModalRef, TextArea } from "../../../../components/ui";
 import store from "../../../../store";
 import { HiOutlinePlus } from "react-icons/hi";
-import { capitalizeText } from "../../../../utils";
+import { capitalizeText, moveTask } from "../../../../utils";
 import { ITask, ITaskStatus, IUpdateTaskPayload } from "../../../../types/task";
 import TasksList from "../TasksList";
 import FormAddTask from "../FormAddTask";
+import { KEY_DATA_TRANSFER } from "../constants";
 
 type IVariant = "blue" | "green" | "red";
 
@@ -29,9 +30,10 @@ const baseColors: IBaseColors = {
 
 const KanbanColumn: React.FC<IProps> = (props) => {
   const { title, status, variant = "blue", tasks, ...rest } = props;
-  const taskFormInitialState: IUpdateTaskPayload = { _id: "", name: "", status };
+  const { templateStore } = store;
 
   const [isCreating, setIsCreating] = useState(false);
+  const taskFormInitialState: IUpdateTaskPayload = { _id: "", name: "", status };
   const [taskForm, setTaskForm] = useState(taskFormInitialState);
 
   const color = useMemo(() => baseColors[variant], [variant]);
@@ -46,7 +48,7 @@ const KanbanColumn: React.FC<IProps> = (props) => {
     if (!taskForm._id) return;
 
     try {
-      await store.templateStore.updateTask(taskForm);
+      await templateStore.updateTask(taskForm);
       setTaskForm((prev) => ({ ...prev, name: "", _id: "" }));
       refModalEdit.current?.setVisibility(false);
     } catch (error) {
@@ -54,8 +56,21 @@ const KanbanColumn: React.FC<IProps> = (props) => {
     }
   }
 
+  async function handleOnDrop(dataTransferred: string) {
+    try {
+      await moveTask({ taskIdFrom: dataTransferred, status });
+    } catch (error) {
+      alert(error?.response?.data || error?.message);
+    }
+  }
+
   return (
-    <ContainerKanbanColumn color={color} {...rest}>
+    <ContainerKanbanColumn
+      keyDataTransfer={KEY_DATA_TRANSFER}
+      onDrop={handleOnDrop}
+      color={color}
+      {...rest}
+    >
       <Header>
         <HeaderTitle>{title ? title : capitalizeText(status)}</HeaderTitle>
 
@@ -69,7 +84,7 @@ const KanbanColumn: React.FC<IProps> = (props) => {
 
       <FormAddTask visibility={isCreating} status={status} hideForm={() => setIsCreating(false)} />
 
-      <TasksList tasks={tasks} color={color} openModalEdit={openModalEdit} />
+      <TasksList tasks={tasks} status={status} color={color} openModalEdit={openModalEdit} />
 
       <Modal ref={refModalEdit} title="Edit Task">
         <Form onSubmit={handleUpdateTask} buttonText={"Update"} buttonIsDisable={!taskForm.name}>

@@ -4,22 +4,28 @@ import { baseTransition, flexCenter } from "../../../styles/mixins";
 
 interface IPropsStyledButton {
   isLoading?: boolean;
-  variant: "pill" | "rounded";
   color: "default" | "gray";
-  size: "sm" | "md";
 }
+
+// const colors = { red: " #d43d3d", green: "#4caf50", gray: "#607d8b",};
 
 export const StyledButton = styled.button<IPropsStyledButton>`
   ${baseTransition}
   ${flexCenter}
   position: relative;
-  min-height: 2rem;
-  font-size: 1.2rem;
-  text-align: center;
-  padding: 0.5rem 2.5rem;
+  width: max-content;
+  padding: 0.3rem 0.75rem;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  font-weight: bold;
+  font-family: ${({ theme }) => theme.fontFamily.primary};
+  line-height: 1.5;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  cursor: pointer;
 
-  ${({ theme, isLoading, color, variant, size }) => css`
-    border-radius: ${variant === "pill" ? "9999px" : "0.5rem"};
+  ${({ theme, isLoading, color }) => css`
     color: ${theme.colors.secondary};
     background-color: ${theme.title === "light" ? theme.colors.primary : theme.colors.gray};
 
@@ -42,12 +48,6 @@ export const StyledButton = styled.button<IPropsStyledButton>`
         opacity: 1;
         background-color: ${theme.title === "light" ? theme.colors.primary : theme.colors.gray};
       }
-    `}
-
-    ${size === "sm" &&
-    css`
-      padding: 0.35rem 1.5rem;
-      font-size: 1rem;
     `}
 
     ${color === "gray" &&

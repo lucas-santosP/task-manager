@@ -7,7 +7,7 @@ import store from "./store";
 
 const Routes: React.FC = () => {
   return (
-    <Router>
+    <Router base={process.env.NODE_ENV === "production" ? "/task-manager" : ""}>
       {store.userStore.user ? (
         <GridLayout>
           <Switch>

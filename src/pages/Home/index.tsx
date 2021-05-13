@@ -3,11 +3,14 @@ import { Section, SectionTitle } from "./styles";
 import { PageContainer, PageTitle, PageSubtitle } from "../../styles/shared";
 import { Modal, ModalRef, Form, Input, TextArea, AppendButtonAdd } from "../../components/ui";
 import store from "../../store";
-import TemplateList from "./TemplatesList";
-import LatestTaskList from "./LatestTasksList";
+import TemplatesList from "./TemplatesList";
+import { observer } from "mobx-react";
+
 const initialTemplateForm = { name: "", description: "" };
 
 const Home: React.FC = () => {
+  const { templateStore, userStore } = store;
+
   const [templateForm, setTemplateForm] = useState(initialTemplateForm);
   const modalRef = useRef<ModalRef>(null);
 
@@ -18,7 +21,7 @@ const Home: React.FC = () => {
 
   async function handleSubmitTemplateForm() {
     try {
-      await store.templateStore.createTemplate(templateForm);
+      await templateStore.createTemplate(templateForm);
       setTemplateForm(initialTemplateForm);
       modalRef.current?.setVisibility(false);
     } catch (error) {
@@ -30,26 +33,21 @@ const Home: React.FC = () => {
     <PageContainer>
       <PageTitle>Home</PageTitle>
       <PageSubtitle>
-        Hello <b>{store.userStore.user?.name}</b>, here you can access all your tasks templates and
+        Hello <b>{userStore.user?.name}</b>, here you can access all your projects, edit, delete and
         create new ones.
       </PageSubtitle>
 
       <Section>
-        <SectionTitle>Latest Tasks</SectionTitle>
-        <LatestTaskList />
-      </Section>
-
-      <Section>
-        <SectionTitle>Your Templates</SectionTitle>
-        <TemplateList />
+        <SectionTitle>My Projects</SectionTitle>
+        <TemplatesList />
       </Section>
 
       <AppendButtonAdd
-        text="Create new Template"
+        text="Create new Project"
         onClick={() => modalRef.current?.setVisibility(true)}
       />
 
-      <Modal ref={modalRef} title="New Template" maxWidth="500">
+      <Modal ref={modalRef} title="New Project" maxWidth="500">
         <Form onSubmit={handleSubmitTemplateForm} buttonText={"Create"}>
           <Input
             focused
@@ -73,4 +71,4 @@ const Home: React.FC = () => {
   );
 };
 
-export default Home;
+export default observer(Home);
