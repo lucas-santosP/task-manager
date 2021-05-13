@@ -91,8 +91,9 @@ const Draggable: React.FC<IProps> = (props) => {
       }}
     >
       <svg
-        width="175"
-        height="270"
+        className="icon"
+        width="100%"
+        height="100%"
         viewBox="0 0 175 270"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"

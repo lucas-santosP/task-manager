@@ -1,11 +1,9 @@
 import React from "react";
-import { ContainerList, TaskItem, Text } from "./styles";
 import store from "../../../../store";
-import { Popover } from "../../../../components/ui";
-import { HiDotsHorizontal } from "react-icons/hi";
+import { ContainerList } from "./styles";
 import { ITask, ITaskStatus } from "../../../../types/task";
 import { moveTask } from "../../../../utils";
-import Draggable from "../../../../components/dragAndDrop/Draggable";
+import TaskItem from "../TaskItem";
 
 interface IProps {
   tasks: ITask[];
@@ -18,9 +16,9 @@ const TasksList: React.FC<IProps> = (props) => {
   const { tasks, openModalEdit, status, ...rest } = props;
   const { templateStore } = store;
 
-  async function handleDeleteTask(taskId: string) {
+  async function handleDeleteTask(task: ITask) {
     try {
-      await templateStore.deleteTask({ taskId });
+      await templateStore.deleteTask({ taskId: task._id });
     } catch (error) {
       alert(error.message);
     }
@@ -35,36 +33,15 @@ const TasksList: React.FC<IProps> = (props) => {
   }
 
   return (
-    <ContainerList>
+    <ContainerList {...rest}>
       {tasks.map((task) => (
         <TaskItem
           key={task._id}
-          id={`task-item-${task._id}`}
-          keyDataTransfer="task-id"
-          onDrop={(taskIdFrom) => handleOnDrop(taskIdFrom, task._id)}
-          {...rest}
-        >
-          <Draggable
-            dataTransfer={{ key: "task-id", data: task._id }}
-            elementId={`task-item-${task._id}`}
-          />
-          <Text> {task.name}</Text>
-          <Popover
-            className="popover"
-            position="left"
-            content={<HiDotsHorizontal />}
-            options={[
-              {
-                content: "Edit",
-                onClick: () => openModalEdit(task),
-              },
-              {
-                content: "Delete",
-                onClick: () => handleDeleteTask(task._id),
-              },
-            ]}
-          />
-        </TaskItem>
+          task={task}
+          onDrop={handleOnDrop}
+          onClickEdit={openModalEdit}
+          onClickDelete={handleDeleteTask}
+        />
       ))}
     </ContainerList>
   );
