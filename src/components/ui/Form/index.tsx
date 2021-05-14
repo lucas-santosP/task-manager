@@ -23,7 +23,13 @@ const Form: React.FC<IProps> = (props) => {
       {children}
 
       {buttonText && (
-        <Button type="submit" className="button" disabled={buttonIsDisable} isLoading={isLoading}>
+        <Button
+          type="submit"
+          className="button"
+          paddingLg
+          disabled={buttonIsDisable}
+          isLoading={isLoading}
+        >
           {buttonText}
         </Button>
       )}
