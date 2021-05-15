@@ -1,7 +1,8 @@
 import React, { ChangeEvent, useEffect, useImperativeHandle, useRef, useState } from "react";
-import { Form, Input, Modal, ModalRef, TextArea } from "../../../components/ui";
+import { Button, Form, Input, Modal, ModalRef, TextArea } from "../../../components/ui";
 import store from "../../../store";
 import { ITemplate } from "../../../types/template";
+import { waitAsync } from "../../../utils";
 
 interface IProps {
   template: ITemplate | null;
@@ -14,6 +15,7 @@ const ModalUpdateTemplate: React.ForwardRefRenderFunction<ModalRef, IProps> = (p
   if (!template) return null;
 
   const [templateForm, setTemplateForm] = useState(template);
+  const [isLoading, setIsLoading] = useState(false);
   const refModal = useRef<ModalRef>(null);
 
   function handleUpdateTemplateForm(event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) {
@@ -21,15 +23,19 @@ const ModalUpdateTemplate: React.ForwardRefRenderFunction<ModalRef, IProps> = (p
     setTemplateForm((prev) => ({ ...prev, [name]: value }));
   }
 
-  async function handleSubmitUpdate() {
+  async function handleSubmitForm() {
     try {
       if (!template) throw new Error("Invalid current templated");
 
+      setIsLoading(true);
       await templateStore.updateTemplate(templateForm);
-      setTemplateForm(template);
+      await waitAsync(1000);
+      setIsLoading(false);
       refModal.current?.setVisibility(false);
+      setTemplateForm(template);
     } catch (error) {
       alert(error?.response?.data || error?.message);
+      setIsLoading(false);
     }
   }
 
@@ -48,7 +54,7 @@ const ModalUpdateTemplate: React.ForwardRefRenderFunction<ModalRef, IProps> = (p
 
   return (
     <Modal ref={refModal} title="Edit Template" onClose={() => setTemplate(null)}>
-      <Form onSubmit={handleSubmitUpdate} buttonText={"Update"}>
+      <Form onSubmit={handleSubmitForm}>
         <Input
           autoComplete="off"
           label="Name"
@@ -57,7 +63,6 @@ const ModalUpdateTemplate: React.ForwardRefRenderFunction<ModalRef, IProps> = (p
           value={templateForm.name}
           onChange={handleUpdateTemplateForm}
         />
-
         <TextArea
           label="Description"
           name="description"
@@ -65,6 +70,9 @@ const ModalUpdateTemplate: React.ForwardRefRenderFunction<ModalRef, IProps> = (p
           value={templateForm.description}
           onChange={handleUpdateTemplateForm}
         />
+        <Button type="submit" variant="green" paddingLg isLoading={isLoading}>
+          Update
+        </Button>
       </Form>
     </Modal>
   );
