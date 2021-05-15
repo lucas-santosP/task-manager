@@ -74,7 +74,6 @@ export const StyledButton = styled.button<IPropsStyledButton>`
   ${flexCenter}
   position: relative;
   width: max-content;
-
   border: 1px solid transparent;
   border-radius: 4px;
   font-size: 0.9rem;
@@ -86,6 +85,7 @@ export const StyledButton = styled.button<IPropsStyledButton>`
   cursor: pointer;
   overflow: hidden;
   white-space: nowrap;
+  user-select: none;
 
   ${({ theme, isLoading, variant, paddingLg }) => css`
     padding: ${paddingLg ? "0.3rem 2.75rem" : "0.3rem 0.75rem"};
