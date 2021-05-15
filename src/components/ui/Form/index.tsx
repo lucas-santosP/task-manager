@@ -1,5 +1,5 @@
 import React, { ReactNode } from "react";
-import { StyledForm } from "./styles";
+import { StyledForm, BottomText } from "./styles";
 import { Button, HorizontalDivider } from "../";
 
 interface IProps extends React.FormHTMLAttributes<HTMLFormElement> {
@@ -37,7 +37,7 @@ const Form: React.FC<IProps> = (props) => {
       {bottomText && (
         <>
           <HorizontalDivider maxWidth={"360px"} marginY={"1.5rem"} />
-          <span className="bottom-text">{bottomText}</span>
+          <BottomText>{bottomText}</BottomText>
         </>
       )}
     </StyledForm>
