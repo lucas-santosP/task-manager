@@ -10,7 +10,7 @@ const colors: IColors = {
   red: "#d43d3d",
   blue: "#005caf",
   green: "#4caf50",
-  gray: "#607d8b",
+  gray: "#727272",
 };
 
 interface IPropsStyledButton {
@@ -20,7 +20,7 @@ interface IPropsStyledButton {
 }
 
 const variantStyles = (theme: DefaultTheme, variant?: IButtonVariant, isLoading?: boolean) => {
-  let backgroundColor = theme.title === "light" ? theme.colors.primary : theme.colors.gray;
+  let backgroundColor = theme.colors.highlight;
   if (variant) backgroundColor = colors[variant];
 
   return css`

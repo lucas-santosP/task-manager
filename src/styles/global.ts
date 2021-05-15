@@ -42,7 +42,7 @@ export default createGlobalStyle`
   }
   
   a {
-    color: ${(props) => props.theme.colors.textHighlight};
+    color: ${(props) => props.theme.colors.highlight};
     
     &:hover{
       text-decoration: underline;
