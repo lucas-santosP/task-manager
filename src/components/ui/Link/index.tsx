@@ -7,7 +7,7 @@ interface IProps {
 }
 
 const StyledLink = styled(WouterLink)`
-  color: ${({ theme }) => theme.colors.textHighlight};
+  color: ${({ theme }) => theme.colors.highlight};
 `;
 
 const Link: React.FC<IProps> = (props) => {

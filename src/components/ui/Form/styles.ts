@@ -3,16 +3,11 @@ import styled from "styled-components";
 export const StyledForm = styled.form`
   display: flex;
   flex-direction: column;
+  align-items: center;
   font-size: ${({ theme }) => theme.fontSize.sm};
+`;
 
-  > .button {
-    margin: 1rem auto 0 auto;
-    padding-left: 4rem;
-    padding-right: 4rem;
-  }
-
-  > .bottom-text {
-    width: 100%;
-    text-align: center;
-  }
+export const BottomText = styled.span`
+  width: 100%;
+  text-align: center;
 `;

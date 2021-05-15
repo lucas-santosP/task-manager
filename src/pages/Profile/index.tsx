@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { ContainerForm } from "./styles";
-import { Alert, Form, Input } from "../../components/ui";
+import { Alert, Button, Form, Input } from "../../components/ui";
 import { PageContainer, PageTitle } from "../../styles/shared";
 import { observer } from "mobx-react";
 import store from "../../store";
@@ -34,6 +34,7 @@ const Profile: React.FC = () => {
         <Alert>
           Here you can update your user information, keep the value you dont wanna update
         </Alert>
+
         <Form onSubmit={submitForm} isLoading={isLoading} buttonText={"Update"}>
           <Input
             focused
@@ -70,6 +71,14 @@ const Profile: React.FC = () => {
             onChange={(e) => setConfirmPassword(e.target.value)}
           />
         </Form>
+
+        <div style={{ display: "flex", flexWrap: "wrap", gap: "1rem", margin: "1rem 0" }}>
+          <Button>Button default</Button>
+          <Button variant="red">Button Red</Button>
+          <Button variant="blue">Button Blue</Button>
+          <Button variant="gray">Button Gray</Button>
+          <Button variant="green">Button Green</Button>
+        </div>
       </ContainerForm>
     </PageContainer>
   );
