@@ -16,20 +16,16 @@ This is the frontend of the app, the backend can be found on [this repository](h
 ### Switch dark and light theme
 
 <img alt="Home page themes" src="public/readme/half-theme-home.png">
-<br/>
 
 ### Kanban with drag and drop tasks
 
 <img alt="Home page themes" src="public/readme/tasks-light.png">
-<br/>
 
 <img alt="Home page themes" src="public/readme/tasks-dark.png">
-<br/>
 
 ### And more...
 
 <img alt="Home page themes" src="public/readme/home-light.png">
-<br/>
 
 `- Deploy link soon...`
 
