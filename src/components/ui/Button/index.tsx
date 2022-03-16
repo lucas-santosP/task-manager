@@ -1,18 +1,27 @@
 import React from "react";
-import { StyledButton } from "./styles";
-import { FaSpinner } from "react-icons/fa";
+import { StyledButton, LoadingIcon } from "./styles";
+
+export type IButtonVariant = "red" | "gray" | "green" | "blue";
 
 interface IProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+  variant?: IButtonVariant;
+  color?: string;
+  paddingLg?: boolean;
   isLoading?: boolean;
-  color?: "default" | "gray";
 }
 
 const Button: React.FC<IProps> = (props: IProps) => {
-  const { type = "button", color = "default", children, isLoading, disabled, ...rest } = props;
+  const { type = "button", children, variant, paddingLg, isLoading, disabled, ...rest } = props;
 
   return (
-    <StyledButton type={type} disabled={isLoading ? isLoading : disabled} color={color} {...rest}>
-      {isLoading && <FaSpinner className="loading-icon" />}
+    <StyledButton
+      type={type}
+      disabled={isLoading ? isLoading : disabled}
+      variant={variant}
+      paddingLg={paddingLg}
+      {...rest}
+    >
+      {isLoading && <LoadingIcon />}
 
       <div style={{ opacity: isLoading ? 0 : 1 }}>{children}</div>
     </StyledButton>

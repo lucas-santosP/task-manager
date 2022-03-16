@@ -29,7 +29,7 @@ export const DividerContainer = styled.div<IProps>`
     z-index: 5;
     width: 13px;
     height: 13px;
-    background-color: ${({ theme }) => theme.colors.textHighlight};
+    background-color: ${({ theme }) => theme.colors.highlight};
     margin: auto auto;
   }
 

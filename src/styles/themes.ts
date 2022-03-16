@@ -19,6 +19,7 @@ const baseTheme = {
     mono: "'Roboto Mono', monospace",
   },
   colors: {
+    highlight: "#FF8484",
     blue: "#2374ab",
     green: "#73d75d",
     purple: "#5b2a86",
@@ -38,7 +39,6 @@ export const light = {
     secondary: "#FFFBEB",
     background: "#f5f5f5",
     text: "#333",
-    textHighlight: "#FF8484",
   },
 };
 
@@ -51,6 +51,5 @@ export const dark = {
     secondary: "#FFFBEB",
     background: "#222",
     text: "#f5f5f5",
-    textHighlight: "#FF8484",
   },
 };

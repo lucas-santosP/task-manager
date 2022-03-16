@@ -1,8 +1,9 @@
 import React, { useImperativeHandle, useMemo, useRef, useState } from "react";
-import { Alert, Form, Input, Modal, ModalRef } from "../../../components/ui";
+import { Alert, Button, Form, Input, Modal, ModalRef } from "../../../components/ui";
 import { useLocation } from "wouter";
 import { ITemplate } from "../../../types/template";
 import store from "../../../store";
+import { waitAsync } from "../../../utils";
 
 interface IProps {
   template: ITemplate | null;
@@ -10,24 +11,29 @@ interface IProps {
   redirectOnDelete?: boolean;
 }
 
-const ModalUpdateTemplate: React.ForwardRefRenderFunction<ModalRef, IProps> = (props, ref) => {
+const ModalDeleteTemplate: React.ForwardRefRenderFunction<ModalRef, IProps> = (props, ref) => {
   const { template, setTemplate, redirectOnDelete = false } = props;
   const { templateStore } = store;
   if (!template) return null;
 
   const [, setLocation] = useLocation();
+  const [isLoading, setIsLoading] = useState(false);
   const [confirmDeletion, setConfirmDeletion] = useState("");
   const refModal = useRef<ModalRef>(null);
 
-  async function handleSubmitDelete() {
+  async function handleSubmitForm() {
     try {
       if (!template) throw new Error("Invalid current templated");
 
+      setIsLoading(true);
       await templateStore.deleteTemplate({ templateId: template._id });
-      refModal.current?.setVisibility(false);
-      if (redirectOnDelete) setLocation("/", { replace: true });
+      await waitAsync(1000);
+      setIsLoading(false);
+      if (redirectOnDelete) setLocation("/home", { replace: true });
+      else refModal.current?.setVisibility(false);
     } catch (error) {
       alert(error?.response?.data || error?.message);
+      setIsLoading(false);
     }
   }
 
@@ -47,16 +53,11 @@ const ModalUpdateTemplate: React.ForwardRefRenderFunction<ModalRef, IProps> = (p
 
   return (
     <Modal ref={refModal} title="Confirm deletion" onClose={() => setTemplate(null)}>
-      <Form
-        onSubmit={handleSubmitDelete}
-        buttonIsDisable={!confirmDeleteIsValid}
-        buttonText={"Delete"}
-      >
+      <Form onSubmit={handleSubmitForm} buttonIsDisable={!confirmDeleteIsValid}>
         <Alert>
           This action <b>cannot be undone</b>.This will permanently delete the current template
           {template.tasks.length ? ` and its existence ${template.tasks.length} tasks` : ""}.
         </Alert>
-
         <Input
           autoComplete="off"
           label={
@@ -68,9 +69,18 @@ const ModalUpdateTemplate: React.ForwardRefRenderFunction<ModalRef, IProps> = (p
           value={confirmDeletion}
           onChange={(e) => setConfirmDeletion(e.target.value)}
         />
+        <Button
+          type="submit"
+          variant="red"
+          paddingLg
+          disabled={!confirmDeleteIsValid}
+          isLoading={isLoading}
+        >
+          Delete
+        </Button>
       </Form>
     </Modal>
   );
 };
 
-export default React.forwardRef(ModalUpdateTemplate);
+export default React.forwardRef(ModalDeleteTemplate);

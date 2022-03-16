@@ -34,6 +34,7 @@ const Profile: React.FC = () => {
         <Alert>
           Here you can update your user information, keep the value you dont wanna update
         </Alert>
+
         <Form onSubmit={submitForm} isLoading={isLoading} buttonText={"Update"}>
           <Input
             focused
