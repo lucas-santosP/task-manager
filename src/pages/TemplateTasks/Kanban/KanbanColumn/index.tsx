@@ -23,8 +23,8 @@ type IBaseColors = {
 };
 
 const baseColors: IBaseColors = {
-  red: "#ebd9d8",
-  blue: "#d0ebeb",
+  red: "#fbc2bf",
+  blue: "#bfe9e9",
   green: "#ddebd8",
 };
 
