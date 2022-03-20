@@ -10,15 +10,16 @@ import {
   ClockIcon,
   TasksIcon,
 } from "./styles";
+import useLocation from "wouter/use-location";
+import { observer } from "mobx-react";
 import { ModalUpdateTemplate, ModalDeleteTemplate } from "../../../components/modals";
 import { ModalRef } from "../../../components/ui";
 import { normalizeDateString } from "../../../utils";
-import { observer } from "mobx-react";
-import store from "../../../store";
-import useLocation from "wouter/use-location";
 import { ITemplate } from "../../../types/template";
+import { useStore } from "../../../store/StoreProvider";
 
 const TemplateList: React.FC = () => {
+  const store = useStore();
   const [, setLocation] = useLocation();
   const refModalDelete = useRef<ModalRef>(null);
   const refModalUpdate = useRef<ModalRef>(null);

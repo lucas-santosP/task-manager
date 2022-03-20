@@ -4,6 +4,7 @@ import { TemplateServices } from "../../services/templates";
 import { setAPIAuthHeader } from "../../services/api";
 import {
   ITask,
+  ILatestTask,
   ICreateTaskPayload,
   IDeleteTaskPayload,
   IUpdateTaskPayload,
@@ -189,10 +190,17 @@ export class TemplateStore {
     };
   }
 
-  get latestTasks() {
-    let allTasks = [] as ITask[];
+  get latestTasks(): ILatestTask[] {
+    const allTasks = [] as ILatestTask[];
 
-    this.templates.forEach((template) => (allTasks = [...allTasks, ...template.tasks]));
+    this.templates.forEach((template) => {
+      template.tasks.forEach((task) => {
+        allTasks.push({
+          ...task,
+          templateId: template._id,
+        });
+      });
+    });
 
     const tasksOrdered = allTasks.sort((task1, task2) => {
       const date1 = new Date(task1.updatedAt);
@@ -203,7 +211,7 @@ export class TemplateStore {
       return 0;
     });
 
-    return tasksOrdered.slice(0, 5);
+    return tasksOrdered.slice(0, 10);
   }
 }
 
