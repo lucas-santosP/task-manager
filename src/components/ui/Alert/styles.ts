@@ -3,7 +3,7 @@ import styled, { css } from "styled-components";
 export const StyledAlert = styled.p`
   --border-clr: rgba(95, 95, 95, 0.45);
   font-size: 1rem;
-  background-color: #e7e7e7;
+  background-color: #f4f4f4;
   border-radius: 4px;
   padding: 0.75rem;
   margin-bottom: 1rem;

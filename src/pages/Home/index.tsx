@@ -1,7 +1,15 @@
 import React, { ChangeEvent, useRef, useState } from "react";
 import { GridSections, Section, SectionTitle } from "./styles";
-import { PageContainer, PageTitle, PageSubtitle } from "../../styles/shared";
-import { Modal, ModalRef, Form, Input, TextArea, AppendButtonAdd } from "../../components/ui";
+import { PageContainer, PageTitle } from "../../styles/shared";
+import {
+  Modal,
+  ModalRef,
+  Form,
+  Input,
+  TextArea,
+  AppendButtonAdd,
+  Alert,
+} from "../../components/ui";
 import store from "../../store";
 import TemplatesList from "./TemplatesList";
 import LatestTasksList from "./LatestTasksList";
@@ -33,10 +41,11 @@ const Home: React.FC = () => {
   return (
     <PageContainer>
       <PageTitle>Home</PageTitle>
-      <PageSubtitle>
+
+      <Alert>
         Hello <b>{userStore.user?.name}</b>, here you can access all your projects, edit, delete and
         create new ones.
-      </PageSubtitle>
+      </Alert>
 
       <GridSections>
         <Section>
