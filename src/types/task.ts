@@ -9,6 +9,8 @@ export interface ITask {
   __v?: number;
 }
 
+export type ILatestTask = ITask & { templateId: string };
+
 export interface ICreateTaskPayload {
   templateId: string;
   name: string;
