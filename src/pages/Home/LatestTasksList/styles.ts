@@ -1,18 +1,27 @@
 import styled, { css } from "styled-components";
 
+const mutedGray = "#a7a7a7";
+
 export const StyledList = styled.ul`
   display: flex;
-  flex-wrap: wrap;
-  gap: 1.5rem;
+  flex-wrap: wrap; 
   min-height: 56px;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  box-shadow: 0 0 2px 0 #333;
 
   > li {
-    width: 15rem;
-    border-radius: 0.7rem;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    transition: all ease 0.3s;
+    cursor: pointer;
+    flex: 1;
     padding: 0.5rem 1.5rem;
     padding-bottom: 1rem;
     text-align: center;
-    background-color: #ffff;
+    color: #333;
+    background-color: #fff;
     box-shadow: 0 0 2px 0 #333;
 
     ${({ theme }) =>
@@ -22,7 +31,13 @@ export const StyledList = styled.ul`
         box-shadow: 0 0 2px 0px #000;
       `}
 
+    &:hover {
+      border-color: #333;
+      background-color: ${({ theme }) => (theme.title === "dark" ? "#333" : "#f2f2f2")};} ;
+    }
+
     .name {
+      color: ${({ theme }) => theme.title === "dark" && "#fff"};
       display: block;
       font-size: 1rem;
       margin-bottom: 0.3rem;
@@ -32,7 +47,7 @@ export const StyledList = styled.ul`
     }
 
     .last-update {
-      color: #a7a7a7;
+      color: ${mutedGray};
       white-space: nowrap;
     }
   }

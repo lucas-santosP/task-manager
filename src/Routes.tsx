@@ -5,9 +5,12 @@ import { Login, Register, NotFound, Home, Profile, TemplateTasks } from "./pages
 import { observer } from "mobx-react";
 import store from "./store";
 
+const envBaseUrl = import.meta.env.BASE_URL || "";
+const baseUrl = envBaseUrl.endsWith("/") ? envBaseUrl.slice(0, -1) : envBaseUrl;
+
 const Routes: React.FC = () => {
   return (
-    <Router base={process.env.NODE_ENV === "production" ? "/task-manager" : ""}>
+    <Router base={baseUrl}>
       {store.userStore.user ? (
         <GridLayout>
           <Switch>
@@ -27,6 +30,7 @@ const Routes: React.FC = () => {
           <Switch>
             <Route path="/login" component={Login} />
             <Route path="/register" component={Register} />
+            <Redirect to="/login" />
           </Switch>
         </BaseLayout>
       )}

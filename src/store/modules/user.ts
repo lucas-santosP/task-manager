@@ -58,12 +58,10 @@ export class UserStore {
     userAuthCookie.set({ _id: user._id, token });
   }
 
-  async checkUserAuth(currentLocation: string, setLocation: ISetLocation) {
+  async checkUserAuth() {
     const storageAuth = userAuthCookie.get();
-
     if (!storageAuth) {
       this.rootStore.setLoading(false);
-      setLocation("/login", { replace: true });
       return;
     }
 
@@ -71,12 +69,9 @@ export class UserStore {
       this.rootStore.setLoading(true);
       const { _id, token } = storageAuth;
       await this.auth({ userId: _id, token });
-      if (currentLocation === "/login" || currentLocation === "/register") {
-        setLocation("/home", { replace: true });
-      }
     } catch (error) {
-      console.log("Storage auth not found");
-      setLocation("/login", { replace: true });
+      console.log("Storage auth not found or invalid");
+      userAuthCookie.remove();
     } finally {
       this.rootStore.setLoading(false, 800);
     }

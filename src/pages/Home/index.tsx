@@ -1,9 +1,18 @@
 import React, { ChangeEvent, useRef, useState } from "react";
-import { Section, SectionTitle } from "./styles";
-import { PageContainer, PageTitle, PageSubtitle } from "../../styles/shared";
-import { Modal, ModalRef, Form, Input, TextArea, AppendButtonAdd } from "../../components/ui";
+import { GridSections, Section, SectionTitle } from "./styles";
+import { PageContainer, PageTitle } from "../../styles/shared";
+import {
+  Modal,
+  ModalRef,
+  Form,
+  Input,
+  TextArea,
+  AppendButtonAdd,
+  Alert,
+} from "../../components/ui";
 import store from "../../store";
 import TemplatesList from "./TemplatesList";
+import LatestTasksList from "./LatestTasksList";
 import { observer } from "mobx-react";
 
 const initialTemplateForm = { name: "", description: "" };
@@ -32,15 +41,23 @@ const Home: React.FC = () => {
   return (
     <PageContainer>
       <PageTitle>Home</PageTitle>
-      <PageSubtitle>
+
+      <Alert>
         Hello <b>{userStore.user?.name}</b>, here you can access all your projects, edit, delete and
         create new ones.
-      </PageSubtitle>
+      </Alert>
 
-      <Section>
-        <SectionTitle>My Projects</SectionTitle>
-        <TemplatesList />
-      </Section>
+      <GridSections>
+        <Section>
+          <SectionTitle>My Projects</SectionTitle>
+          <TemplatesList />
+        </Section>
+
+        <Section>
+          <SectionTitle align="center">Latests tasks edited</SectionTitle>
+          <LatestTasksList />
+        </Section>
+      </GridSections>
 
       <AppendButtonAdd
         text="Create new Project"
