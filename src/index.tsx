@@ -3,7 +3,7 @@ import ReactDOM from "react-dom";
 import App from "./App";
 
 import GlobalStyles from "./styles/global";
-import "react-toastify/dist/ReactToastify.css";
+import "react-toastify/dist/ReactToastify.min.css";
 
 import AppProviders from "./AppProviders";
 import StoreProvider from "./store/StoreProvider";
