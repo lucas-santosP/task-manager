@@ -8,17 +8,18 @@ interface IPayload {
 }
 
 export default async function moveTask(payload: IPayload) {
-  const { templateStore } = store;
   const { taskIdTo, status, taskIdFrom } = payload;
-  const taskFrom = templateStore.currentTemplate?.tasks.find((task) => task._id === taskIdFrom);
-  const templateId = templateStore.currentTemplate?._id;
+  const taskFrom = store.templateStore.currentTemplate?.tasks.find(
+    (task) => task._id === taskIdFrom
+  );
+  const templateId = store.templateStore.currentTemplate?._id;
 
   if (!templateId) throw new Error("Invalid current template");
   if (!taskFrom) throw new Error("Invalid task id received");
 
   if (taskIdTo && taskFrom.status === status) {
-    await templateStore.updateTasksIndexes({ templateId, taskIdFrom, taskIdTo }); //move in the same column
+    await store.templateStore.updateTasksIndexes({ templateId, taskIdFrom, taskIdTo }); //move in the same column
   } else if (status) {
-    await templateStore.updateTasksColumn({ templateId, status, taskId: taskIdFrom }); //move to a different column
+    await store.templateStore.updateTasksColumn({ templateId, status, taskId: taskIdFrom }); //move to a different column
   }
 }

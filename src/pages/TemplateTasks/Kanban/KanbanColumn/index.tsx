@@ -8,6 +8,8 @@ import { ITask, ITaskStatus, IUpdateTaskPayload } from "../../../../types/task";
 import TasksList from "../TasksList";
 import FormAddTask from "../FormAddTask";
 import { KEY_DATA_TRANSFER } from "../constants";
+import { getApiErrorMessage } from "../../../../utils/getApiErrorMessage";
+import { toast } from "react-toastify";
 
 type IVariant = "blue" | "green" | "red";
 
@@ -30,7 +32,6 @@ const baseColors: IBaseColors = {
 
 const KanbanColumn: React.FC<IProps> = (props) => {
   const { title, status, variant = "blue", tasks, ...rest } = props;
-  const { templateStore } = store;
 
   const [isCreating, setIsCreating] = useState(false);
   const taskFormInitialState: IUpdateTaskPayload = { _id: "", name: "", status };
@@ -48,11 +49,12 @@ const KanbanColumn: React.FC<IProps> = (props) => {
     if (!taskForm._id) return;
 
     try {
-      await templateStore.updateTask(taskForm);
+      await store.templateStore.updateTask(taskForm);
       setTaskForm((prev) => ({ ...prev, name: "", _id: "" }));
       refModalEdit.current?.setVisibility(false);
     } catch (error) {
-      alert(error.message);
+      const errorMsg = getApiErrorMessage(error);
+      toast.error(errorMsg);
     }
   }
 
@@ -60,7 +62,8 @@ const KanbanColumn: React.FC<IProps> = (props) => {
     try {
       await moveTask({ taskIdFrom: dataTransferred, status });
     } catch (error) {
-      alert(error?.response?.data || error?.message);
+      const errorMsg = getApiErrorMessage(error);
+      toast.error(errorMsg);
     }
   }
 

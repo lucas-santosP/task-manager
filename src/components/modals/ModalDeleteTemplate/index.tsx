@@ -3,7 +3,8 @@ import { Alert, Button, Form, Input, Modal, ModalRef } from "../../../components
 import { useLocation } from "wouter";
 import { ITemplate } from "../../../types/template";
 import store from "../../../store";
-import { waitAsync } from "../../../utils";
+import { getApiErrorMessage } from "../../../utils/getApiErrorMessage";
+import { toast } from "react-toastify";
 
 interface IProps {
   template: ITemplate | null;
@@ -13,7 +14,6 @@ interface IProps {
 
 const ModalDeleteTemplate: React.ForwardRefRenderFunction<ModalRef, IProps> = (props, ref) => {
   const { template, setTemplate, redirectOnDelete = false } = props;
-  const { templateStore } = store;
   if (!template) return null;
 
   const [, setLocation] = useLocation();
@@ -26,20 +26,20 @@ const ModalDeleteTemplate: React.ForwardRefRenderFunction<ModalRef, IProps> = (p
       if (!template) throw new Error("Invalid current templated");
 
       setIsLoading(true);
-      await templateStore.deleteTemplate({ templateId: template._id });
-      await waitAsync(1000);
+      await store.templateStore.deleteTemplate({ templateId: template._id });
       setIsLoading(false);
       if (redirectOnDelete) setLocation("/home", { replace: true });
       else refModal.current?.setVisibility(false);
     } catch (error) {
-      alert(error?.response?.data || error?.message);
+      const errorMsg = getApiErrorMessage(error);
+      toast.error(errorMsg);
       setIsLoading(false);
     }
   }
 
   const confirmDeleteIsValid = useMemo(() => confirmDeletion === template?.name, [
     confirmDeletion,
-    templateStore.createTemplate,
+    store.templateStore.createTemplate,
   ]);
 
   useImperativeHandle(ref, () => {

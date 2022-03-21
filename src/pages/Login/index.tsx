@@ -3,7 +3,8 @@ import { PageContainer, PageTitle, CardWrapper } from "../../styles/shared";
 import { Card, Form, Input, Link } from "../../components/ui";
 import store from "../../store";
 import { useLocation } from "wouter";
-import { waitAsync } from "../../utils";
+import { toast } from "react-toastify";
+import { getApiErrorMessage } from "../../utils/getApiErrorMessage";
 
 const Login: React.FC = () => {
   const [, setLocation] = useLocation();
@@ -20,8 +21,8 @@ const Login: React.FC = () => {
       setIsLoading(true);
       await store.userStore.login(userForm, setLocation);
     } catch (error) {
-      await waitAsync(500);
-      alert(error?.response?.data);
+      const errorMsg = getApiErrorMessage(error);
+      toast.error(errorMsg);
       setIsLoading(false);
     }
   }
