@@ -4,6 +4,8 @@ import store from "../../../../store";
 import { ICreateTaskPayload, ITaskStatus } from "../../../../types/task";
 import { Button, TextArea } from "../../../../components/ui";
 import { observer } from "mobx-react";
+import { getApiErrorMessage } from "../../../../utils/getApiErrorMessage";
+import { toast } from "react-toastify";
 
 interface IProps extends React.HTMLAttributes<HTMLFormElement> {
   status: ITaskStatus;
@@ -34,7 +36,8 @@ const FormCreateTask: React.FC<IProps> = (props) => {
       await store.templateStore.createTask(newTask);
       setNewTask((prev) => ({ ...prev, name: "" }));
     } catch (error) {
-      alert(error.message);
+      const errorMsg = getApiErrorMessage(error);
+      toast.error(errorMsg);
     }
   }
 

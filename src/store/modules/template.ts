@@ -1,4 +1,4 @@
-import { makeAutoObservable, runInAction } from "mobx";
+import { makeAutoObservable, runInAction, toJS } from "mobx";
 import { TaskServices } from "../../services/tasks";
 import { TemplateServices } from "../../services/templates";
 import { setAPIAuthHeader } from "../../services/api";
@@ -111,19 +111,22 @@ export class TemplateStore {
     const { templateIndex, templateFound } = getTemplateById(this.templates, payload.templateId);
     const { taskIndex, taskFound } = getTaskById(templateFound.tasks, payload.taskId);
 
-    await TaskServices.update({ ...taskFound, status: payload.status });
+    const taskToUpdate = toJS({ ...taskFound, status: payload.status });
 
-    const tasksToUpdated = [...templateFound.tasks];
+    const tasksToUpdated = toJS(templateFound.tasks);
     tasksToUpdated.splice(taskIndex, 1);
-    tasksToUpdated.splice(tasksToUpdated.length, 0, { ...taskFound });
-    const response = await TemplateServices.updateTasksIndexes({
+    tasksToUpdated.splice(tasksToUpdated.length, 0, taskToUpdate);
+
+    runInAction(() => {
+      this.templates[templateIndex].tasks = tasksToUpdated;
+    });
+
+    // async update after local state update
+    await TaskServices.update(taskToUpdate);
+    await TemplateServices.updateTasksIndexes({
       templateId: payload.templateId,
       tasks: tasksToUpdated,
     });
-
-    const newState = [...this.templates];
-    newState[templateIndex] = { ...response.data.template };
-    runInAction(() => (this.templates = newState));
   }
 
   async updateTasksIndexes(payload: IUpdateTasksIndexesPayload) {
@@ -140,20 +143,17 @@ export class TemplateStore {
     );
     if (taskIndexFrom === -1 || taskIndexTo === -1) throw new Error("Invalid tasks received");
 
-    const tasksUpdated = [...this.templates[templateIndex].tasks];
+    const tasksUpdated = toJS(this.templates[templateIndex].tasks);
     const [taskFrom] = tasksUpdated.splice(taskIndexFrom, 1);
     tasksUpdated.splice(taskIndexTo, 0, { ...taskFrom });
 
-    const response = await TemplateServices.updateTasksIndexes({
+    runInAction(() => {
+      this.templates[templateIndex].tasks = tasksUpdated;
+    });
+    // update async without await
+    await TemplateServices.updateTasksIndexes({
       templateId: payload.templateId,
       tasks: tasksUpdated,
-    });
-    const { template } = response.data;
-
-    const newState = [...this.templates];
-    newState[templateIndex].tasks = [...template.tasks];
-    runInAction(() => {
-      this.templates = newState;
     });
   }
 

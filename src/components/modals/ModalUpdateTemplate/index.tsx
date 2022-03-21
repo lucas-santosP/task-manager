@@ -1,8 +1,9 @@
 import React, { ChangeEvent, useEffect, useImperativeHandle, useRef, useState } from "react";
+import { toast } from "react-toastify";
 import { Button, Form, Input, Modal, ModalRef, TextArea } from "../../../components/ui";
 import store from "../../../store";
 import { ITemplate } from "../../../types/template";
-import { waitAsync } from "../../../utils";
+import { getApiErrorMessage } from "../../../utils/getApiErrorMessage";
 
 interface IProps {
   template: ITemplate | null;
@@ -11,7 +12,6 @@ interface IProps {
 
 const ModalUpdateTemplate: React.ForwardRefRenderFunction<ModalRef, IProps> = (props, ref) => {
   const { template, setTemplate } = props;
-  const { templateStore } = store;
   if (!template) return null;
 
   const [templateForm, setTemplateForm] = useState(template);
@@ -28,13 +28,13 @@ const ModalUpdateTemplate: React.ForwardRefRenderFunction<ModalRef, IProps> = (p
       if (!template) throw new Error("Invalid current templated");
 
       setIsLoading(true);
-      await templateStore.updateTemplate(templateForm);
-      await waitAsync(1000);
+      await store.templateStore.updateTemplate(templateForm);
       setIsLoading(false);
       refModal.current?.setVisibility(false);
       setTemplateForm(template);
     } catch (error) {
-      alert(error?.response?.data || error?.message);
+      const errorMsg = getApiErrorMessage(error);
+      toast.error(errorMsg);
       setIsLoading(false);
     }
   }

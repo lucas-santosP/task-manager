@@ -4,6 +4,7 @@ import { Alert, Form, Input } from "../../components/ui";
 import { PageContainer, PageTitle } from "../../styles/shared";
 import { observer } from "mobx-react";
 import store from "../../store";
+import { toast } from "react-toastify";
 
 const initialUserForm = { name: "", email: "email@email.com", password: "pass" };
 
@@ -21,6 +22,7 @@ const Profile: React.FC = () => {
 
   async function submitForm() {
     setIsLoading(true);
+    toast.warn("Feature not implemented yet");
     setTimeout(() => {
       setIsLoading(false);
     }, 1000);

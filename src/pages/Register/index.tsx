@@ -2,13 +2,14 @@ import React, { useState } from "react";
 import { PageContainer, PageTitle, CardWrapper } from "../../styles/shared";
 import { Card, Form, Input, Link } from "../../components/ui";
 import store from "../../store";
-import { waitAsync } from "../../utils";
 import { useLocation } from "wouter";
+import { toast } from "react-toastify";
+import { getApiErrorMessage } from "../../utils/getApiErrorMessage";
 
 const initialRegisterForm = {
   name: "",
-  email: "email@email.com",
-  password: "pass",
+  email: "",
+  password: "",
 };
 
 const Register: React.FC = () => {
@@ -26,8 +27,8 @@ const Register: React.FC = () => {
       setIsLoading(true);
       await store.userStore.register(registerForm, setLocation);
     } catch (error) {
-      await waitAsync(500);
-      alert(error?.response?.data);
+      const errorMsg = getApiErrorMessage(error);
+      toast.error(errorMsg);
       setIsLoading(false);
     }
   }

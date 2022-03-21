@@ -15,7 +15,6 @@ interface IProps {
 
 const TemplateTasks: React.FC<IProps> = (props) => {
   const { templateId } = props;
-  const { templateStore } = store;
 
   const [pending, setPending] = useState(true);
   const refModalUpdate = useRef<ModalRef>(null);
@@ -24,10 +23,12 @@ const TemplateTasks: React.FC<IProps> = (props) => {
   const [templateToDelete, setTemplateToDelete] = useState<ITemplate | null>(null);
 
   useEffect(() => {
-    const templateFound = templateStore.templates.find((template) => template._id === templateId);
-    if (templateFound) templateStore.setCurrentTemplate(templateFound);
+    const templateFound = store.templateStore.templates.find(
+      (template) => template._id === templateId
+    );
+    if (templateFound) store.templateStore.setCurrentTemplate(templateFound);
     setPending(false);
-  }, [templateStore.templates]);
+  }, [store.templateStore.templates]);
 
   useEffect(() => {
     if (templateToUpdate) refModalUpdate.current?.setVisibility(true);
@@ -38,18 +39,18 @@ const TemplateTasks: React.FC<IProps> = (props) => {
   }, [templateToDelete]);
 
   const popoverOptions = [
-    { content: "Edit", onClick: () => setTemplateToUpdate(templateStore.currentTemplate) },
-    { content: "Delete", onClick: () => setTemplateToDelete(templateStore.currentTemplate) },
+    { content: "Edit", onClick: () => setTemplateToUpdate(store.templateStore.currentTemplate) },
+    { content: "Delete", onClick: () => setTemplateToDelete(store.templateStore.currentTemplate) },
   ];
 
   if (pending) return null;
-  if (!templateStore.currentTemplate) return <span>Template not found</span>;
+  if (!store.templateStore.currentTemplate) return <span>Template not found</span>;
 
   return (
     <PageContainer>
       <PageTitle>
         <TitleIconsContainer>
-          {templateStore.currentTemplate.name}
+          {store.templateStore.currentTemplate.name}
 
           <Popover
             className="icon"
@@ -60,7 +61,7 @@ const TemplateTasks: React.FC<IProps> = (props) => {
         </TitleIconsContainer>
       </PageTitle>
 
-      <Description>Description: {templateStore.currentTemplate.description}</Description>
+      <Description>Description: {store.templateStore.currentTemplate.description}</Description>
 
       <Kanban />
 

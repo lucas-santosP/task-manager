@@ -4,6 +4,8 @@ import { ContainerList } from "./styles";
 import { ITask, ITaskStatus } from "../../../../types/task";
 import { moveTask } from "../../../../utils";
 import TaskItem from "../TaskItem";
+import { getApiErrorMessage } from "../../../../utils/getApiErrorMessage";
+import { toast } from "react-toastify";
 
 interface IProps {
   tasks: ITask[];
@@ -14,13 +16,13 @@ interface IProps {
 
 const TasksList: React.FC<IProps> = (props) => {
   const { tasks, openModalEdit, status, ...rest } = props;
-  const { templateStore } = store;
 
   async function handleDeleteTask(task: ITask) {
     try {
-      await templateStore.deleteTask({ taskId: task._id });
+      await store.templateStore.deleteTask({ taskId: task._id });
     } catch (error) {
-      alert(error.message);
+      const errorMsg = getApiErrorMessage(error);
+      toast.error(errorMsg);
     }
   }
 
@@ -28,7 +30,8 @@ const TasksList: React.FC<IProps> = (props) => {
     try {
       await moveTask({ taskIdFrom, taskIdTo, status });
     } catch (error) {
-      alert(error?.response?.data || error?.message);
+      const errorMsg = getApiErrorMessage(error);
+      toast.error(errorMsg);
     }
   }
 

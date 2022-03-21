@@ -14,12 +14,12 @@ import store from "../../store";
 import TemplatesList from "./TemplatesList";
 import LatestTasksList from "./LatestTasksList";
 import { observer } from "mobx-react";
+import { getApiErrorMessage } from "../../utils/getApiErrorMessage";
+import { toast } from "react-toastify";
 
 const initialTemplateForm = { name: "", description: "" };
 
 const Home: React.FC = () => {
-  const { templateStore, userStore } = store;
-
   const [templateForm, setTemplateForm] = useState(initialTemplateForm);
   const modalRef = useRef<ModalRef>(null);
 
@@ -30,11 +30,12 @@ const Home: React.FC = () => {
 
   async function handleSubmitTemplateForm() {
     try {
-      await templateStore.createTemplate(templateForm);
+      await store.templateStore.createTemplate(templateForm);
       setTemplateForm(initialTemplateForm);
       modalRef.current?.setVisibility(false);
     } catch (error) {
-      alert(error?.response?.data);
+      const errorMsg = getApiErrorMessage(error);
+      toast.error(errorMsg);
     }
   }
 
@@ -43,8 +44,8 @@ const Home: React.FC = () => {
       <PageTitle>Home</PageTitle>
 
       <Alert>
-        Hello <b>{userStore.user?.name}</b>, here you can access all your projects, edit, delete and
-        create new ones.
+        Hello <b>{store.userStore.user?.name}</b>, here you can access all your projects, edit,
+        delete and create new ones.
       </Alert>
 
       <GridSections>
