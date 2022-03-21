@@ -27,7 +27,7 @@ This is the frontend of the app, the backend can be found on [this repository](h
 
 <img alt="Home page themes" src="public/readme/home-light.png">
 
-`- Deploy link soon...`
+###  <a target="__blank" href="https://lucas-santosp.github.io/task-manager/">Demo link</a>
 
 # Setup
 
