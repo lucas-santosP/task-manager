@@ -7,8 +7,8 @@ import { useLocation } from "wouter";
 
 const initialRegisterForm = {
   name: "",
-  email: "email@email.com",
-  password: "pass",
+  email: "",
+  password: "",
 };
 
 const Register: React.FC = () => {

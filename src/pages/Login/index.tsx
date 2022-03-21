@@ -7,7 +7,7 @@ import { waitAsync } from "../../utils";
 
 const Login: React.FC = () => {
   const [, setLocation] = useLocation();
-  const [userForm, setUserForm] = useState({ email: "email@email.com", password: "pass" });
+  const [userForm, setUserForm] = useState({ email: "", password: "" });
   const [isLoading, setIsLoading] = useState(false);
 
   function handleUpdateUserForm(event: React.ChangeEvent<HTMLInputElement>) {

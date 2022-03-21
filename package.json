@@ -7,7 +7,7 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview",
-    "deploy": "push-dir --dir=dist --branch=gh-pages --cleanup",
+    "deploy": "yarn build & push-dir --dir=dist --branch=gh-pages --cleanup",
     "format": "prettier --write src/**/*.ts{,x}",
     "lint": "tsc --noEmit && eslint src/**/*.ts{,x}"
   },
