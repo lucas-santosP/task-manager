@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { PageContainer, PageTitle, CardWrapper } from "../../styles/shared";
 import { Card, Form, Input, Link } from "../../components/ui";
 import store from "../../store";
-import { useLocation } from "wouter";
 import { toast } from "react-toastify";
 import { getApiErrorMessage } from "../../utils/getApiErrorMessage";
 
@@ -13,7 +12,6 @@ const initialRegisterForm = {
 };
 
 const Register: React.FC = () => {
-  const [, setLocation] = useLocation();
   const [registerForm, setRegisterForm] = useState(initialRegisterForm);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -25,7 +23,7 @@ const Register: React.FC = () => {
   async function submitRegisterForm() {
     try {
       setIsLoading(true);
-      await store.userStore.register(registerForm, setLocation);
+      await store.userStore.register(registerForm);
     } catch (error) {
       const errorMsg = getApiErrorMessage(error);
       toast.error(errorMsg);

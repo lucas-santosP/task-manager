@@ -19,9 +19,8 @@ const Routes: React.FC = () => {
             <Route path="/template/:id">
               {(params) => <TemplateTasks templateId={params.id} />}
             </Route>
-            <Route path="/">
-              <Redirect to="/home" />
-            </Route>
+
+            <Redirect to="/home" />
             <Route component={NotFound} />
           </Switch>
         </GridLayout>

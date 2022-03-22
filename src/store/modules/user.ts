@@ -1,7 +1,13 @@
 import { makeAutoObservable, runInAction } from "mobx";
 import { UserServices } from "../../services/user";
-import { IAuthPayload, ILoginPayload, IRegisterPayload, IUser } from "../../types/user";
-import { IRootStore, ISetLocation } from "../types";
+import {
+  IAuthPayload,
+  ILoginPayload,
+  IRegisterPayload,
+  IUpdateUserPayload,
+  IUser,
+} from "../../types/user";
+import { IRootStore } from "../types";
 import { userAuthCookie } from "../../utils/userAuthCookie";
 
 export class UserStore {
@@ -14,7 +20,7 @@ export class UserStore {
     makeAutoObservable(this);
   }
 
-  async login(userData: ILoginPayload, setLocation: ISetLocation) {
+  async login(userData: ILoginPayload) {
     const response = await UserServices.login(userData);
     const { user, token } = response.data;
     runInAction(() => {
@@ -22,10 +28,9 @@ export class UserStore {
       this.token = token;
     });
     userAuthCookie.set({ _id: user._id, token });
-    setLocation("/home", { replace: true });
   }
 
-  async register(userData: IRegisterPayload, setLocation: ISetLocation) {
+  async register(userData: IRegisterPayload) {
     const response = await UserServices.register(userData);
     const { user, token } = response.data;
     runInAction(() => {
@@ -33,17 +38,23 @@ export class UserStore {
       this.token = token;
     });
     userAuthCookie.set({ _id: user._id, token });
-    setLocation("/home", { replace: true });
   }
 
-  logout(setLocation: ISetLocation) {
+  async update(payload: IUpdateUserPayload) {
+    const response = await UserServices.update(payload);
+    const { user } = response.data;
+    runInAction(() => {
+      this.user = user;
+    });
+  }
+
+  logout() {
     this.rootStore.setLoading(true);
     runInAction(() => {
       this.token = null;
       this.user = null;
     });
     userAuthCookie.remove();
-    setLocation("/login", { replace: true });
     this.rootStore.setLoading(false);
   }
 

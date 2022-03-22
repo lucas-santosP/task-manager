@@ -5,14 +5,20 @@ import { PageContainer, PageTitle } from "../../styles/shared";
 import { observer } from "mobx-react";
 import store from "../../store";
 import { toast } from "react-toastify";
-
-const initialUserForm = { name: "", email: "email@email.com", password: "pass" };
+import { ErrorContainer } from "../../components/ui/ErrorContainer";
+import { getApiErrorMessage } from "../../utils/getApiErrorMessage";
 
 const Profile: React.FC = () => {
-  const [userForm, setUserForm] = useState(
-    store.userStore.user ? store.userStore.user : initialUserForm
-  );
-  const [confirmPassword, setConfirmPassword] = useState("");
+  if (!store.userStore.user) {
+    return <ErrorContainer message="You are not authenticated!" />;
+  }
+
+  const [userForm, setUserForm] = useState({
+    name: store.userStore.user.name,
+    email: store.userStore.user.email,
+    password: "",
+    newPassword: "",
+  });
   const [isLoading, setIsLoading] = useState(false);
 
   function handleUpdateRegisterForm(event: React.ChangeEvent<HTMLInputElement>) {
@@ -21,11 +27,17 @@ const Profile: React.FC = () => {
   }
 
   async function submitForm() {
-    setIsLoading(true);
-    toast.warn("Feature not implemented yet");
-    setTimeout(() => {
+    try {
+      setIsLoading(true);
+      const payload = { ...userForm, _id: store.userStore.user?._id || "" };
+      await store.userStore.update(payload);
+      toast.success("Profile updated successfully!");
+    } catch (error) {
+      const errorMsg = getApiErrorMessage(error);
+      toast.error(errorMsg);
+    } finally {
       setIsLoading(false);
-    }, 1000);
+    }
   }
 
   return (
@@ -34,13 +46,14 @@ const Profile: React.FC = () => {
 
       <ContainerForm>
         <Alert>
-          Here you can update your user information, keep the value you dont wanna update
+          Here you can update your user profile information. <b>Note:</b> the required fields are
+          marked with an asterisk (*).
         </Alert>
 
         <Form onSubmit={submitForm} isLoading={isLoading} buttonText={"Update"}>
           <Input
             focused
-            label="Name"
+            label="Name *"
             name="name"
             placeholder="Enter your name"
             value={userForm.name}
@@ -48,7 +61,7 @@ const Profile: React.FC = () => {
           />
 
           <Input
-            label="Email"
+            label="Email *"
             type="email"
             name="email"
             placeholder="Enter your email"
@@ -57,20 +70,21 @@ const Profile: React.FC = () => {
           />
 
           <Input
-            label="Password"
+            label="Password *"
             type="password"
             name="password"
-            placeholder="Enter your password"
+            placeholder="Enter your current password"
             value={userForm.password}
             onChange={handleUpdateRegisterForm}
           />
 
           <Input
-            label="Confirm Password"
+            label="New Password (only required if you want to change it)"
             type="password"
-            placeholder="Confirm your password"
-            value={confirmPassword}
-            onChange={(e) => setConfirmPassword(e.target.value)}
+            name="newPassword"
+            placeholder="Enter the new password"
+            value={userForm.newPassword}
+            onChange={handleUpdateRegisterForm}
           />
         </Form>
       </ContainerForm>

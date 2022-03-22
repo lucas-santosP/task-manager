@@ -48,7 +48,7 @@ const Sidebar: React.FC = () => {
               <NavItemText isExpanded={isExpanded}>Toggle theme</NavItemText>
             </NavItem>
 
-            <NavItem title="Logout" onClick={() => store.userStore.logout(setLocation)}>
+            <NavItem title="Logout" onClick={() => store.userStore.logout()}>
               <HiOutlineLogout />
               <NavItemText isExpanded={isExpanded}>Logout</NavItemText>
             </NavItem>

@@ -147,7 +147,7 @@ export class TemplateStore {
     runInAction(() => {
       this.templates[templateIndex].tasks = tasksUpdated;
     });
-    // update async without await
+    // async update after local state update
     await TemplateServices.updateTasksIndexes({
       templateId: payload.templateId,
       tasks: tasksUpdated,

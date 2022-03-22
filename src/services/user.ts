@@ -5,6 +5,7 @@ import {
   IAuthPayload,
   IRegisterPayload,
   IDeleteUserPayload,
+  IUpdateUserPayload,
 } from "../types/user";
 
 interface ILoginResponse {
@@ -26,6 +27,10 @@ interface IDeleteUserResponse {
   };
 }
 
+interface IUpdateResponse {
+  user: IUser;
+}
+
 export const UserServices = {
   login(payload: ILoginPayload) {
     return API.post<ILoginResponse>("/user/login", payload);
@@ -39,6 +44,10 @@ export const UserServices = {
     return API.get<IAuthResponse>(`/user/${payload.userId}`, {
       headers: { Authorization: `Bearer ${payload.token}` },
     });
+  },
+
+  update({ _id, ...userData }: IUpdateUserPayload) {
+    return API.put<IUpdateResponse>("/user/" + _id, userData);
   },
 
   delete(payload: IDeleteUserPayload) {

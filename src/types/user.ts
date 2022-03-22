@@ -24,3 +24,11 @@ export interface IAuthPayload {
 export interface IDeleteUserPayload {
   userId: string;
 }
+
+export interface IUpdateUserPayload {
+  _id: string;
+  email: string;
+  name: string;
+  password: string;
+  newPassword?: string;
+}
