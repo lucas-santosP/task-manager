@@ -55,7 +55,7 @@ const Home: React.FC = () => {
         </Section>
 
         <Section>
-          <SectionTitle align="center">Latests tasks edited</SectionTitle>
+          <SectionTitle align="center">Latests tasks</SectionTitle>
           <LatestTasksList />
         </Section>
       </GridSections>

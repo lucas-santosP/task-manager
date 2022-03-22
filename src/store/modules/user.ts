@@ -61,7 +61,7 @@ export class UserStore {
   async checkUserAuth() {
     const storageAuth = userAuthCookie.get();
     if (!storageAuth) {
-      this.rootStore.setLoading(false);
+      this.rootStore.setLoading(false, 1000);
       return;
     }
 
