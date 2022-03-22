@@ -9,6 +9,7 @@ export const ContainerList = styled.ul`
   flex-direction: column;
   gap: 1rem;
   width: 100%;
+  min-height: 80px;
 `;
 
 export const TaskItem = styled(DropZone)<{ color: string }>`

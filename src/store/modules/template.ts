@@ -97,14 +97,11 @@ export class TemplateStore {
     const indexTaskToUpdate = this.templates[indexTemplateToUpdate].tasks.findIndex(
       (task) => task._id === payload._id
     );
-    const response = await TaskServices.update(payload);
-    const { task } = response.data;
 
-    const newState = [...this.templates];
-    newState[indexTemplateToUpdate].tasks[indexTaskToUpdate] = { ...task };
-    runInAction(() => {
-      this.templates = newState;
-    });
+    this.templates[indexTemplateToUpdate].tasks[indexTaskToUpdate].name = payload.name;
+    this.templates[indexTemplateToUpdate].tasks[indexTaskToUpdate].status = payload.status;
+    // async update after local state update
+    await TaskServices.update(payload);
   }
 
   async updateTasksColumn(payload: IUpdateTasksColumnPayload) {
@@ -164,16 +161,10 @@ export class TemplateStore {
     const indexTaskToDelete = this.templates[indexTemplateToUpdate].tasks.findIndex(
       (task) => task._id === payload.taskId
     );
-    const response = await TaskServices.delete(payload);
-    const { result } = response.data;
 
-    if (result.ok) {
-      const newState = [...this.templates];
-      newState[indexTemplateToUpdate].tasks.splice(indexTaskToDelete, 1);
-      runInAction(() => {
-        this.templates = newState;
-      });
-    }
+    this.templates[indexTemplateToUpdate].tasks.splice(indexTaskToDelete, 1);
+    // async update after local state update
+    await TaskServices.delete(payload);
   }
 
   setCurrentTemplate(payload: ITemplate) {
