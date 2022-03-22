@@ -1,7 +1,7 @@
 import styled, { css } from "styled-components";
-import { lighten } from "polished";
 import { baseTransition } from "../../../styles/mixins";
 import { HiOutlineTrash, HiAnnotation, HiPencilAlt, HiClock } from "react-icons/hi";
+import { breakPoints } from "../../../styles/shared";
 
 const mutedGray = "#a7a7a7";
 
@@ -30,8 +30,12 @@ export const TaskItem = styled.li`
     `}
 
   &:hover {
-    border-color: ${mutedGray};
-    transform: scale(1.025);
+    border-color: ${({ theme }) => (theme.title === "light" ? "#333" : "#dfdfdf")};
+    /* transform: scale(1.025); */
+  }
+
+  @media (max-width: ${breakPoints.xs}) {
+    width: 100%;
   }
 `;
 
@@ -97,20 +101,20 @@ export const FooterTaskItem = styled.main`
 export const DeleteIcon = styled(HiOutlineTrash)`
   ${baseTransition}
   cursor: pointer;
-  color: #ff8484;
+  color: ${mutedGray};
 
   &:hover {
-    color: ${lighten(0.1, "#ff8484")};
+    color: #ff8484;
   }
 `;
 
 export const EditIcon = styled(HiPencilAlt)`
   ${baseTransition}
   cursor: pointer;
-  color: #ff8484;
+  color: ${mutedGray};
 
   &:hover {
-    color: ${lighten(0.1, "#ff8484")};
+    color: #ff8484;
   }
 `;
 

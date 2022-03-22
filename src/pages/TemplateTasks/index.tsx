@@ -61,7 +61,7 @@ const TemplateTasks: React.FC<IProps> = (props) => {
         </TitleIconsContainer>
       </PageTitle>
 
-      <Description>Description: {store.templateStore.currentTemplate.description}</Description>
+      <Description> {store.templateStore.currentTemplate.description}</Description>
 
       <Kanban />
 

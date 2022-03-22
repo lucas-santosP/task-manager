@@ -9,7 +9,7 @@ export const ContainerKanban = styled.div`
   margin-bottom: 1rem;
   color: #333;
 
-  @media (max-width: ${breakPoints.sm}) {
+  @media (max-width: 850px) {
     flex-direction: column;
   }
 

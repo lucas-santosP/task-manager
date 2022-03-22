@@ -17,6 +17,7 @@ const FormCreateTask: React.FC<IProps> = (props) => {
   const { hideForm, status, visibility } = props;
 
   const [newTask, setNewTask] = useState<ICreateTaskPayload>(makeEmptyNewTask());
+  const [isLoading, setIsLoading] = useState(false);
 
   function makeEmptyNewTask() {
     if (!store.templateStore.currentTemplate) {
@@ -33,11 +34,16 @@ const FormCreateTask: React.FC<IProps> = (props) => {
     if (!newTask.templateId) return;
 
     try {
+      setIsLoading(true);
       await store.templateStore.createTask(newTask);
       setNewTask((prev) => ({ ...prev, name: "" }));
     } catch (error) {
       const errorMsg = getApiErrorMessage(error);
       toast.error(errorMsg);
+    } finally {
+      setTimeout(() => {
+        setIsLoading(false);
+      }, 500);
     }
   }
 
@@ -57,7 +63,7 @@ const FormCreateTask: React.FC<IProps> = (props) => {
         <Button variant="gray" onClick={hideForm}>
           Cancel
         </Button>
-        <Button type="submit" disabled={!newTask.name}>
+        <Button isLoading={isLoading} type="submit" disabled={!newTask.name}>
           Add
         </Button>
       </div>

@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { breakPoints } from "../../styles/shared";
 
 export const Section = styled.section`
   width: 100%;
@@ -21,8 +20,10 @@ export const GridSections = styled.div`
   display: grid;
   width: 100%;
   grid-template-columns: 2fr 1fr;
+  gap: 1rem;
 
-  @media (max-width: ${breakPoints.sm}) {
+  @media (max-width: 800px) {
     grid-template-columns: 1fr;
+    gap: 0;
   }
 `;

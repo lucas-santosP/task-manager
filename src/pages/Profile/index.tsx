@@ -46,8 +46,8 @@ const Profile: React.FC = () => {
 
       <ContainerForm>
         <Alert>
-          Here you can update your user profile information. <b>Note:</b> the required fields are
-          marked with an asterisk (*).
+          Here you can update your profile information.
+          <br /> <b>Note:</b> the required fields are marked with an asterisk (*).
         </Alert>
 
         <Form onSubmit={submitForm} isLoading={isLoading} buttonText={"Update"}>
@@ -59,7 +59,6 @@ const Profile: React.FC = () => {
             value={userForm.name}
             onChange={handleUpdateRegisterForm}
           />
-
           <Input
             label="Email *"
             type="email"
@@ -79,13 +78,14 @@ const Profile: React.FC = () => {
           />
 
           <Input
-            label="New Password (only required if you want to change it)"
+            label="New Password "
             type="password"
             name="newPassword"
             placeholder="Enter the new password"
             value={userForm.newPassword}
             onChange={handleUpdateRegisterForm}
           />
+          <small>- Only required if you want to change it.</small>
         </Form>
       </ContainerForm>
     </PageContainer>

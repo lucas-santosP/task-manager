@@ -33,8 +33,8 @@ export const AppendButton = styled.button.attrs({ type: "button" })`
   }
 
   @media (max-width: ${breakPoints.xs}) {
-    width: 3rem;
-    height: 3rem;
+    width: 3.5rem;
+    height: 3.5rem;
   }
 `;
 

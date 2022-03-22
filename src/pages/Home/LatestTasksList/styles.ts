@@ -1,10 +1,11 @@
+import { breakPoints } from "./../../../styles/shared";
 import styled, { css } from "styled-components";
 
 const mutedGray = "#a7a7a7";
 
 export const StyledList = styled.ul`
   display: flex;
-  flex-wrap: wrap; 
+  flex-wrap: wrap;
   min-height: 56px;
   border-radius: 0.5rem;
   overflow: hidden;
@@ -14,10 +15,11 @@ export const StyledList = styled.ul`
     width: 100%;
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
     transition: all ease 0.3s;
     cursor: pointer;
     flex: 1;
-    padding: 0.5rem 1.5rem;
+    padding: 1rem 1.5rem;
     padding-bottom: 1rem;
     text-align: center;
     color: #333;
@@ -33,22 +35,33 @@ export const StyledList = styled.ul`
 
     &:hover {
       border-color: #333;
-      background-color: ${({ theme }) => (theme.title === "dark" ? "#333" : "#f2f2f2")};} ;
+      background-color: ${({ theme }) => (theme.title === "dark" ? "#333" : "#f2f2f2")};
     }
 
-    .name {
-      color: ${({ theme }) => theme.title === "dark" && "#fff"};
-      display: block;
-      font-size: 1rem;
-      margin-bottom: 0.3rem;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
+    @media (max-width: ${breakPoints.xs}) {
+      min-width: 150px;
     }
+  }
 
-    .last-update {
-      color: ${mutedGray};
-      white-space: nowrap;
+  .name {
+    color: ${({ theme }) => theme.title === "dark" && "#fff"};
+    display: block;
+    font-size: 1rem;
+    margin-bottom: 0.3rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+
+    @media (max-width: ${breakPoints.xs}) {
+      white-space: normal;
+    }
+  }
+
+  .last-update {
+    color: ${mutedGray};
+    white-space: nowrap;
+    @media (max-width: ${breakPoints.xs}) {
+      white-space: normal;
     }
   }
 `;
