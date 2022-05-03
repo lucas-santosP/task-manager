@@ -1,6 +1,6 @@
 # Task Manager - Lucid Task
 
-This is the frontend of the app, the backend can be found on [this repository](https://github.com/lucas-santosP/task-manager-backend).
+<img alt="Home page themes" src="public/images/logo.png">
 
 # Built with
 
@@ -27,7 +27,11 @@ This is the frontend of the app, the backend can be found on [this repository](h
 
 <img alt="Home page themes" src="public/readme/home-light.png">
 
-###  <a target="__blank" href="https://lucas-santosp.github.io/task-manager/">Demo link</a>
+### <a target="__blank" href="https://lucas-santosp.github.io/task-manager/">Demo link</a>
+
+<small>
+This is the frontend of the app, the backend can be found on <a href="https://github.com/lucas-santosP/task-manager-backend">this repository.</a>
+</small>
 
 # Setup
 
