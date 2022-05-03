@@ -1,6 +1,9 @@
 import React from "react";
 import { StyledBaseLayout } from "./styles";
 import { AppendButtonToggleTheme } from "../../ui";
+import bgLeft from "../../../assets/images/bg-left.png";
+import bgRight from "../../../assets/images/bg-right.png";
+import imgLogo from "../../../assets/images/logo.png";
 
 const BaseLayout: React.FC = ({ children }) => {
   return (
@@ -8,7 +11,7 @@ const BaseLayout: React.FC = ({ children }) => {
       <AppendButtonToggleTheme />
 
       <img
-        src="/images/bg-left.png"
+        src={bgLeft}
         alt="background texture"
         draggable={false}
         style={{
@@ -21,7 +24,7 @@ const BaseLayout: React.FC = ({ children }) => {
         }}
       />
       <img
-        src="/images/bg-right.png"
+        src={bgRight}
         alt="background texture"
         draggable={false}
         style={{
@@ -36,7 +39,7 @@ const BaseLayout: React.FC = ({ children }) => {
 
       <div style={{ width: "100%", display: "flex" }}>
         <img
-          src="/images/logo.png"
+          src={imgLogo}
           alt="logo"
           draggable={false}
           style={{ objectFit: "cover", maxWidth: "200px", margin: "1rem auto" }}

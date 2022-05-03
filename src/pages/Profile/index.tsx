@@ -7,6 +7,7 @@ import { observer } from "mobx-react";
 import { toast } from "react-toastify";
 import { ErrorContainer } from "../../components/ui/ErrorContainer";
 import { getApiErrorMessage } from "../../utils/getApiErrorMessage";
+import bgRight from "../../assets/images/bg-right.png";
 
 const Profile: React.FC = () => {
   if (!store.userStore.user) {
@@ -86,7 +87,7 @@ const Profile: React.FC = () => {
       </ContainerForm>
 
       <img
-        src="/images/bg-right.png"
+        src={bgRight}
         alt="background texture"
         style={{
           objectFit: "cover",
