@@ -23,10 +23,6 @@
 
 <img alt="Home page themes" src="public/readme/tasks-dark.png">
 
-### And more...
-
-<img alt="Home page themes" src="public/readme/home-light.png">
-
 ### <a target="__blank" href="https://lucas-santosp.github.io/task-manager/">Demo link</a>
 
 <small>
