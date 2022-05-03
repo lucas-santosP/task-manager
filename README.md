@@ -1,6 +1,6 @@
 # Task Manager - Lucid Task
 
-<img alt="Home page themes" src="public/images/logo.png">
+<img alt="Home page themes" src="src/assets/images/logo.png">
 
 # Built with
 
