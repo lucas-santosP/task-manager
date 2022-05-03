@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { PageContainer, PageTitle, CardWrapper } from "../../styles/shared";
-import { Card, Form, Input, Link } from "../../components/ui";
 import store from "../../store";
+import { PageContainer, CardWrapper } from "../../styles/shared";
+import { Card, Form, Input, Link } from "../../components/ui";
 import { toast } from "react-toastify";
 import { getApiErrorMessage } from "../../utils/getApiErrorMessage";
 
@@ -27,9 +27,7 @@ const Login: React.FC = () => {
 
   return (
     <PageContainer>
-      <PageTitle align="center">Lucid Task</PageTitle>
-
-      <CardWrapper>
+      <CardWrapper style={{ position: "relative", zIndex: 5 }}>
         <Card title="Login">
           <Form
             onSubmit={submitUserForm}
@@ -37,7 +35,7 @@ const Login: React.FC = () => {
             buttonText={"Login"}
             bottomText={
               <>
-                Dont have account yet ? <Link to="/register">Register here.</Link>
+                Don{"'"}t have account yet ? <Link to="/register">Register here.</Link>
               </>
             }
           >
@@ -46,8 +44,8 @@ const Login: React.FC = () => {
               label="Email"
               type="email"
               name="email"
-              placeholder="Enter your email"
               value={userForm.email}
+              autoComplete="on"
               onChange={handleUpdateUserForm}
             />
 
@@ -55,7 +53,6 @@ const Login: React.FC = () => {
               label="Password"
               type="password"
               name="password"
-              placeholder="Enter your password"
               value={userForm.password}
               onChange={handleUpdateUserForm}
             />

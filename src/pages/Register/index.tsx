@@ -33,8 +33,6 @@ const Register: React.FC = () => {
 
   return (
     <PageContainer>
-      <PageTitle align="center">Lucid Task</PageTitle>
-
       <CardWrapper>
         <Card title="Register">
           <Form
@@ -43,7 +41,7 @@ const Register: React.FC = () => {
             buttonText={"Register"}
             bottomText={
               <>
-                Already have an account ? Do <Link to="/login">login here.</Link>
+                Already have an account ? <Link to="/login">Login here.</Link>
               </>
             }
           >
@@ -51,7 +49,6 @@ const Register: React.FC = () => {
               focused
               label="Name"
               name="name"
-              placeholder="Enter your name"
               value={registerForm.name}
               onChange={handleUpdateRegisterForm}
             />
@@ -60,7 +57,6 @@ const Register: React.FC = () => {
               label="Email"
               type="email"
               name="email"
-              placeholder="Enter your email"
               value={registerForm.email}
               onChange={handleUpdateRegisterForm}
             />
@@ -69,7 +65,6 @@ const Register: React.FC = () => {
               label="Password"
               type="password"
               name="password"
-              placeholder="Enter your password"
               value={registerForm.password}
               onChange={handleUpdateRegisterForm}
             />

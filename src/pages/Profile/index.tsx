@@ -1,9 +1,9 @@
 import React, { useState } from "react";
+import store from "../../store";
 import { ContainerForm } from "./styles";
 import { Alert, Form, Input } from "../../components/ui";
 import { PageContainer, PageTitle } from "../../styles/shared";
 import { observer } from "mobx-react";
-import store from "../../store";
 import { toast } from "react-toastify";
 import { ErrorContainer } from "../../components/ui/ErrorContainer";
 import { getApiErrorMessage } from "../../utils/getApiErrorMessage";
@@ -55,7 +55,6 @@ const Profile: React.FC = () => {
             focused
             label="Name *"
             name="name"
-            placeholder="Enter your name"
             value={userForm.name}
             onChange={handleUpdateRegisterForm}
           />
@@ -63,7 +62,6 @@ const Profile: React.FC = () => {
             label="Email *"
             type="email"
             name="email"
-            placeholder="Enter your email"
             value={userForm.email}
             onChange={handleUpdateRegisterForm}
           />
@@ -72,7 +70,6 @@ const Profile: React.FC = () => {
             label="Password *"
             type="password"
             name="password"
-            placeholder="Enter your current password"
             value={userForm.password}
             onChange={handleUpdateRegisterForm}
           />
@@ -81,13 +78,25 @@ const Profile: React.FC = () => {
             label="New Password "
             type="password"
             name="newPassword"
-            placeholder="Enter the new password"
             value={userForm.newPassword}
             onChange={handleUpdateRegisterForm}
           />
           <small>- Only required if you want to change it.</small>
         </Form>
       </ContainerForm>
+
+      <img
+        src="/images/bg-right.png"
+        alt="background texture"
+        style={{
+          objectFit: "cover",
+          position: "absolute",
+          paddingBottom: "2rem",
+          height: "100vh",
+          top: 0,
+          right: 0,
+        }}
+      />
     </PageContainer>
   );
 };

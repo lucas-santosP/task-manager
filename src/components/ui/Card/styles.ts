@@ -6,9 +6,10 @@ export const CardContainer = styled.div`
   color: ${({ theme }) => theme.colors.text};
   border-radius: 0.5rem;
   padding: 2rem;
+  margin-top: 0.7rem;
   width: 100%;
   max-width: 500px;
-  box-shadow: 0 2px 5px 5px rgba(0, 0, 0, 0.205);
+  box-shadow: 0 0 5px 2px rgba(0, 0, 0, 0.205);
   background-color: ${({ theme }) => (theme.title === "light" ? " #fff" : theme.colors.primary)};
 
   main {

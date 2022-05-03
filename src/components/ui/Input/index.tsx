@@ -7,10 +7,11 @@ interface IProps extends InputHTMLAttributes<HTMLInputElement> {
   label?: ReactNode;
   focused?: boolean;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  autoComplete?: "off" | "on";
 }
 
 const Input: React.FC<IProps> = (props) => {
-  const { type = "text", label = "", focused = false, ...rest } = props;
+  const { type = "text", label = "", focused = false, autoComplete = "off", ...rest } = props;
 
   const inputRef = useRef<HTMLInputElement>(null);
   const uniqueId = useMemo(() => uuidv4(), []);
@@ -21,7 +22,7 @@ const Input: React.FC<IProps> = (props) => {
 
   return (
     <InputRow htmlFor={uniqueId} label={label}>
-      <StyledInput ref={inputRef} type={type} autoComplete="off" id={uniqueId} {...rest} />
+      <StyledInput ref={inputRef} type={type} autoComplete={autoComplete} id={uniqueId} {...rest} />
     </InputRow>
   );
 };
