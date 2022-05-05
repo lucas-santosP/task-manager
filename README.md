@@ -1,6 +1,6 @@
 # Task Manager - Lucid Task
 
-<img alt="Home page themes" src="public/images/logo.png">
+<img alt="Home page themes" src="src/assets/images/logo.png">
 
 # Built with
 
@@ -22,10 +22,6 @@
 <img alt="Home page themes" src="public/readme/tasks-light.png">
 
 <img alt="Home page themes" src="public/readme/tasks-dark.png">
-
-### And more...
-
-<img alt="Home page themes" src="public/readme/home-light.png">
 
 ### <a target="__blank" href="https://lucas-santosp.github.io/task-manager/">Demo link</a>
 
