@@ -40,6 +40,8 @@ export const SidebarContainer = styled.aside<IStyledProps>`
 
   @media (max-width: ${breakPoints.xs}) {
     width: ${({ isExpanded }) => (isExpanded ? "70%" : "50px")};
+    padding-bottom: 2.5rem;
+    padding-top: 1rem;
   }
 `;
 
