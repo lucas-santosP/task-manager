@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import store from "../../store";
-import { ContainerForm } from "./styles";
+import { ContainerForm, RightBackgroundImage } from "./styles";
 import { Alert, Form, Input } from "../../components/ui";
 import { PageContainer, PageTitle } from "../../styles/shared";
 import { observer } from "mobx-react";
@@ -86,18 +86,7 @@ const Profile: React.FC = () => {
         </Form>
       </ContainerForm>
 
-      <img
-        src={bgRight}
-        alt="background texture"
-        style={{
-          objectFit: "cover",
-          position: "absolute",
-          paddingBottom: "2rem",
-          height: "100vh",
-          top: 0,
-          right: 0,
-        }}
-      />
+      <RightBackgroundImage src={bgRight} alt="background texture" />
     </PageContainer>
   );
 };

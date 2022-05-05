@@ -1,5 +1,5 @@
 import React from "react";
-import { StyledBaseLayout } from "./styles";
+import { StyledBaseLayout, LeftBackgroundImage, RightBackgroundImage } from "./styles";
 import { AppendButtonToggleTheme } from "../../ui";
 import bgLeft from "../../../assets/images/bg-left.png";
 import bgRight from "../../../assets/images/bg-right.png";
@@ -10,34 +10,10 @@ const BaseLayout: React.FC = ({ children }) => {
     <StyledBaseLayout>
       <AppendButtonToggleTheme />
 
-      <img
-        src={bgLeft}
-        alt="background texture"
-        draggable={false}
-        style={{
-          objectFit: "cover",
-          position: "absolute",
-          padding: "2rem 0",
-          height: "100vh",
-          top: 0,
-          left: 0,
-        }}
-      />
-      <img
-        src={bgRight}
-        alt="background texture"
-        draggable={false}
-        style={{
-          objectFit: "cover",
-          position: "absolute",
-          paddingBottom: "2rem",
-          height: "100vh",
-          top: 0,
-          right: 0,
-        }}
-      />
+      <LeftBackgroundImage src={bgLeft} alt="background texture" draggable={false} />
+      <RightBackgroundImage src={bgRight} alt="background texture" draggable={false} />
 
-      <div style={{ width: "100%", display: "flex" }}>
+      <div style={{ width: "100%", display: "flex", position: "relative", zIndex: 2 }}>
         <img
           src={imgLogo}
           alt="logo"
