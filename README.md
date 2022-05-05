@@ -1,4 +1,4 @@
-#  Lucid Task - Task Manager
+#  Lucid Task - Personal Task Manager
 
 <img alt="Home page themes" src="src/assets/images/logo.png">
 
